@@ -4,6 +4,8 @@
  */
 package Vista.Administrador;
 
+import BD.Conexion;
+
 /**
  *
  * @author JOSE SANDOVAL
@@ -15,6 +17,8 @@ public class Principal extends javax.swing.JFrame {
      */
     public Principal() {
         initComponents();
+        Conexion a = new Conexion();
+        a.establecerConexion();
     }
 
     /**
