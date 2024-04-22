@@ -4,7 +4,7 @@
  */
 package Vista.Administrador;
 import BD.Conexion;
-import co.edu.udes.universidad.SemestreAcademico;
+import Modelo.SemestreAcademico;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import javax.swing.JOptionPane;
