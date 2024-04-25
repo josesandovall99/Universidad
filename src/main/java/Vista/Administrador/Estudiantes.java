@@ -137,6 +137,11 @@ public class Estudiantes extends javax.swing.JFrame {
         jButton8.setText("Administradores");
         jButton8.setBorder(null);
         jButton8.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 370, 160, 40));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -318,7 +323,7 @@ public class Estudiantes extends javax.swing.JFrame {
 
         jLabel5.setFont(new java.awt.Font("Segoe UI Semibold", 2, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel5.setText("SISTEMA PARA ADMINISTRADORES - Seccion Administradores");
+        jLabel5.setText("SISTEMA PARA ADMINISTRADORES - ESTUDIANTES");
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI Semibold", 2, 36)); // NOI18N
@@ -408,6 +413,14 @@ public class Estudiantes extends javax.swing.JFrame {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        // TODO add your handling code here:
+        
+        Administradores a = new Administradores();
+        a.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jButton8ActionPerformed
 
     /**
      * @param args the command line arguments
