@@ -5,6 +5,11 @@
 package Modelo;
 
 import BD.Conexion;
+import CodigoAcademico.BuilderAsignaturas;
+import CodigoAcademico.BuilderCursos;
+import CodigoAcademico.CodigoAsignaturas;
+import CodigoAcademico.CodigoCursos;
+import CodigoAcademico.Director;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -94,10 +99,20 @@ public class Curso {
 
     public String generarCodigo() {
 
-        Random r = new Random();
-        LocalDate date = LocalDate.now();
-        String codigo = "cuc" + 04 + date.getYear() + r.nextInt(501);//******
-        System.out.println(codigo);
+       //PATRON DE DISEÑO------------------
+        
+        String codigo="";
+        
+        BuilderCursos a = new BuilderCursos();
+        Director b = new Director();
+        
+        b.construirCodigoAcademico(a);
+        
+        CodigoCursos codig = a.getResult();
+        
+        codigo = codig.pasarAString();
+        
+        //----------------------------------
 
         return codigo;
     }

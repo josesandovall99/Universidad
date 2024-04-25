@@ -35,6 +35,7 @@ public class Estudiantes extends javax.swing.JFrame {
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
+        jButton8 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         agregarbt = new javax.swing.JButton();
         añotxt = new javax.swing.JTextField();
@@ -50,7 +51,6 @@ public class Estudiantes extends javax.swing.JFrame {
         comboOpcion = new javax.swing.JComboBox<>();
         campoBuscar = new javax.swing.JTextField();
         jButton9 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -100,6 +100,11 @@ public class Estudiantes extends javax.swing.JFrame {
         jButton4.setText("Programas");
         jButton4.setBorder(null);
         jButton4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 160, 40));
 
         jButton5.setBackground(new java.awt.Color(255, 255, 255));
@@ -125,6 +130,14 @@ public class Estudiantes extends javax.swing.JFrame {
         jButton7.setBorder(null);
         jButton7.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         getContentPane().add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 330, 160, 40));
+
+        jButton8.setBackground(new java.awt.Color(255, 255, 255));
+        jButton8.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
+        jButton8.setForeground(new java.awt.Color(102, 102, 102));
+        jButton8.setText("Administradores");
+        jButton8.setBorder(null);
+        jButton8.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        getContentPane().add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 370, 160, 40));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Registros y Desactivacion", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Semibold", 0, 18), new java.awt.Color(0, 102, 255))); // NOI18N
@@ -303,14 +316,6 @@ public class Estudiantes extends javax.swing.JFrame {
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 370, 960, 240));
 
-        jButton8.setBackground(new java.awt.Color(255, 255, 255));
-        jButton8.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
-        jButton8.setForeground(new java.awt.Color(102, 102, 102));
-        jButton8.setText("Administradores");
-        jButton8.setBorder(null);
-        jButton8.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        getContentPane().add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 370, 160, 40));
-
         jLabel5.setFont(new java.awt.Font("Segoe UI Semibold", 2, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(102, 102, 102));
         jLabel5.setText("SISTEMA PARA ADMINISTRADORES - Seccion Administradores");
@@ -399,6 +404,10 @@ public class Estudiantes extends javax.swing.JFrame {
 //        sem.visualizarSemestre(tablaSem,opcion,valorbus);
  
     }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments

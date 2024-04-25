@@ -1,5 +1,8 @@
 
 import BD.Conexion;
+import CodigoAcademico.BuilderEstudiantes;
+import CodigoAcademico.CodigoEstudiantes;
+import CodigoAcademico.Director;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Random;
@@ -20,34 +23,23 @@ public class pruebas {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-//        Conexion con = new Conexion();
-//        Statement st;
-//        
-//        String sql= "SELECT semestre from SemestreAcademico WHERE SemestreAcademico.id=1;";
-//        
-//        
-//        
-//            try {
-//                
-//                st = con.establecerConexion().createStatement();
-//
-//            ResultSet rs = st.executeQuery(sql);
-//            
-//            String a= rs.getString(sql);
-//                System.out.println(a);
-//        } catch (Exception e) {
-//        }
-
-
-        String d = null;
         
-        if (d == null) {
-            
-            d= "hola";
-            
-        }
-          
-        System.out.println(d);
+        
+        //PATRON DE DISEÑO------------------
+        
+        String codigo;
+        
+        BuilderEstudiantes a = new BuilderEstudiantes();
+        Director b = new Director();
+        
+        b.construirCodigoAcademico(a);
+        
+        CodigoEstudiantes codig = a.getResult();
+        
+        System.out.println(codig.pasarAString());
+        
+        //----------------------------------
+        
     }
     
 }

@@ -5,6 +5,14 @@
 package Modelo;
 
 import BD.Conexion;
+import CodigoAcademico.BuilderAdministradores;
+import CodigoAcademico.BuilderEstudiantes;
+import CodigoAcademico.CodigoAdministradores;
+import CodigoAcademico.CodigoEstudiantes;
+import CodigoAcademico.Director;
+import Vista.Administrador.CompletarAdministrador;
+import Vista.Administrador.Principal;
+import Vista.Administrador.Sesion;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -30,6 +38,8 @@ public class Administrador {
     public String telefono;
     public String direccion;
     public String tipo;
+    public String puesto;
+    public String contraseña;
 
     public int getId() {
         return id;
@@ -87,6 +97,22 @@ public class Administrador {
         this.tipo = tipo;
     }
 
+    public String getPuesto() {
+        return puesto;
+    }
+
+    public void setPuesto(String puesto) {
+        this.puesto = puesto;
+    }
+
+    public String getContraseña() {
+        return contraseña;
+    }
+
+    public void setContraseña(String contraseña) {
+        this.contraseña = contraseña;
+    }
+
     public void InsetarAdministrador(JTextField nombre, JTextField email, JTextField tel, JTextField dir) { //******
 
         setNombre(nombre.getText()); //******
@@ -121,10 +147,20 @@ public class Administrador {
 
     public String generarCodigo() {
 
-        Random r = new Random();
-        LocalDate date = LocalDate.now();
-        String codigo = "cuc" + 06 + date.getYear() + r.nextInt(501);//******
-        System.out.println(codigo);
+        //PATRON DE DISEÑO------------------
+        
+        String codigo="";
+        
+        BuilderAdministradores a = new BuilderAdministradores();
+        Director b = new Director();
+        
+        b.construirCodigoAcademico(a);
+        
+        CodigoAdministradores codig = a.getResult();
+        
+        codigo = codig.pasarAString();
+        
+        //----------------------------------
 
         return codigo;
     }
@@ -225,7 +261,7 @@ public class Administrador {
 
     }
 
-    public void seleccionar(JTable tabla,JTextField txid, JTextField txnom, JTextField txemail, JTextField txtel, JTextField txdir) {//******
+    public void seleccionar(JTable tabla, JTextField txid, JTextField txnom, JTextField txemail, JTextField txtel, JTextField txdir) {//******
 
         try {
 
@@ -273,7 +309,6 @@ public class Administrador {
             cs.setString(3, getTelefono());//******
             cs.setString(4, getDireccion());//******
             cs.setString(5, String.valueOf(getId()));//******
-            
 
             cs.execute();
 
@@ -307,4 +342,66 @@ public class Administrador {
         }
 
     }
+
+    public void recibirContraseñaAdministrador(JTextField contraseña, JTextField idtxt) { //******
+
+        setContraseña(contraseña.getText()); //******
+        setId(Integer.parseInt(idtxt.getText()));
+
+        Conexion co = new Conexion();
+
+        String consulta = "UPDATE Usuario SET Usuario.contraseña = ? "
+                + "WHERE Usuario.id=?";//******
+
+        try {
+
+            CallableStatement cs = co.establecerConexion().prepareCall(consulta);
+            cs.setString(1, getContraseña());//******
+            cs.setString(2, String.valueOf(getId()));//******
+
+            cs.execute();
+
+            JOptionPane.showMessageDialog(null, "SE CREO CORRECTAMENTE");
+
+        } catch (Exception e) {
+
+            JOptionPane.showMessageDialog(null, "error al insertar: " + e);
+        }
+
+    }
+
+    public void completarAdministrador(String combo, JTextField idtxt) { //******
+
+        setPuesto(combo); //******
+        setCodigoAcademico(generarCodigo());
+        setId(Integer.parseInt(idtxt.getText()));
+
+        Conexion co = new Conexion();
+
+        String consulta = "UPDATE Administrador SET Administrador.puesto = ?, Administrador.codigoAcademico = ? "
+                + "WHERE Administrador.id_usuario=?";//******
+
+        try {
+
+            CallableStatement cs = co.establecerConexion().prepareCall(consulta);
+            cs.setString(1, getPuesto());//******
+            cs.setString(2, getCodigoAcademico());//******
+            cs.setString(3, String.valueOf(getId()));//******
+
+            cs.execute();
+
+            Principal ad = new Principal();
+            ad.setVisible(true);
+            CompletarAdministrador s = new CompletarAdministrador();
+            s.dispose();
+
+            JOptionPane.showMessageDialog(null, "SE CREO CORRECTAMENTE");
+
+        } catch (Exception e) {
+
+            JOptionPane.showMessageDialog(null, "error al insertar: " + e);
+        }
+
+    }
+
 }

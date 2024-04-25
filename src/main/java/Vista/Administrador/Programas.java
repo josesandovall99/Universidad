@@ -4,6 +4,7 @@
  */
 package Vista.Administrador;
 
+import Modelo.Pensum;
 import Modelo.ProgramaAcademico;
 import Modelo.SemestreAcademico;
 
@@ -43,6 +44,7 @@ public class Programas extends javax.swing.JFrame {
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
+        jButton8 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         agregarbt = new javax.swing.JButton();
         nombretxt = new javax.swing.JTextField();
@@ -106,6 +108,11 @@ public class Programas extends javax.swing.JFrame {
         jButton3.setContentAreaFilled(false);
         jButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 180, 160, 40));
 
         jButton4.setBackground(new java.awt.Color(255, 255, 255));
@@ -117,6 +124,11 @@ public class Programas extends javax.swing.JFrame {
         jButton4.setContentAreaFilled(false);
         jButton4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 220, 160, 40));
 
         jButton5.setBackground(new java.awt.Color(255, 255, 255));
@@ -128,6 +140,11 @@ public class Programas extends javax.swing.JFrame {
         jButton5.setContentAreaFilled(false);
         jButton5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 260, 160, 40));
 
         jButton6.setBackground(new java.awt.Color(255, 255, 255));
@@ -139,6 +156,11 @@ public class Programas extends javax.swing.JFrame {
         jButton6.setContentAreaFilled(false);
         jButton6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, 160, 40));
 
         jButton7.setBackground(new java.awt.Color(255, 255, 255));
@@ -150,7 +172,23 @@ public class Programas extends javax.swing.JFrame {
         jButton7.setContentAreaFilled(false);
         jButton7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton7.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, 160, 40));
+
+        jButton8.setBackground(new java.awt.Color(255, 255, 255));
+        jButton8.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
+        jButton8.setForeground(new java.awt.Color(102, 102, 102));
+        jButton8.setText("Administradores");
+        jButton8.setBorder(null);
+        jButton8.setBorderPainted(false);
+        jButton8.setContentAreaFilled(false);
+        jButton8.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton8.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        getContentPane().add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 380, 160, 40));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Registros y Desactivacion", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Semibold", 0, 18), new java.awt.Color(0, 102, 255))); // NOI18N
@@ -350,10 +388,13 @@ public class Programas extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        
+        
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void agregarbtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarbtActionPerformed
@@ -409,6 +450,39 @@ public class Programas extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButton9ActionPerformed
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        PensumV e = new PensumV();
+        e.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        Semestres e = new Semestres();
+        e.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+        
+        Asignaturas e = new Asignaturas();
+        e.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        // TODO add your handling code here:
+        Cursos e = new Cursos();
+        e.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jButton7ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -458,6 +532,7 @@ public class Programas extends javax.swing.JFrame {
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
