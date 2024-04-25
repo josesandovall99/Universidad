@@ -125,8 +125,14 @@ public class Principal extends javax.swing.JFrame {
         jButton10.setText("jButton10");
         getContentPane().add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 320, 280, 130));
 
-        jButton11.setText("jButton11");
-        getContentPane().add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 320, 290, 130));
+        jButton11.setIcon(new javax.swing.ImageIcon("C:\\Users\\JOSE SANDOVAL\\Downloads\\aaaimages\\graduadoa.jpg")); // NOI18N
+        jButton11.setBorderPainted(false);
+        jButton11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton11ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 330, 200, 190));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI Semibold", 2, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(102, 102, 102));
@@ -149,7 +155,7 @@ public class Principal extends javax.swing.JFrame {
         jLabel3.setOpaque(true);
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1140, 100));
 
-        jLabel1.setBackground(new java.awt.Color(153, 153, 153));
+        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setOpaque(true);
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1140, 620));
 
@@ -163,6 +169,10 @@ public class Principal extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton11ActionPerformed
 
     /**
      * @param args the command line arguments

@@ -223,9 +223,9 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
                           <Component id="codigotxt" alignment="0" pref="657" max="32767" attributes="0"/>
-                          <Component id="añotxt" alignment="0" max="32767" attributes="0"/>
+                          <Component id="nombretxt" alignment="0" max="32767" attributes="0"/>
                       </Group>
-                      <Component id="semestretxt" alignment="0" min="-2" pref="657" max="-2" attributes="0"/>
+                      <Component id="numtxt" alignment="0" min="-2" pref="657" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -247,9 +247,9 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="añotxt" min="-2" pref="56" max="-2" attributes="0"/>
+                          <Component id="nombretxt" min="-2" pref="56" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="semestretxt" min="-2" pref="57" max="-2" attributes="0"/>
+                          <Component id="numtxt" min="-2" pref="57" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="modificarbt" min="-2" pref="43" max="-2" attributes="0"/>
@@ -280,7 +280,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="agregarbtActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JTextField" name="a&#xf1;otxt">
+        <Component class="javax.swing.JTextField" name="nombretxt">
           <Properties>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
@@ -292,10 +292,10 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="a&#xf1;otxtActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="nombretxtActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JTextField" name="semestretxt">
+        <Component class="javax.swing.JTextField" name="numtxt">
           <Properties>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
@@ -421,7 +421,7 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTable" name="tablaSem">
+            <Component class="javax.swing.JTable" name="tablaPens">
               <Properties>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
@@ -441,7 +441,7 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tablaSemMouseClicked"/>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tablaPensMouseClicked"/>
               </Events>
             </Component>
           </SubComponents>

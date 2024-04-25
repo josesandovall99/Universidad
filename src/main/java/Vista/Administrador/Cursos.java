@@ -4,6 +4,10 @@
  */
 package Vista.Administrador;
 
+import Modelo.Curso;
+import Modelo.Pensum;
+import Modelo.SemestreAcademico;
+
 /**
  *
  * @author JOSE SANDOVAL
@@ -15,6 +19,15 @@ public class Cursos extends javax.swing.JFrame {
      */
     public Cursos() {
         initComponents();
+        
+        txtcod.setEditable(false);
+        
+        
+        Pensum a = new Pensum();
+        int opcion = comboOpcion.getSelectedIndex();
+        String valorbus = campoBuscar.getText();
+        a.visualizarPensum(tablaCur,opcion,valorbus);
+        
     }
 
     /**
@@ -35,15 +48,15 @@ public class Cursos extends javax.swing.JFrame {
         jButton7 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         agregarbt = new javax.swing.JButton();
-        añotxt = new javax.swing.JTextField();
-        semestretxt = new javax.swing.JTextField();
+        txtprac = new javax.swing.JTextField();
+        txtnom = new javax.swing.JTextField();
         modificarbt = new javax.swing.JButton();
-        codigotxt = new javax.swing.JTextField();
+        txtcod = new javax.swing.JTextField();
         eliminarbt = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
+        txtteo = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tablaSem = new javax.swing.JTable();
+        tablaCur = new javax.swing.JTable();
         comboOpcion = new javax.swing.JComboBox<>();
         campoBuscar = new javax.swing.JTextField();
         jButton9 = new javax.swing.JButton();
@@ -137,14 +150,17 @@ public class Cursos extends javax.swing.JFrame {
             }
         });
 
-        añotxt.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Salon Practico", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Semibold", 0, 14), new java.awt.Color(102, 102, 102))); // NOI18N
-        añotxt.addActionListener(new java.awt.event.ActionListener() {
+        txtprac.setToolTipText("");
+        txtprac.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Salon Practico", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Semibold", 0, 14), new java.awt.Color(102, 102, 102))); // NOI18N
+        txtprac.setName(""); // NOI18N
+        txtprac.setOpaque(true);
+        txtprac.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                añotxtActionPerformed(evt);
+                txtpracActionPerformed(evt);
             }
         });
 
-        semestretxt.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Nombre", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Semibold", 0, 14), new java.awt.Color(102, 102, 102))); // NOI18N
+        txtnom.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Nombre", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Semibold", 0, 14), new java.awt.Color(102, 102, 102))); // NOI18N
 
         modificarbt.setBackground(new java.awt.Color(255, 255, 255));
         modificarbt.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
@@ -156,7 +172,7 @@ public class Cursos extends javax.swing.JFrame {
             }
         });
 
-        codigotxt.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Codigo Academico", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Semibold", 0, 14), new java.awt.Color(102, 102, 102))); // NOI18N
+        txtcod.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Codigo Academico", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Semibold", 0, 14), new java.awt.Color(102, 102, 102))); // NOI18N
 
         eliminarbt.setBackground(new java.awt.Color(255, 255, 255));
         eliminarbt.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
@@ -168,7 +184,7 @@ public class Cursos extends javax.swing.JFrame {
             }
         });
 
-        jTextField1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Salon Teorico", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Semibold", 0, 14), new java.awt.Color(102, 102, 102))); // NOI18N
+        txtteo.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Salon Teorico", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Semibold", 0, 14), new java.awt.Color(102, 102, 102))); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -177,7 +193,7 @@ public class Cursos extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(33, 33, 33)
                         .addComponent(agregarbt, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(modificarbt, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -185,13 +201,13 @@ public class Cursos extends javax.swing.JFrame {
                         .addComponent(eliminarbt, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addGap(24, 24, 24)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(añotxt, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(codigotxt, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtteo)
+                            .addComponent(txtcod, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE))
                         .addGap(27, 27, 27)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(semestretxt, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 427, Short.MAX_VALUE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.LEADING))))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtnom, javax.swing.GroupLayout.DEFAULT_SIZE, 427, Short.MAX_VALUE)
+                            .addComponent(txtprac))))
                 .addContainerGap(97, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -200,18 +216,21 @@ public class Cursos extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(2, 2, 2)
-                        .addComponent(codigotxt, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(semestretxt, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtcod, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtnom, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(añotxt, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE)
-                    .addComponent(jTextField1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(agregarbt)
-                    .addComponent(modificarbt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(eliminarbt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(59, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(txtprac, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(agregarbt)
+                            .addComponent(modificarbt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(eliminarbt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap(59, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(txtteo, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 100, 960, 260));
@@ -219,9 +238,9 @@ public class Cursos extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Consultas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Semibold", 0, 18), new java.awt.Color(0, 102, 255))); // NOI18N
 
-        tablaSem.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        tablaSem.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
-        tablaSem.setModel(new javax.swing.table.DefaultTableModel(
+        tablaCur.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        tablaCur.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
+        tablaCur.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -232,12 +251,12 @@ public class Cursos extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        tablaSem.addMouseListener(new java.awt.event.MouseAdapter() {
+        tablaCur.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tablaSemMouseClicked(evt);
+                tablaCurMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(tablaSem);
+        jScrollPane1.setViewportView(tablaCur);
 
         comboOpcion.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
         comboOpcion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mostrar Todo", "Nombre", "Asignatura", "Salon Practico", "Salon Teorico" }));
@@ -342,40 +361,40 @@ public class Cursos extends javax.swing.JFrame {
 
     private void agregarbtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarbtActionPerformed
 
-        //        Estudiante sem = new SemestreAcademico();
-        //        sem.InsetarSemestre(añotxt, semestretxt);
-        //        int opcion = comboOpcion.getSelectedIndex();
-        //        String valorbus = campoBuscar.getText();
-        //        sem.visualizarSemestre(tablaSem,opcion,valorbus);
+                Curso sem = new Curso();
+                sem.InsetarCurso(añotxt, semestretxt);
+                int opcion = comboOpcion.getSelectedIndex();
+                String valorbus = campoBuscar.getText();
+                sem.visualizarCurso(tablaSem,opcion,valorbus);
     }//GEN-LAST:event_agregarbtActionPerformed
 
-    private void añotxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_añotxtActionPerformed
+    private void txtpracActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtpracActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_añotxtActionPerformed
+    }//GEN-LAST:event_txtpracActionPerformed
 
     private void modificarbtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarbtActionPerformed
 
-        //        SemestreAcademico sem = new SemestreAcademico();
-        //        sem.modificarSemestre(codigotxt,añotxt, semestretxt);
-        //        int opcion = comboOpcion.getSelectedIndex();
-        //        String valorbus = campoBuscar.getText();
-        //        sem.visualizarSemestre(tablaSem,opcion,valorbus);
+                Curso sem = new Curso();
+                sem.modificarCurso(codigotxt,añotxt, semestretxt);
+                int opcion = comboOpcion.getSelectedIndex();
+                String valorbus = campoBuscar.getText();
+                sem.visualizarCurso(tablaSem,opcion,valorbus);
     }//GEN-LAST:event_modificarbtActionPerformed
 
     private void eliminarbtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarbtActionPerformed
 
-        //        SemestreAcademico sem = new SemestreAcademico();
-        //        sem.eliminarSemestre(codigotxt);
-        //        int opcion = comboOpcion.getSelectedIndex();
-        //        String valorbus = campoBuscar.getText();
-        //        sem.visualizarSemestre(tablaSem,opcion,valorbus);
+                Curso sem = new Curso();
+                sem.eliminarCurso(codigotxt);
+                int opcion = comboOpcion.getSelectedIndex();
+                String valorbus = campoBuscar.getText();
+                sem.visualizarCurso(tablaSem,opcion,valorbus);
     }//GEN-LAST:event_eliminarbtActionPerformed
 
-    private void tablaSemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaSemMouseClicked
+    private void tablaCurMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaCurMouseClicked
 
-        //        SemestreAcademico s = new SemestreAcademico();
-        //        s.seleccionar(tablaSem,codigotxt, añotxt, semestretxt);
-    }//GEN-LAST:event_tablaSemMouseClicked
+                Curso s = new Curso();
+                s.seleccionar(tablaSem,codigotxt, añotxt, semestretxt);
+    }//GEN-LAST:event_tablaCurMouseClicked
 
     private void campoBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoBuscarActionPerformed
         // TODO add your handling code here:
@@ -383,10 +402,10 @@ public class Cursos extends javax.swing.JFrame {
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
 
-        //        SemestreAcademico sem = new SemestreAcademico();
-        //        int opcion = comboOpcion.getSelectedIndex();
-        //        String valorbus = campoBuscar.getText();
-        //        sem.visualizarSemestre(tablaSem,opcion,valorbus);
+                Curso sem = new Curso();
+                int opcion = comboOpcion.getSelectedIndex();
+                String valorbus = campoBuscar.getText();
+                sem.visualizarCurso(tablaSem,opcion,valorbus);
     }//GEN-LAST:event_jButton9ActionPerformed
 
     /**
@@ -427,9 +446,7 @@ public class Cursos extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton agregarbt;
-    private javax.swing.JTextField añotxt;
     private javax.swing.JTextField campoBuscar;
-    private javax.swing.JTextField codigotxt;
     private javax.swing.JComboBox<String> comboOpcion;
     private javax.swing.JButton eliminarbt;
     private javax.swing.JButton jButton1;
@@ -449,9 +466,11 @@ public class Cursos extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JButton modificarbt;
-    private javax.swing.JTextField semestretxt;
-    private javax.swing.JTable tablaSem;
+    private javax.swing.JTable tablaCur;
+    private javax.swing.JTextField txtcod;
+    private javax.swing.JTextField txtnom;
+    private javax.swing.JTextField txtprac;
+    private javax.swing.JTextField txtteo;
     // End of variables declaration//GEN-END:variables
 }

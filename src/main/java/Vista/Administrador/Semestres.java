@@ -344,7 +344,7 @@ public class Semestres extends javax.swing.JFrame {
         
         
         SemestreAcademico sem = new SemestreAcademico();
-        sem.InsetarSemestre(añotxt, semestretxt);
+        sem.InsetarSemestre(añotxt, semestretxt, codigotxt);
         int opcion = comboOpcion.getSelectedIndex();
         String valorbus = campoBuscar.getText();
         sem.visualizarSemestre(tablaSem,opcion,valorbus);
