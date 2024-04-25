@@ -4,17 +4,26 @@
  */
 package Vista.Administrador;
 
+import Modelo.Pensum;
+
 /**
  *
  * @author JOSE SANDOVAL
  */
-public class Pensum extends javax.swing.JFrame {
+public class PensumV extends javax.swing.JFrame {
 
     /**
      * Creates new form Pensum
      */
-    public Pensum() {
+    public PensumV() {
         initComponents();
+        
+        codigotxt.setEditable(false);
+        
+        Pensum a = new Pensum();
+        int opcion = comboOpcion.getSelectedIndex();
+        String valorbus = campoBuscar.getText();
+        a.visualizarPensum(tablaPens,opcion,valorbus);
     }
 
     /**
@@ -35,14 +44,14 @@ public class Pensum extends javax.swing.JFrame {
         jButton7 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         agregarbt = new javax.swing.JButton();
-        añotxt = new javax.swing.JTextField();
-        semestretxt = new javax.swing.JTextField();
+        nombretxt = new javax.swing.JTextField();
+        numtxt = new javax.swing.JTextField();
         modificarbt = new javax.swing.JButton();
         codigotxt = new javax.swing.JTextField();
         eliminarbt = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tablaSem = new javax.swing.JTable();
+        tablaPens = new javax.swing.JTable();
         comboOpcion = new javax.swing.JComboBox<>();
         campoBuscar = new javax.swing.JTextField();
         jButton9 = new javax.swing.JButton();
@@ -135,14 +144,14 @@ public class Pensum extends javax.swing.JFrame {
             }
         });
 
-        añotxt.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Nombre", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Semibold", 0, 14), new java.awt.Color(102, 102, 102))); // NOI18N
-        añotxt.addActionListener(new java.awt.event.ActionListener() {
+        nombretxt.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Nombre", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Semibold", 0, 14), new java.awt.Color(102, 102, 102))); // NOI18N
+        nombretxt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                añotxtActionPerformed(evt);
+                nombretxtActionPerformed(evt);
             }
         });
 
-        semestretxt.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Numero de Semestres", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Semibold", 0, 14), new java.awt.Color(102, 102, 102))); // NOI18N
+        numtxt.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Numero de Semestres", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Semibold", 0, 14), new java.awt.Color(102, 102, 102))); // NOI18N
 
         modificarbt.setBackground(new java.awt.Color(255, 255, 255));
         modificarbt.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
@@ -175,8 +184,8 @@ public class Pensum extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(codigotxt, javax.swing.GroupLayout.DEFAULT_SIZE, 657, Short.MAX_VALUE)
-                        .addComponent(añotxt))
-                    .addComponent(semestretxt, javax.swing.GroupLayout.PREFERRED_SIZE, 657, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(nombretxt))
+                    .addComponent(numtxt, javax.swing.GroupLayout.PREFERRED_SIZE, 657, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(46, 46, 46)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(agregarbt, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
@@ -193,9 +202,9 @@ public class Pensum extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(añotxt, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(nombretxt, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(semestretxt, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(numtxt, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(modificarbt, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -208,9 +217,9 @@ public class Pensum extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Consultas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Semibold", 0, 18), new java.awt.Color(0, 102, 255))); // NOI18N
 
-        tablaSem.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        tablaSem.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
-        tablaSem.setModel(new javax.swing.table.DefaultTableModel(
+        tablaPens.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        tablaPens.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
+        tablaPens.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -221,12 +230,12 @@ public class Pensum extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        tablaSem.addMouseListener(new java.awt.event.MouseAdapter() {
+        tablaPens.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tablaSemMouseClicked(evt);
+                tablaPensMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(tablaSem);
+        jScrollPane1.setViewportView(tablaPens);
 
         comboOpcion.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
         comboOpcion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mostrar Todo", "Codigo", "Nombre", "Programa" }));
@@ -321,43 +330,43 @@ public class Pensum extends javax.swing.JFrame {
 
     private void agregarbtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarbtActionPerformed
 
-        SemestreAcademico sem = new SemestreAcademico();
-        sem.InsetarSemestre(añotxt, semestretxt);
+        Pensum sem = new Pensum();
+        sem.InsetarPensum(nombretxt, numtxt, codigotxt);
         int opcion = comboOpcion.getSelectedIndex();
         String valorbus = campoBuscar.getText();
-        sem.visualizarSemestre(tablaSem,opcion,valorbus);
+        sem.visualizarPensum(tablaPens,opcion,valorbus);
 
     }//GEN-LAST:event_agregarbtActionPerformed
 
-    private void añotxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_añotxtActionPerformed
+    private void nombretxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombretxtActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_añotxtActionPerformed
+    }//GEN-LAST:event_nombretxtActionPerformed
 
     private void modificarbtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarbtActionPerformed
 
-        SemestreAcademico sem = new SemestreAcademico();
-        sem.modificarSemestre(codigotxt,añotxt, semestretxt);
+        Pensum sem = new Pensum();
+        sem.modificarPensum(codigotxt,nombretxt, numtxt);
         int opcion = comboOpcion.getSelectedIndex();
         String valorbus = campoBuscar.getText();
-        sem.visualizarSemestre(tablaSem,opcion,valorbus);
+        sem.visualizarPensum(tablaPens,opcion,valorbus);
     }//GEN-LAST:event_modificarbtActionPerformed
 
     private void eliminarbtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarbtActionPerformed
 
-        SemestreAcademico sem = new SemestreAcademico();
-        sem.eliminarSemestre(codigotxt);
+        Pensum sem = new Pensum();
+        sem.eliminarPensum(codigotxt);
         int opcion = comboOpcion.getSelectedIndex();
         String valorbus = campoBuscar.getText();
-        sem.visualizarSemestre(tablaSem,opcion,valorbus);
+        sem.visualizarPensum(tablaPens,opcion,valorbus);
 
     }//GEN-LAST:event_eliminarbtActionPerformed
 
-    private void tablaSemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaSemMouseClicked
+    private void tablaPensMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaPensMouseClicked
 
-        SemestreAcademico s = new SemestreAcademico();
-        s.seleccionar(tablaSem,codigotxt, añotxt, semestretxt);
+        Pensum s = new Pensum();
+        s.seleccionar(tablaPens,codigotxt, nombretxt, numtxt);
 
-    }//GEN-LAST:event_tablaSemMouseClicked
+    }//GEN-LAST:event_tablaPensMouseClicked
 
     private void campoBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoBuscarActionPerformed
         // TODO add your handling code here:
@@ -365,10 +374,10 @@ public class Pensum extends javax.swing.JFrame {
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
 
-        SemestreAcademico sem = new SemestreAcademico();
+        Pensum sem = new Pensum();
         int opcion = comboOpcion.getSelectedIndex();
         String valorbus = campoBuscar.getText();
-        sem.visualizarSemestre(tablaSem,opcion,valorbus);
+        sem.visualizarPensum(tablaPens,opcion,valorbus);
 
     }//GEN-LAST:event_jButton9ActionPerformed
 
@@ -402,14 +411,13 @@ public class Pensum extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Pensum().setVisible(true);
+                new PensumV().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton agregarbt;
-    private javax.swing.JTextField añotxt;
     private javax.swing.JTextField campoBuscar;
     private javax.swing.JTextField codigotxt;
     private javax.swing.JComboBox<String> comboOpcion;
@@ -431,7 +439,8 @@ public class Pensum extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton modificarbt;
-    private javax.swing.JTextField semestretxt;
-    private javax.swing.JTable tablaSem;
+    private javax.swing.JTextField nombretxt;
+    private javax.swing.JTextField numtxt;
+    private javax.swing.JTable tablaPens;
     // End of variables declaration//GEN-END:variables
 }

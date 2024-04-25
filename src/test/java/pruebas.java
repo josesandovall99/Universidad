@@ -20,24 +20,34 @@ public class pruebas {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Conexion con = new Conexion();
-        Statement st;
-        
-        String sql= "SELECT semestre from SemestreAcademico WHERE SemestreAcademico.id=1;";
-        
-        
-        
-            try {
-                
-                st = con.establecerConexion().createStatement();
+//        Conexion con = new Conexion();
+//        Statement st;
+//        
+//        String sql= "SELECT semestre from SemestreAcademico WHERE SemestreAcademico.id=1;";
+//        
+//        
+//        
+//            try {
+//                
+//                st = con.establecerConexion().createStatement();
+//
+//            ResultSet rs = st.executeQuery(sql);
+//            
+//            String a= rs.getString(sql);
+//                System.out.println(a);
+//        } catch (Exception e) {
+//        }
 
-            ResultSet rs = st.executeQuery(sql);
+
+        String d = null;
+        
+        if (d == null) {
             
-            String a= rs.getString(sql);
-                System.out.println(a);
-        } catch (Exception e) {
+            d= "hola";
+            
         }
-            
+          
+        System.out.println(d);
     }
     
 }

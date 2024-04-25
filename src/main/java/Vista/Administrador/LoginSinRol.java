@@ -8,12 +8,12 @@ package Vista.Administrador;
  *
  * @author JOSE SANDOVAL
  */
-public class Sesion extends javax.swing.JFrame {
+public class LoginSinRol extends javax.swing.JFrame {
 
     /**
-     * Creates new form Sesion
+     * Creates new form LoginSinRol
      */
-    public Sesion() {
+    public LoginSinRol() {
         initComponents();
     }
 
@@ -27,10 +27,7 @@ public class Sesion extends javax.swing.JFrame {
     private void initComponents() {
 
         nombreAdmin = new javax.swing.JTextField();
-        contraseñaAdmin = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -45,11 +42,7 @@ public class Sesion extends javax.swing.JFrame {
                 nombreAdminActionPerformed(evt);
             }
         });
-        getContentPane().add(nombreAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 200, 290, 30));
-
-        contraseñaAdmin.setBackground(new java.awt.Color(255, 255, 255));
-        contraseñaAdmin.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
-        getContentPane().add(contraseñaAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 270, 290, 30));
+        getContentPane().add(nombreAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 240, 290, 30));
 
         jButton1.setBackground(new java.awt.Color(13, 70, 228));
         jButton1.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
@@ -61,30 +54,18 @@ public class Sesion extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 330, 140, 30));
-
-        jButton2.setBackground(new java.awt.Color(13, 70, 228));
-        jButton2.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("No tienes Credenciales?");
-        jButton2.setBorder(null);
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 330, 140, 30));
-
-        jLabel4.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Contraseña");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 250, -1, -1));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 310, 140, 30));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Usuario ");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 180, -1, -1));
+        jLabel3.setText("Digite su ID Interno");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 210, -1, -1));
 
         jLabel2.setBackground(new java.awt.Color(255, 255, 255));
         jLabel2.setFont(new java.awt.Font("Segoe UI Semibold", 0, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("LOGIN");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 130, -1, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 140, -1, -1));
 
         jLabel1.setBackground(new java.awt.Color(65, 65, 193));
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -120,32 +101,29 @@ public class Sesion extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Sesion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginSinRol.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Sesion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginSinRol.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Sesion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginSinRol.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Sesion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginSinRol.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Sesion().setVisible(true);
+                new LoginSinRol().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField contraseñaAdmin;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JTextField nombreAdmin;
     // End of variables declaration//GEN-END:variables
 }

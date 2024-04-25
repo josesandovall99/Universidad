@@ -4,6 +4,9 @@
  */
 package Vista.Administrador;
 
+import Modelo.ProgramaAcademico;
+import Modelo.SemestreAcademico;
+
 /**
  *
  * @author JOSE SANDOVAL
@@ -15,6 +18,13 @@ public class Programas extends javax.swing.JFrame {
      */
     public Programas() {
         initComponents();
+        
+        codigotxt.setEditable(false);
+        
+        ProgramaAcademico a = new ProgramaAcademico();
+        int opcion = comboOpcion.getSelectedIndex();
+        String valorbus = campoBuscar.getText();
+        a.visualizarPrograma(tablaPro,opcion,valorbus);
     }
 
     /**
@@ -35,14 +45,14 @@ public class Programas extends javax.swing.JFrame {
         jButton7 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         agregarbt = new javax.swing.JButton();
-        añotxt = new javax.swing.JTextField();
-        semestretxt = new javax.swing.JTextField();
+        nombretxt = new javax.swing.JTextField();
+        facultadtxt = new javax.swing.JTextField();
         modificarbt = new javax.swing.JButton();
         codigotxt = new javax.swing.JTextField();
         eliminarbt = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tablaSem = new javax.swing.JTable();
+        tablaPro = new javax.swing.JTable();
         comboOpcion = new javax.swing.JComboBox<>();
         campoBuscar = new javax.swing.JTextField();
         jButton9 = new javax.swing.JButton();
@@ -60,6 +70,9 @@ public class Programas extends javax.swing.JFrame {
         jButton1.setForeground(new java.awt.Color(102, 102, 102));
         jButton1.setText("Estudiantes");
         jButton1.setBorder(null);
+        jButton1.setBorderPainted(false);
+        jButton1.setContentAreaFilled(false);
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -73,6 +86,9 @@ public class Programas extends javax.swing.JFrame {
         jButton2.setForeground(new java.awt.Color(102, 102, 102));
         jButton2.setText("Profesores");
         jButton2.setBorder(null);
+        jButton2.setBorderPainted(false);
+        jButton2.setContentAreaFilled(false);
+        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -86,6 +102,9 @@ public class Programas extends javax.swing.JFrame {
         jButton3.setForeground(new java.awt.Color(102, 102, 102));
         jButton3.setText("Pensum");
         jButton3.setBorder(null);
+        jButton3.setBorderPainted(false);
+        jButton3.setContentAreaFilled(false);
+        jButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 180, 160, 40));
 
@@ -94,6 +113,9 @@ public class Programas extends javax.swing.JFrame {
         jButton4.setForeground(new java.awt.Color(102, 102, 102));
         jButton4.setText("Programas");
         jButton4.setBorder(null);
+        jButton4.setBorderPainted(false);
+        jButton4.setContentAreaFilled(false);
+        jButton4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 220, 160, 40));
 
@@ -102,6 +124,9 @@ public class Programas extends javax.swing.JFrame {
         jButton5.setForeground(new java.awt.Color(102, 102, 102));
         jButton5.setText("Semestres");
         jButton5.setBorder(null);
+        jButton5.setBorderPainted(false);
+        jButton5.setContentAreaFilled(false);
+        jButton5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 260, 160, 40));
 
@@ -110,6 +135,9 @@ public class Programas extends javax.swing.JFrame {
         jButton6.setForeground(new java.awt.Color(102, 102, 102));
         jButton6.setText("Asignaturas");
         jButton6.setBorder(null);
+        jButton6.setBorderPainted(false);
+        jButton6.setContentAreaFilled(false);
+        jButton6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         getContentPane().add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, 160, 40));
 
@@ -118,6 +146,9 @@ public class Programas extends javax.swing.JFrame {
         jButton7.setForeground(new java.awt.Color(102, 102, 102));
         jButton7.setText("Cursos");
         jButton7.setBorder(null);
+        jButton7.setBorderPainted(false);
+        jButton7.setContentAreaFilled(false);
+        jButton7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton7.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         getContentPane().add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, 160, 40));
 
@@ -129,25 +160,29 @@ public class Programas extends javax.swing.JFrame {
         agregarbt.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         agregarbt.setForeground(new java.awt.Color(102, 102, 102));
         agregarbt.setText("Agregar");
+        agregarbt.setBorder(null);
+        agregarbt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         agregarbt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 agregarbtActionPerformed(evt);
             }
         });
 
-        añotxt.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Nombre", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Semibold", 0, 14), new java.awt.Color(102, 102, 102))); // NOI18N
-        añotxt.addActionListener(new java.awt.event.ActionListener() {
+        nombretxt.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Nombre", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Semibold", 0, 14), new java.awt.Color(102, 102, 102))); // NOI18N
+        nombretxt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                añotxtActionPerformed(evt);
+                nombretxtActionPerformed(evt);
             }
         });
 
-        semestretxt.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Facultad", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Semibold", 0, 14), new java.awt.Color(102, 102, 102))); // NOI18N
+        facultadtxt.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Facultad", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Semibold", 0, 14), new java.awt.Color(102, 102, 102))); // NOI18N
 
         modificarbt.setBackground(new java.awt.Color(255, 255, 255));
         modificarbt.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         modificarbt.setForeground(new java.awt.Color(102, 102, 102));
         modificarbt.setText("Modificar");
+        modificarbt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        modificarbt.setDefaultCapable(false);
         modificarbt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 modificarbtActionPerformed(evt);
@@ -160,6 +195,7 @@ public class Programas extends javax.swing.JFrame {
         eliminarbt.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         eliminarbt.setForeground(new java.awt.Color(102, 102, 102));
         eliminarbt.setText("Eliminar");
+        eliminarbt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         eliminarbt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 eliminarbtActionPerformed(evt);
@@ -175,8 +211,8 @@ public class Programas extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(codigotxt, javax.swing.GroupLayout.DEFAULT_SIZE, 657, Short.MAX_VALUE)
-                        .addComponent(añotxt))
-                    .addComponent(semestretxt, javax.swing.GroupLayout.PREFERRED_SIZE, 657, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(nombretxt))
+                    .addComponent(facultadtxt, javax.swing.GroupLayout.PREFERRED_SIZE, 657, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(46, 46, 46)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(agregarbt, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
@@ -193,14 +229,15 @@ public class Programas extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(añotxt, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(nombretxt, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(semestretxt, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(facultadtxt, javax.swing.GroupLayout.DEFAULT_SIZE, 67, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(modificarbt, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(eliminarbt, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 15, Short.MAX_VALUE))
+                        .addComponent(eliminarbt, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addGap(6, 6, 6))
         );
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 110, 960, 230));
@@ -208,9 +245,9 @@ public class Programas extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Consultas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Semibold", 0, 18), new java.awt.Color(0, 102, 255))); // NOI18N
 
-        tablaSem.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        tablaSem.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
-        tablaSem.setModel(new javax.swing.table.DefaultTableModel(
+        tablaPro.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        tablaPro.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
+        tablaPro.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -221,12 +258,12 @@ public class Programas extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        tablaSem.addMouseListener(new java.awt.event.MouseAdapter() {
+        tablaPro.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tablaSemMouseClicked(evt);
+                tablaProMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(tablaSem);
+        jScrollPane1.setViewportView(tablaPro);
 
         comboOpcion.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
         comboOpcion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mostrar Todo", "Codigo", "Nombre", "Facultad" }));
@@ -276,8 +313,8 @@ public class Programas extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(comboOpcion, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -321,43 +358,43 @@ public class Programas extends javax.swing.JFrame {
 
     private void agregarbtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarbtActionPerformed
 
-        SemestreAcademico sem = new SemestreAcademico();
-        sem.InsetarSemestre(añotxt, semestretxt);
+        ProgramaAcademico sem = new ProgramaAcademico();
+        sem.InsetarPrograma(nombretxt, facultadtxt , codigotxt);
         int opcion = comboOpcion.getSelectedIndex();
         String valorbus = campoBuscar.getText();
-        sem.visualizarSemestre(tablaSem,opcion,valorbus);
+        sem.visualizarPrograma(tablaPro,opcion,valorbus);
 
     }//GEN-LAST:event_agregarbtActionPerformed
 
-    private void añotxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_añotxtActionPerformed
+    private void nombretxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombretxtActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_añotxtActionPerformed
+    }//GEN-LAST:event_nombretxtActionPerformed
 
     private void modificarbtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarbtActionPerformed
 
-        SemestreAcademico sem = new SemestreAcademico();
-        sem.modificarSemestre(codigotxt,añotxt, semestretxt);
+        ProgramaAcademico sem = new ProgramaAcademico();
+        sem.modificarPrograma(codigotxt,nombretxt, facultadtxt);
         int opcion = comboOpcion.getSelectedIndex();
         String valorbus = campoBuscar.getText();
-        sem.visualizarSemestre(tablaSem,opcion,valorbus);
+        sem.visualizarPrograma(tablaPro,opcion,valorbus);
     }//GEN-LAST:event_modificarbtActionPerformed
 
     private void eliminarbtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarbtActionPerformed
 
-        SemestreAcademico sem = new SemestreAcademico();
-        sem.eliminarSemestre(codigotxt);
+        ProgramaAcademico sem = new ProgramaAcademico();
+        sem.eliminarPrograma(codigotxt);
         int opcion = comboOpcion.getSelectedIndex();
         String valorbus = campoBuscar.getText();
-        sem.visualizarSemestre(tablaSem,opcion,valorbus);
+        sem.visualizarPrograma(tablaPro,opcion,valorbus);
 
     }//GEN-LAST:event_eliminarbtActionPerformed
 
-    private void tablaSemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaSemMouseClicked
+    private void tablaProMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaProMouseClicked
 
-        SemestreAcademico s = new SemestreAcademico();
-        s.seleccionar(tablaSem,codigotxt, añotxt, semestretxt);
+        ProgramaAcademico s = new ProgramaAcademico();
+        s.seleccionar(tablaPro,codigotxt, nombretxt, facultadtxt);
 
-    }//GEN-LAST:event_tablaSemMouseClicked
+    }//GEN-LAST:event_tablaProMouseClicked
 
     private void campoBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoBuscarActionPerformed
         // TODO add your handling code here:
@@ -365,10 +402,10 @@ public class Programas extends javax.swing.JFrame {
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
 
-        SemestreAcademico sem = new SemestreAcademico();
+        ProgramaAcademico sem = new ProgramaAcademico();
         int opcion = comboOpcion.getSelectedIndex();
         String valorbus = campoBuscar.getText();
-        sem.visualizarSemestre(tablaSem,opcion,valorbus);
+        sem.visualizarPrograma(tablaPro,opcion,valorbus);
 
     }//GEN-LAST:event_jButton9ActionPerformed
 
@@ -409,11 +446,11 @@ public class Programas extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton agregarbt;
-    private javax.swing.JTextField añotxt;
     private javax.swing.JTextField campoBuscar;
     private javax.swing.JTextField codigotxt;
     private javax.swing.JComboBox<String> comboOpcion;
     private javax.swing.JButton eliminarbt;
+    private javax.swing.JTextField facultadtxt;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -431,7 +468,7 @@ public class Programas extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton modificarbt;
-    private javax.swing.JTextField semestretxt;
-    private javax.swing.JTable tablaSem;
+    private javax.swing.JTextField nombretxt;
+    private javax.swing.JTable tablaPro;
     // End of variables declaration//GEN-END:variables
 }

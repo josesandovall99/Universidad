@@ -69,8 +69,10 @@ public class SemestreAcademico {
         this.semestre = semestre;
     }
 
-    public void InsetarSemestre(JTextField año, JTextField semestre) {
+    public void InsetarSemestre(JTextField año, JTextField semestre, JTextField codigo) {
 
+        codigo.setText("");
+        
         setAño(año.getText());
         setSemestre(semestre.getText());
         setCodigoAcademico(generarCodigo());
@@ -133,19 +135,19 @@ public class SemestreAcademico {
 
             if (opbuscar == 1 && valor != null) {
 
-                sql = "SELECT codigoAcademico,año,semestre FROM SemestreAcademico WHERE SemestreAcademico.codigoAcademico = '" + valor + "'";
+                sql = "SELECT codigoAcademico,año,semestre FROM SemestreAcademico WHERE SemestreAcademico.codigoAcademico LIKE '%" + valor + "%'";
 
             } else {
 
                 if (opbuscar == 2 && valor != null) {
 
-                    sql = "SELECT codigoAcademico,año,semestre FROM SemestreAcademico WHERE SemestreAcademico.año = '" + valor + "'";
+                    sql = "SELECT codigoAcademico,año,semestre FROM SemestreAcademico WHERE SemestreAcademico.año LIKE '%" + valor + "%'";
 
                 } else {
 
                     if (opbuscar == 3 && valor != null) {
 
-                        sql = "SELECT codigoAcademico,año,semestre FROM SemestreAcademico WHERE SemestreAcademico.semestre = '" + valor + "'";
+                        sql = "SELECT codigoAcademico,año,semestre FROM SemestreAcademico WHERE SemestreAcademico.semestre LIKE '%" + valor + "%'";
 
                     } else {
 
