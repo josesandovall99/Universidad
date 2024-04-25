@@ -6,6 +6,7 @@ package Modelo;
 
 import BD.Conexion;
 import Vista.Administrador.Administradores;
+import Vista.Administrador.CompletarAdministrador;
 import Vista.Administrador.Principal;
 import Vista.Administrador.Sesion;
 import java.sql.Connection;
@@ -123,7 +124,7 @@ public class Login {
                     System.out.println(tipo);
                     if (tipo.equalsIgnoreCase("administrador")) {
                         
-                        Principal ad = new Principal();
+                        CompletarAdministrador ad = new CompletarAdministrador();
                         ad.setVisible(true) ;
                         JOptionPane.showMessageDialog(null, "DATOS CORRECTOS");
                         Sesion s = new Sesion();

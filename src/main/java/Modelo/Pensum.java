@@ -5,6 +5,11 @@
 package Modelo;
 
 import BD.Conexion;
+import CodigoAcademico.BuilderAsignaturas;
+import CodigoAcademico.BuilderPensum;
+import CodigoAcademico.CodigoAsignaturas;
+import CodigoAcademico.CodigoPensum;
+import CodigoAcademico.Director;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -84,10 +89,20 @@ public class Pensum {
 
     public String generarCodigo() {
 
-        Random r = new Random();
-        LocalDate date = LocalDate.now();
-        String codigo = "cuc" + 03 + date.getYear() + r.nextInt(501);//******
-        System.out.println(codigo);
+        //PATRON DE DISEÑO------------------
+        
+        String codigo="";
+        
+        BuilderPensum a = new BuilderPensum();
+        Director b = new Director();
+        
+        b.construirCodigoAcademico(a);
+        
+        CodigoPensum codig = a.getResult();
+        
+        codigo = codig.pasarAString();
+        
+        //----------------------------------
 
         return codigo;
     }

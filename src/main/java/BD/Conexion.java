@@ -30,7 +30,7 @@ public class Conexion {
 
             Class.forName("com.mysql.cj.jdbc.Driver");
             conectar = DriverManager.getConnection(cadena, usuario, contraseña);
-            JOptionPane.showMessageDialog(null, "CONEXION ESTABLECIDA CORRECTAMENTE");
+            
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "error  al conectarse a la bd" + e.toString());
