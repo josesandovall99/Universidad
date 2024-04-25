@@ -4,6 +4,8 @@
  */
 package Vista.Administrador;
 
+import Modelo.Login;
+
 /**
  *
  * @author JOSE SANDOVAL
@@ -26,8 +28,8 @@ public class Sesion extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        nombreAdmin = new javax.swing.JTextField();
-        contraseñaAdmin = new javax.swing.JTextField();
+        ustxt = new javax.swing.JTextField();
+        contxt = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
@@ -38,18 +40,18 @@ public class Sesion extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        nombreAdmin.setBackground(new java.awt.Color(255, 255, 255));
-        nombreAdmin.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
-        nombreAdmin.addActionListener(new java.awt.event.ActionListener() {
+        ustxt.setBackground(new java.awt.Color(255, 255, 255));
+        ustxt.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
+        ustxt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nombreAdminActionPerformed(evt);
+                ustxtActionPerformed(evt);
             }
         });
-        getContentPane().add(nombreAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 200, 290, 30));
+        getContentPane().add(ustxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 200, 290, 30));
 
-        contraseñaAdmin.setBackground(new java.awt.Color(255, 255, 255));
-        contraseñaAdmin.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
-        getContentPane().add(contraseñaAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 270, 290, 30));
+        contxt.setBackground(new java.awt.Color(255, 255, 255));
+        contxt.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
+        getContentPane().add(contxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 270, 290, 30));
 
         jButton1.setBackground(new java.awt.Color(13, 70, 228));
         jButton1.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
@@ -68,6 +70,11 @@ public class Sesion extends javax.swing.JFrame {
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setText("No tienes Credenciales?");
         jButton2.setBorder(null);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 330, 140, 30));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
@@ -95,13 +102,29 @@ public class Sesion extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void nombreAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreAdminActionPerformed
+    private void ustxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ustxtActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_nombreAdminActionPerformed
+    }//GEN-LAST:event_ustxtActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        
+        Login a = new Login();
+        a.validar(ustxt, contxt);
+        
+        
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        
+        LoginSinRol s = new LoginSinRol();
+        s.setVisible(true);
+        
+        Sesion a = new Sesion();
+        dispose();
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -139,13 +162,13 @@ public class Sesion extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField contraseñaAdmin;
+    private javax.swing.JTextField contxt;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JTextField nombreAdmin;
+    private javax.swing.JTextField ustxt;
     // End of variables declaration//GEN-END:variables
 }

@@ -60,7 +60,7 @@ public class Curso {
         this.salonP = salonP;
     }
 
-    public void InsetarPensum(JTextField nombre, JTextField salT, JTextField salP, JTextField cod) { //******
+    public void InsetarCurso(JTextField nombre, JTextField salT, JTextField salP, JTextField cod) { //******
 
         cod.setText("");
 
@@ -102,7 +102,7 @@ public class Curso {
         return codigo;
     }
 
-    public void visualizarPensum(JTable tablaCur, int opbuscar, String valor) { //******
+    public void visualizarCurso(JTable tablaCur, int opbuscar, String valor) { //******
 
         Conexion con = new Conexion();
 
@@ -129,25 +129,25 @@ public class Curso {
 
             if (opbuscar == 1 && valor != null) {
 
-                sql = "SELECT * FROM vista_cursos WHERE vista_cursos.codigoAcademico LIKE '%" + valor + "%'";//******
+                sql = "SELECT * FROM vista_cursos WHERE vista_cursos.nombre LIKE '%" + valor + "%'";//******
 
             } else {
 
                 if (opbuscar == 2 && valor != null) {
 
-                    sql = "SELECT * FROM vista_cursos WHERE vista_cursos.nombre LIKE '%" + valor + "%'";//******
+                    sql = "SELECT * FROM vista_cursos WHERE vista_cursos.salonT LIKE '%" + valor + "%'";//******
 
                 } else {
 
                     if (opbuscar == 3 && valor != null) {
 
-                        sql = "SELECT * from vista_cursos WHERE COALESCE(ProgramaAcademico, 'null') LIKE '%" + valor + "%'";//*********
+                        sql = "SELECT * FROM vista_cursos WHERE vista_cursos.salonP LIKE '%" + valor + "%'";//******
 
                     } else {
 
                         if (opbuscar == 4 && valor != null) {
 
-                            sql = "SELECT * from vista_cursos WHERE COALESCE(ProgramaAcademico, 'null') LIKE '%" + valor + "%'";//*********
+                            sql = "SELECT * from vista_cursos WHERE COALESCE(Usuario_nombre, 'null') LIKE '%" + valor + "%'";//*********
 
                         } else {
 
@@ -158,7 +158,7 @@ public class Curso {
                 }
             }
 
-            String[] datos = new String[4];
+            String[] datos = new String[5];
             Statement st;
 
             try {
@@ -173,10 +173,11 @@ public class Curso {
                     datos[1] = rs.getString(2);//******
                     datos[2] = rs.getString(3);//******
                     datos[3] = rs.getString(4);//******
+                    datos[4] = rs.getString(5);//******
 
-                    if (datos[3] == null) {
+                    if (datos[4] == null) {
 
-                        datos[3] = "Sin Asignacion";
+                        datos[4] = "Sin Asignacion";
 
                     }
 
@@ -193,10 +194,9 @@ public class Curso {
             }
 
         }
+    }
 
-    
-
-    public void seleccionar(JTable tabla, JTextField txcod, JTextField txnom, JTextField txnum) {//******
+    public void seleccionar(JTable tabla, JTextField txcod, JTextField txnom, JTextField txsalt, JTextField txsalp) {//******
 
         try {
 
@@ -206,7 +206,8 @@ public class Curso {
 
                 txcod.setText(tabla.getValueAt(fila, 0).toString());//******
                 txnom.setText(tabla.getValueAt(fila, 1).toString());//******
-                txnum.setText(tabla.getValueAt(fila, 2).toString());//******
+                txsalt.setText(tabla.getValueAt(fila, 2).toString());//******
+                txsalp.setText(tabla.getValueAt(fila, 3).toString());//******
 
             } else {
                 JOptionPane.showMessageDialog(null, "Registro no seleccionado");
@@ -220,24 +221,26 @@ public class Curso {
 
     }
 
-    public void modificarPensum(JTextField txcod, JTextField txnom, JTextField txnum) {
+    public void modificarCurso(JTextField txcod, JTextField txnom, JTextField txsalt, JTextField txsalp) {
 
         setCodigoAcademico(txcod.getText());//******
         setNombre(txnom.getText());//******
-        setNumeroSemestres(txnum.getText());//******
+        setSalonT(txsalt.getText());//******
+        setSalonP(txsalp.getText());//******
 
         Conexion co = new Conexion();
 
-        String consulta = "UPDATE Pensum SET Pensum.nombre = ?, "
-                + "Pensum.semestres = ? WHERE Pensum.codigoAcademico=?";//******
+        String consulta = "UPDATE Curso SET Curso.nombre = ?, "
+                + "Curso.salonT = ?, Curso.salonP = ? WHERE Curso.codigoAcademico=?";//******
 
         try {
 
             CallableStatement cs = co.establecerConexion().prepareCall(consulta);
 
             cs.setString(1, getNombre());//******
-            cs.setString(2, getNumeroSemestres());//******
-            cs.setString(3, getCodigoAcademico());//******
+            cs.setString(2, getSalonT());//******
+            cs.setString(3, getSalonP());//******
+            cs.setString(4, getCodigoAcademico());//******
 
             cs.execute();
 
@@ -249,13 +252,13 @@ public class Curso {
 
     }
 
-    public void eliminarPensum(JTextField codtx) {
+    public void eliminarCurso(JTextField codtx) {
 
         setCodigoAcademico(codtx.getText());//******
 
         Conexion co = new Conexion();
 
-        String consulta = "DELETE FROM Pensum WHERE Pensum.codigoAcademico=?";//******
+        String consulta = "DELETE FROM Curso WHERE Curso.codigoAcademico=?";//******
 
         try {
 

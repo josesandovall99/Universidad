@@ -488,9 +488,9 @@
               <StringArray count="5">
                 <StringItem index="0" value="Mostrar Todo"/>
                 <StringItem index="1" value="Nombre"/>
-                <StringItem index="2" value="Asignatura"/>
+                <StringItem index="2" value="Salon Teorico"/>
                 <StringItem index="3" value="Salon Practico"/>
-                <StringItem index="4" value="Salon Teorico"/>
+                <StringItem index="4" value="Profesor"/>
               </StringArray>
             </Property>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">

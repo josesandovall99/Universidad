@@ -4,6 +4,8 @@
  */
 package Vista.Administrador;
 
+import Modelo.Login;
+
 /**
  *
  * @author JOSE SANDOVAL
@@ -26,8 +28,9 @@ public class LoginSinRol extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        nombreAdmin = new javax.swing.JTextField();
+        idtxt = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        volvtxt = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -35,14 +38,14 @@ public class LoginSinRol extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        nombreAdmin.setBackground(new java.awt.Color(255, 255, 255));
-        nombreAdmin.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
-        nombreAdmin.addActionListener(new java.awt.event.ActionListener() {
+        idtxt.setBackground(new java.awt.Color(255, 255, 255));
+        idtxt.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
+        idtxt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nombreAdminActionPerformed(evt);
+                idtxtActionPerformed(evt);
             }
         });
-        getContentPane().add(nombreAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 240, 290, 30));
+        getContentPane().add(idtxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 240, 290, 30));
 
         jButton1.setBackground(new java.awt.Color(13, 70, 228));
         jButton1.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
@@ -54,7 +57,19 @@ public class LoginSinRol extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 310, 140, 30));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 290, 140, 30));
+
+        volvtxt.setBackground(new java.awt.Color(13, 70, 228));
+        volvtxt.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
+        volvtxt.setForeground(new java.awt.Color(255, 255, 255));
+        volvtxt.setText("Volver");
+        volvtxt.setBorder(null);
+        volvtxt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                volvtxtActionPerformed(evt);
+            }
+        });
+        getContentPane().add(volvtxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 530, 140, 30));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -76,13 +91,25 @@ public class LoginSinRol extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void nombreAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreAdminActionPerformed
+    private void idtxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idtxtActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_nombreAdminActionPerformed
+    }//GEN-LAST:event_idtxtActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        Login l = new Login();
+        l.validarSinCredenciales(idtxt);
+        
+        
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void volvtxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_volvtxtActionPerformed
+        // TODO add your handling code here:
+        
+        Sesion a = new Sesion();
+        a.setVisible(true);
+        dispose();
+        
+    }//GEN-LAST:event_volvtxtActionPerformed
 
     /**
      * @param args the command line arguments
@@ -120,10 +147,11 @@ public class LoginSinRol extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField idtxt;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JTextField nombreAdmin;
+    private javax.swing.JButton volvtxt;
     // End of variables declaration//GEN-END:variables
 }

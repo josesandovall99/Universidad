@@ -23,10 +23,10 @@ public class Cursos extends javax.swing.JFrame {
         txtcod.setEditable(false);
         
         
-        Pensum a = new Pensum();
+        Curso a = new Curso();
         int opcion = comboOpcion.getSelectedIndex();
         String valorbus = campoBuscar.getText();
-        a.visualizarPensum(tablaCur,opcion,valorbus);
+        a.visualizarCurso(tablaCur,opcion,valorbus);
         
     }
 
@@ -259,7 +259,7 @@ public class Cursos extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tablaCur);
 
         comboOpcion.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
-        comboOpcion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mostrar Todo", "Nombre", "Asignatura", "Salon Practico", "Salon Teorico" }));
+        comboOpcion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mostrar Todo", "Nombre", "Salon Teorico", "Salon Practico", "Profesor" }));
         comboOpcion.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Buscar por:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Semibold", 0, 14))); // NOI18N
 
         campoBuscar.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
@@ -362,10 +362,10 @@ public class Cursos extends javax.swing.JFrame {
     private void agregarbtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarbtActionPerformed
 
                 Curso sem = new Curso();
-                sem.InsetarCurso(añotxt, semestretxt);
+                sem.InsetarCurso(txtnom, txtteo, txtprac, txtcod);
                 int opcion = comboOpcion.getSelectedIndex();
                 String valorbus = campoBuscar.getText();
-                sem.visualizarCurso(tablaSem,opcion,valorbus);
+                sem.visualizarCurso(tablaCur,opcion,valorbus);
     }//GEN-LAST:event_agregarbtActionPerformed
 
     private void txtpracActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtpracActionPerformed
@@ -375,25 +375,25 @@ public class Cursos extends javax.swing.JFrame {
     private void modificarbtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarbtActionPerformed
 
                 Curso sem = new Curso();
-                sem.modificarCurso(codigotxt,añotxt, semestretxt);
+                sem.modificarCurso(txtcod,txtnom, txtteo,txtprac);
                 int opcion = comboOpcion.getSelectedIndex();
                 String valorbus = campoBuscar.getText();
-                sem.visualizarCurso(tablaSem,opcion,valorbus);
+                sem.visualizarCurso(tablaCur,opcion,valorbus);
     }//GEN-LAST:event_modificarbtActionPerformed
 
     private void eliminarbtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarbtActionPerformed
 
                 Curso sem = new Curso();
-                sem.eliminarCurso(codigotxt);
+                sem.eliminarCurso(txtcod);
                 int opcion = comboOpcion.getSelectedIndex();
                 String valorbus = campoBuscar.getText();
-                sem.visualizarCurso(tablaSem,opcion,valorbus);
+                sem.visualizarCurso(tablaCur,opcion,valorbus);
     }//GEN-LAST:event_eliminarbtActionPerformed
 
     private void tablaCurMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaCurMouseClicked
 
                 Curso s = new Curso();
-                s.seleccionar(tablaSem,codigotxt, añotxt, semestretxt);
+                s.seleccionar(tablaCur,txtcod, txtnom, txtteo, txtprac);
     }//GEN-LAST:event_tablaCurMouseClicked
 
     private void campoBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoBuscarActionPerformed
@@ -405,7 +405,7 @@ public class Cursos extends javax.swing.JFrame {
                 Curso sem = new Curso();
                 int opcion = comboOpcion.getSelectedIndex();
                 String valorbus = campoBuscar.getText();
-                sem.visualizarCurso(tablaSem,opcion,valorbus);
+                sem.visualizarCurso(tablaCur,opcion,valorbus);
     }//GEN-LAST:event_jButton9ActionPerformed
 
     /**
