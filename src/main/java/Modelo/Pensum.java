@@ -31,6 +31,7 @@ public class Pensum {
     public String codigoAcademico;
     public String nombre;
     public String numeroSemestres;
+    public String estadoAcademico;
 
     public String getCodigoAcademico() {
         return codigoAcademico;
@@ -55,6 +56,16 @@ public class Pensum {
     public void setNumeroSemestres(String numeroSemestres) {
         this.numeroSemestres = numeroSemestres;
     }
+
+    public String getEstadoAcademico() {
+        return estadoAcademico;
+    }
+
+    public void setEstadoAcademico(String estadoAcademico) {
+        this.estadoAcademico = estadoAcademico;
+    }
+    
+    
     
     public void InsetarPensum(JTextField nombre, JTextField num, JTextField codigo) { //******
 
@@ -64,10 +75,11 @@ public class Pensum {
         setNombre(nombre.getText()); //******
         setNumeroSemestres(num.getText());//******
         setCodigoAcademico(generarCodigo());//******
+        setEstadoAcademico("ACTIVADO");
 
         Conexion co = new Conexion();
 
-        String consulta = "INSERT INTO Pensum (codigoAcademico,nombre, semestres) VALUES (?,?,?);";//******
+        String consulta = "INSERT INTO Pensum (codigoAcademico,nombre, semestres, estado) VALUES (?,?,?,?);";//******
 
         try {
 
@@ -75,6 +87,7 @@ public class Pensum {
             cs.setString(1, getCodigoAcademico());//******
             cs.setString(2, getNombre());//******
             cs.setString(3, getNumeroSemestres());//******
+            cs.setString(4, getEstadoAcademico());//******
 
             cs.execute();
 
@@ -128,28 +141,31 @@ public class Pensum {
 //        sql = "SELECT codigoAcademico,año,semestre FROM SemestreAcademico";
         if (opbuscar == 0 && valor == null) {
 
-            sql = "SELECT * FROM vista_pensums ";//******
+            sql = "SELECT * FROM vista_pensums WHERE vista_pensums.estado ='ACTIVADO' ";//******
         } else {
 
             if (opbuscar == 1 && valor != null) {
 
-                sql = "SELECT * FROM vista_pensums WHERE vista_pensums.codigoAcademico LIKE '%" + valor + "%'";//******
+                sql = "SELECT * FROM vista_pensums WHERE vista_pensums.codigoAcademico LIKE '%" + valor + "%'"
+                        + "AND vista_pensums.estado ='ACTIVADO'";//******
 
             } else {
 
                 if (opbuscar == 2 && valor != null) {
 
-                    sql = "SELECT * FROM vista_pensums WHERE vista_pensums.nombre LIKE '%" + valor + "%'";//******
+                    sql = "SELECT * FROM vista_pensums WHERE vista_pensums.nombre LIKE '%" + valor + "%'"
+                            + "AND vista_pensums.estado ='ACTIVADO'";//******
 
                 } else {
 
                     if (opbuscar == 3 && valor != null) {
 
-                        sql ="SELECT * from vista_pensums WHERE COALESCE(ProgramaAcademico, 'null') LIKE '%" + valor + "%'";//*********
+                        sql ="SELECT * from vista_pensums WHERE COALESCE(ProgramaAcademico, 'null') LIKE '%" + valor + "%'"
+                                + "AND vista_pensums.estado ='ACTIVADO'";//*********
 
                     } else {
 
-                        sql = "SELECT * FROM vista_pensums";//******
+                        sql = "SELECT * FROM vista_pensums WHERE vista_pensums.estado ='ACTIVADO'";//******
 
                     }
                 }
@@ -251,22 +267,140 @@ public class Pensum {
     public void eliminarPensum(JTextField codtx) {
 
         setCodigoAcademico(codtx.getText());//******
+        setEstadoAcademico("DESACTIVADO");
 
         Conexion co = new Conexion();
 
-        String consulta = "DELETE FROM Pensum WHERE Pensum.codigoAcademico=?";//******
+        String consulta = "UPDATE Pensum SET Pensum.estado = ? WHERE Pensum.codigoAcademico =?;";//******
 
         try {
 
             CallableStatement cs = co.establecerConexion().prepareCall(consulta);
-            cs.setString(1, getCodigoAcademico());
+            cs.setString(1, getEstadoAcademico());
+            cs.setString(2, getCodigoAcademico());
             cs.execute();
 
-            JOptionPane.showMessageDialog(null, "Registro eliminado correctamente");
+            JOptionPane.showMessageDialog(null, "Registro DESACTIVADO correctamente");
 
         } catch (Exception e) {
 
-            JOptionPane.showMessageDialog(null, "NO se pudo eliminar correctamente: " + e);
+            JOptionPane.showMessageDialog(null, "NO se pudo DESACTIVAR correctamente: " + e);
+        }
+
+    }
+    
+    public void visualizarPensumDesactivado(JTable tablaPen, int opbuscar, String valor) { //******
+
+        Conexion con = new Conexion();
+
+        DefaultTableModel modelo = new DefaultTableModel();
+
+        TableRowSorter<TableModel> OrdenarTabla = new TableRowSorter<TableModel>(modelo);
+        tablaPen.setRowSorter(OrdenarTabla);
+
+        String sql = "";
+
+        modelo.addColumn("Codigo Academico");//******
+        modelo.addColumn("Nombre");//******
+        modelo.addColumn("Numero de Semestres");//******
+        modelo.addColumn("Programa Asignado");//******
+
+        tablaPen.setModel(modelo);
+
+//        sql = "SELECT codigoAcademico,año,semestre FROM SemestreAcademico";
+        if (opbuscar == 0 && valor == null) {
+
+            sql = "SELECT * FROM vista_pensums WHERE vista_pensums.estado ='DESACTIVADO' ";//******
+        } else {
+
+            if (opbuscar == 1 && valor != null) {
+
+                sql = "SELECT * FROM vista_pensums WHERE vista_pensums.codigoAcademico LIKE '%" + valor + "%'"
+                        + "AND vista_pensums.estado='DESACTIVADO'";//******
+
+            } else {
+
+                if (opbuscar == 2 && valor != null) {
+
+                    sql = "SELECT * FROM vista_pensums WHERE vista_pensums.nombre LIKE '%" + valor + "%'"
+                            + "AND vista_pensums.estado='DESACTIVADO'";//******
+
+                } else {
+
+                    if (opbuscar == 3 && valor != null) {
+
+                        sql ="SELECT * from vista_pensums WHERE COALESCE(ProgramaAcademico, 'null') LIKE '%" + valor + "%'"
+                                + "AND vista_pensums.estado='DESACTIVADO'";//*********
+
+                    } else {
+
+                        sql = "SELECT * FROM vista_pensums WHERE vista_pensums.estado ='DESACTIVADO' ";//******
+
+                    }
+                }
+            }
+        }
+
+        String[] datos = new String[4];
+        Statement st;
+
+        try {
+
+            st = con.establecerConexion().createStatement();
+
+            ResultSet rs = st.executeQuery(sql);
+
+            while (rs.next()) {
+
+                
+                
+                
+                datos[0] = rs.getString(1);//******
+                datos[1] = rs.getString(2);//******
+                datos[2] = rs.getString(3);//******
+                datos[3] = rs.getString(4);//******
+                
+                if (datos[3] == null) {
+                    
+                    datos[3] = "Sin Asignacion";
+                    
+                }
+
+                modelo.addRow(datos);
+
+            }
+
+            tablaPen.setModel(modelo);
+
+        } catch (Exception e) {
+
+            JOptionPane.showMessageDialog(null, "error al mostrar la tabla: " + e);
+
+        }
+
+    }
+    
+    public void activarPensum(JTextField codtx) {
+
+        setCodigoAcademico(codtx.getText());//******
+        setEstadoAcademico("ACTIVADO");
+
+        Conexion co = new Conexion();
+
+        String consulta = "UPDATE Pensum SET Pensum.estado = ? WHERE Pensum.codigoAcademico =?;";//******
+
+        try {
+
+            CallableStatement cs = co.establecerConexion().prepareCall(consulta);
+            cs.setString(1, getEstadoAcademico());
+            cs.setString(2, getCodigoAcademico());
+            cs.execute();
+
+            JOptionPane.showMessageDialog(null, "Registro ACTIVADO correctamente");
+
+        } catch (Exception e) {
+
+            JOptionPane.showMessageDialog(null, "NO se pudo DESACTIVAR correctamente: " + e);
         }
 
     }

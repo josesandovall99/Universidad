@@ -27,11 +27,12 @@ import javax.swing.table.TableRowSorter;
  * @author JOSE SANDOVAL
  */
 public class Asignatura {
-    
+
     public String codigoAcademico;
     public String nombre;
     public String creditos;
     public String tipo;
+    public String estadoAcademico;
 
     public String getCodigoAcademico() {
         return codigoAcademico;
@@ -64,11 +65,15 @@ public class Asignatura {
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
-    
-    
-    
-    
-    
+
+    public String getEstadoAcademico() {
+        return estadoAcademico;
+    }
+
+    public void setEstadoAcademico(String estadoAcademico) {
+        this.estadoAcademico = estadoAcademico;
+    }
+
     public void InsetarAsignatura(JTextField nombre, JTextField cred, JTextField tip, JTextField cod) { //******
 
         cod.setText("");
@@ -77,10 +82,11 @@ public class Asignatura {
         setCreditos(cred.getText());//******
         setTipo(tip.getText());
         setCodigoAcademico(generarCodigo());//******
+        setEstadoAcademico("ACTIVADO");//******
 
         Conexion co = new Conexion();
 
-        String consulta = "INSERT INTO Asignatura (codigoAcademico,nombre, creditos, tipo) VALUES (?,?,?,?);";//******
+        String consulta = "INSERT INTO Asignatura (codigoAcademico,nombre, creditos, tipo, estado) VALUES (?,?,?,?,?);";//******
 
         try {
 
@@ -89,6 +95,7 @@ public class Asignatura {
             cs.setString(2, getNombre());//******
             cs.setString(3, getCreditos());//******
             cs.setString(4, getTipo());//******
+            cs.setString(5, getEstadoAcademico());//******
 
             cs.execute();
 
@@ -104,20 +111,18 @@ public class Asignatura {
     public String generarCodigo() {
 
         //PATRON DE DISEÑO------------------
-        
-        String codigo="";
-        
+        String codigo = "";
+
         BuilderAsignaturas a = new BuilderAsignaturas();
         Director b = new Director();
-        
-        b.construirCodigoAcademico(a);
-        
-        CodigoAsignaturas codig = a.getResult();
-        
-        codigo = codig.pasarAString();
-        
-        //----------------------------------
 
+        b.construirCodigoAcademico(a);
+
+        CodigoAsignaturas codig = a.getResult();
+
+        codigo = codig.pasarAString();
+
+        //----------------------------------
         return codigo;
     }
 
@@ -143,34 +148,38 @@ public class Asignatura {
 //        sql = "SELECT codigoAcademico,año,semestre FROM SemestreAcademico";
         if (opbuscar == 0 && valor == null) {
 
-            sql = "SELECT * FROM vista_asignaturas ";//******
+            sql = "SELECT * FROM vista_asignaturas WHERE vista_asignaturas.estado = 'ACTIVADO'";//******
         } else {
 
             if (opbuscar == 1 && valor != null) {
 
-                sql = "SELECT * FROM vista_asignaturas WHERE vista_asignaturas.nombre LIKE '%" + valor + "%'";//******
+                sql = "SELECT * FROM vista_asignaturas WHERE vista_asignaturas.nombre LIKE '%" + valor + "%'"
+                        + "AND vista_asignaturas.estado ='ACTIVADO'";//******
 
             } else {
 
                 if (opbuscar == 2 && valor != null) {
 
-                    sql = "SELECT * FROM vista_asignaturas WHERE vista_asignaturas.creditos LIKE '%" + valor + "%'";//******
+                    sql = "SELECT * FROM vista_asignaturas WHERE vista_asignaturas.creditos LIKE '%" + valor + "%'"
+                            + "AND vista_asignaturas.estado ='ACTIVADO'";//******
 
                 } else {
 
                     if (opbuscar == 3 && valor != null) {
 
-                        sql = "SELECT * FROM vista_asignaturas WHERE vista_asignaturas.tipo LIKE '%" + valor + "%'";//******
+                        sql = "SELECT * FROM vista_asignaturas WHERE vista_asignaturas.tipo LIKE '%" + valor + "%'"
+                                + "AND vista_asignaturas.estado ='ACTIVADO'";//******
 
                     } else {
 
                         if (opbuscar == 4 && valor != null) {
 
-                            sql = "SELECT * from vista_asignaturas WHERE COALESCE(pensum, 'null') LIKE '%" + valor + "%'";//*********
+                            sql = "SELECT * from vista_asignatura WHERE COALESCE(pensum, 'null') LIKE '%" + valor + "%'"
+                                    + "AND vista_asignaturas.estado ='ACTIVADO'";//*********
 
                         } else {
 
-                            sql = "SELECT * FROM vista_asignaturas";//******
+                            sql = "SELECT * FROM vista_asignaturas WHERE vista_asignaturas.estado='ACTIVADO'";//******
 
                         }
                     }
@@ -274,23 +283,148 @@ public class Asignatura {
     public void eliminarAsignatura(JTextField codtx) {
 
         setCodigoAcademico(codtx.getText());//******
+        setEstadoAcademico("DESACTIVADO");
 
         Conexion co = new Conexion();
 
-        String consulta = "DELETE FROM Asignatura WHERE Asignatura.codigoAcademico=?";//******
+        String consulta = "UPDATE Asignatura SET Asignatura.estado=? WHERE Asignatura.codigoAcademico =?;";//******
 
         try {
 
             CallableStatement cs = co.establecerConexion().prepareCall(consulta);
-            cs.setString(1, getCodigoAcademico());
+            cs.setString(1, getEstadoAcademico());
+            cs.setString(2, getCodigoAcademico());
             cs.execute();
 
-            JOptionPane.showMessageDialog(null, "Registro eliminado correctamente");
+            JOptionPane.showMessageDialog(null, "Registro DESACTIVADO correctamente");
 
         } catch (Exception e) {
 
             JOptionPane.showMessageDialog(null, "NO se pudo eliminar correctamente: " + e);
         }
 
+    }
+
+    public void activarAsignatura(JTextField codtx) {
+
+        setCodigoAcademico(codtx.getText());//******
+        setEstadoAcademico("ACTIVADO");
+
+        Conexion co = new Conexion();
+
+        String consulta = "UPDATE Asignatura SET Asignatura.estado=? WHERE Asignatura.codigoAcademico =?;";//******
+
+        try {
+
+            CallableStatement cs = co.establecerConexion().prepareCall(consulta);
+            cs.setString(1, getEstadoAcademico());
+            cs.setString(2, getCodigoAcademico());
+            cs.execute();
+
+            JOptionPane.showMessageDialog(null, "Registro ACTIVADO correctamente");
+
+        } catch (Exception e) {
+
+            JOptionPane.showMessageDialog(null, "NO se pudo eliminar correctamente: " + e);
+        }
+
+    }
+    
+        public void visualizarAsignaturaDesactivadas(JTable tablaA, int opbuscar, String valor) { //******
+
+        Conexion con = new Conexion();
+
+        DefaultTableModel modelo = new DefaultTableModel();
+
+        TableRowSorter<TableModel> OrdenarTabla = new TableRowSorter<TableModel>(modelo);
+        tablaA.setRowSorter(OrdenarTabla);
+
+        String sql = "";
+
+        modelo.addColumn("Codigo Academico");//******
+        modelo.addColumn("Nombre");//******
+        modelo.addColumn("Numero de Creditos");//******
+        modelo.addColumn("Tipo de Asignatura");//******
+        modelo.addColumn("Pensum Asignado");//******
+
+        tablaA.setModel(modelo);
+
+//        sql = "SELECT codigoAcademico,año,semestre FROM SemestreAcademico";
+        if (opbuscar == 0 && valor == null) {
+
+            sql = "SELECT * FROM vista_asignaturas WHERE vista_asignaturas.estado = 'DESACTIVADO'";//******
+        } else {
+
+            if (opbuscar == 1 && valor != null) {
+
+                sql = "SELECT * FROM vista_asignaturas WHERE vista_asignaturas.nombre LIKE '%" + valor + "%'"
+                        + "AND vista_asignaturas.estado='DESACTIVADO'";//******
+
+            } else {
+
+                if (opbuscar == 2 && valor != null) {
+
+                    sql = "SELECT * FROM vista_asignaturas WHERE vista_asignaturas.creditos LIKE '%" + valor + "%'"
+                            + "AND vista_asignaturas.estado='DESACTIVADO'";//******
+
+                } else {
+
+                    if (opbuscar == 3 && valor != null) {
+
+                        sql = "SELECT * FROM vista_asignaturas WHERE vista_asignaturas.tipo LIKE '%" + valor + "%'"
+                                + "AND vista_asignaturas.estado='DESACTIVADO'";//******
+
+                    } else {
+
+                        if (opbuscar == 4 && valor != null) {
+
+                            sql = "SELECT * from vista_asignatura WHERE COALESCE(pensum, 'null') LIKE '%" + valor + "%'"
+                                    + "AND vista_asignaturas.estado='DESACTIVADO'";//*********
+
+                        } else {
+
+                            sql = "SELECT * FROM vista_asignaturas WHERE vista_asignaturas.estado='DESACTIVADO'";//******
+
+                        }
+                    }
+                }
+            }
+
+            String[] datos = new String[5];
+            Statement st;
+
+            try {
+
+                st = con.establecerConexion().createStatement();
+
+                ResultSet rs = st.executeQuery(sql);
+
+                while (rs.next()) {
+
+                    datos[0] = rs.getString(1);//******
+                    datos[1] = rs.getString(2);//******
+                    datos[2] = rs.getString(3);//******
+                    datos[3] = rs.getString(4);//******
+                    datos[4] = rs.getString(5);//******
+
+                    if (datos[4] == null) {
+
+                        datos[4] = "Sin Asignacion";
+
+                    }
+
+                    modelo.addRow(datos);
+
+                }
+
+                tablaA.setModel(modelo);
+
+            } catch (Exception e) {
+
+                JOptionPane.showMessageDialog(null, "error al mostrar la tabla: " + e);
+
+            }
+
+        }
     }
 }
