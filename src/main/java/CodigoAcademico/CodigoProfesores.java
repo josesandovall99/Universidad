@@ -63,7 +63,7 @@ public class CodigoProfesores {
         String a = this.getCiudad();
         String b = this.getNumeroCaracteristico();
         String c = this.getAño();
-        String d = this.getNumeroCaracteristico();
+        String d = this.getNumerosfinales();
 
         return a + b + c + d;
 

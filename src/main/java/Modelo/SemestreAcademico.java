@@ -32,6 +32,7 @@ public class SemestreAcademico {
     public String codigoAcademico;
     public String año;
     public String semestre;
+    public String estadoAcademico;
 
     public SemestreAcademico(String nombre, String año, String semestre) {
         this.nombre = nombre;
@@ -74,6 +75,16 @@ public class SemestreAcademico {
         this.semestre = semestre;
     }
 
+    public String getEstadoAcademico() {
+        return estadoAcademico;
+    }
+
+    public void setEstadoAcademico(String estadoAcademico) {
+        this.estadoAcademico = estadoAcademico;
+    }
+
+    
+    
     public void InsetarSemestre(JTextField año, JTextField semestre, JTextField codigo) {
 
         codigo.setText("");
@@ -81,10 +92,11 @@ public class SemestreAcademico {
         setAño(año.getText());
         setSemestre(semestre.getText());
         setCodigoAcademico(generarCodigo());
+        setEstadoAcademico("ACTIVADO");
 
         Conexion co = new Conexion();
 
-        String consulta = "INSERT INTO SemestreAcademico (codigoAcademico,año,semestre) VALUES (?,?,?);";
+        String consulta = "INSERT INTO SemestreAcademico (codigoAcademico,año,semestre, estado) VALUES (?,?,?,?);";
 
         try {
 
@@ -92,6 +104,7 @@ public class SemestreAcademico {
             cs.setString(1, getCodigoAcademico());
             cs.setString(2, getAño());
             cs.setString(3, getSemestre());
+            cs.setString(4, getEstadoAcademico());
 
             cs.execute();
 
@@ -145,28 +158,31 @@ public class SemestreAcademico {
 
         if (opbuscar == 0 && valor == null) {
 
-            sql = "SELECT codigoAcademico,año,semestre FROM SemestreAcademico";
+            sql = "SELECT codigoAcademico,año,semestre FROM SemestreAcademico WHERE SemestreAcademico.estado='ACTIVADO'";
         } else {
 
             if (opbuscar == 1 && valor != null) {
 
-                sql = "SELECT codigoAcademico,año,semestre FROM SemestreAcademico WHERE SemestreAcademico.codigoAcademico LIKE '%" + valor + "%'";
+                sql = "SELECT codigoAcademico,año,semestre FROM SemestreAcademico WHERE SemestreAcademico.codigoAcademico LIKE '%" + valor + "%'"
+                        + "AND SemestreAcademico.estado ='ACTIVADO'";
 
             } else {
 
                 if (opbuscar == 2 && valor != null) {
 
-                    sql = "SELECT codigoAcademico,año,semestre FROM SemestreAcademico WHERE SemestreAcademico.año LIKE '%" + valor + "%'";
+                    sql = "SELECT codigoAcademico,año,semestre FROM SemestreAcademico WHERE SemestreAcademico.año LIKE '%" + valor + "%'"
+                            + "AND SemestreAcademico.estado ='ACTIVADO'";
 
                 } else {
 
                     if (opbuscar == 3 && valor != null) {
 
-                        sql = "SELECT codigoAcademico,año,semestre FROM SemestreAcademico WHERE SemestreAcademico.semestre LIKE '%" + valor + "%'";
+                        sql = "SELECT codigoAcademico,año,semestre FROM SemestreAcademico WHERE SemestreAcademico.semestre LIKE '%" + valor + "%'"
+                                + "AND SemestreAcademico.estado ='ACTIVADO'";
 
                     } else {
 
-                        sql = "SELECT codigoAcademico,año,semestre FROM SemestreAcademico";
+                        sql = "SELECT codigoAcademico,año,semestre FROM SemestreAcademico WHERE SemestreAcademico.estado='ACTIVADO'";
 
                     }
                 }
@@ -257,18 +273,128 @@ public class SemestreAcademico {
     public void eliminarSemestre(JTextField codtx) {
 
         setCodigoAcademico(codtx.getText());
+        setEstadoAcademico("DESACTIVADO");
+        
 
         Conexion co = new Conexion();
 
-        String consulta = "DELETE FROM SemestreAcademico WHERE SemestreAcademico.codigoAcademico=?";
+        String consulta = "UPDATE SemestreAcademico SET SemestreAcademico.estado=? WHERE SemestreAcademico.codigoAcademico=?";
 
         try {
 
             CallableStatement cs = co.establecerConexion().prepareCall(consulta);
-            cs.setString(1, getCodigoAcademico());
+            cs.setString(1, getEstadoAcademico());
+            cs.setString(2, getCodigoAcademico());
             cs.execute();
 
-            JOptionPane.showMessageDialog(null, "Registro eliminado correctamente");
+            JOptionPane.showMessageDialog(null, "Registro DESACTIVADO correctamente");
+
+        } catch (Exception e) {
+
+            JOptionPane.showMessageDialog(null, "NO se pudo eliminar correctamente: " + e);
+        }
+
+    }
+    
+    public void visualizarSemestreDesactivado(JTable tablaSemestre, int opbuscar, String valor) {
+
+        Conexion con = new Conexion();
+
+        DefaultTableModel modelo = new DefaultTableModel();
+
+        TableRowSorter<TableModel> OrdenarTabla = new TableRowSorter<TableModel>(modelo);
+        tablaSemestre.setRowSorter(OrdenarTabla);
+
+        String sql = "";
+
+        modelo.addColumn("Codigo Academico");
+        modelo.addColumn("Año");
+        modelo.addColumn("Semestre");
+
+        tablaSemestre.setModel(modelo);
+
+//        sql = "SELECT codigoAcademico,año,semestre FROM SemestreAcademico";
+
+        if (opbuscar == 0 && valor == null) {
+
+            sql = "SELECT codigoAcademico,año,semestre FROM SemestreAcademico WHERE SemestreAcademico.estado='DESACTIVADO'";
+        } else {
+
+            if (opbuscar == 1 && valor != null) {
+
+                sql = "SELECT codigoAcademico,año,semestre FROM SemestreAcademico WHERE SemestreAcademico.codigoAcademico LIKE '%" + valor + "%'"
+                        + "AND SemestreAcademico.estado ='DESACTIVADO'";
+
+            } else {
+
+                if (opbuscar == 2 && valor != null) {
+
+                    sql = "SELECT codigoAcademico,año,semestre FROM SemestreAcademico WHERE SemestreAcademico.año LIKE '%" + valor + "%'"
+                            + "AND SemestreAcademico.estado ='DESACTIVADO'";
+
+                } else {
+
+                    if (opbuscar == 3 && valor != null) {
+
+                        sql = "SELECT codigoAcademico,año,semestre FROM SemestreAcademico WHERE SemestreAcademico.semestre LIKE '%" + valor + "%'"
+                                + "AND SemestreAcademico.estado ='DESACTIVADO'";
+
+                    } else {
+
+                        sql = "SELECT codigoAcademico,año,semestre FROM SemestreAcademico WHERE SemestreAcademico.estado='DESACTIVADO'";
+
+                    }
+                }
+            }
+        }
+
+        String[] datos = new String[3];
+        Statement st;
+
+        try {
+
+            st = con.establecerConexion().createStatement();
+
+            ResultSet rs = st.executeQuery(sql);
+
+            while (rs.next()) {
+
+                datos[0] = rs.getString(1);
+                datos[1] = rs.getString(2);
+                datos[2] = rs.getString(3);
+
+                modelo.addRow(datos);
+
+            }
+
+            tablaSemestre.setModel(modelo);
+
+        } catch (Exception e) {
+
+            JOptionPane.showMessageDialog(null, "error al mostrar la tabla: " + e);
+
+        }
+
+    }
+    
+    public void activarSemestre(JTextField codtx) {
+
+        setCodigoAcademico(codtx.getText());
+            setEstadoAcademico("ACTIVADO");
+        
+
+        Conexion co = new Conexion();
+
+        String consulta = "UPDATE SemestreAcademico SET SemestreAcademico.estado=? WHERE SemestreAcademico.codigoAcademico=?";
+
+        try {
+
+            CallableStatement cs = co.establecerConexion().prepareCall(consulta);
+            cs.setString(1, getEstadoAcademico());
+            cs.setString(2, getCodigoAcademico());
+            cs.execute();
+
+            JOptionPane.showMessageDialog(null, "Registro ACTIVADO correctamente");
 
         } catch (Exception e) {
 

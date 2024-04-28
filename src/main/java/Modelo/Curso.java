@@ -32,6 +32,7 @@ public class Curso {
     public String nombre;
     public String salonT;
     public String salonP;
+    public String estadoAcademico;
 
     public String getCodigoAcademico() {
         return codigoAcademico;
@@ -65,6 +66,16 @@ public class Curso {
         this.salonP = salonP;
     }
 
+    public String getEstadoAcademico() {
+        return estadoAcademico;
+    }
+
+    public void setEstadoAcademico(String estadoAcademico) {
+        this.estadoAcademico = estadoAcademico;
+    }
+    
+    
+
     public void InsetarCurso(JTextField nombre, JTextField salT, JTextField salP, JTextField cod) { //******
 
         cod.setText("");
@@ -73,10 +84,11 @@ public class Curso {
         setSalonT(salT.getText());//******
         setSalonP(salP.getText());
         setCodigoAcademico(generarCodigo());//******
+        setEstadoAcademico("ACTIVADO");//******
 
         Conexion co = new Conexion();
 
-        String consulta = "INSERT INTO Curso (codigoAcademico,nombre, salonT, salonP) VALUES (?,?,?,?);";//******
+        String consulta = "INSERT INTO Curso (codigoAcademico,nombre, salonT, salonP, estado) VALUES (?,?,?,?,?);";//******
 
         try {
 
@@ -85,6 +97,7 @@ public class Curso {
             cs.setString(2, getNombre());//******
             cs.setString(3, getSalonT());//******
             cs.setString(4, getSalonP());//******
+            cs.setString(5, getEstadoAcademico());//******
 
             cs.execute();
 
@@ -139,34 +152,38 @@ public class Curso {
 //        sql = "SELECT codigoAcademico,año,semestre FROM SemestreAcademico";
         if (opbuscar == 0 && valor == null) {
 
-            sql = "SELECT * FROM vista_cursos ";//******
+            sql = "SELECT * FROM vista_cursos WHERE vista_cursos.estado = 'ACTIVADO' ";//******
         } else {
 
             if (opbuscar == 1 && valor != null) {
 
-                sql = "SELECT * FROM vista_cursos WHERE vista_cursos.nombre LIKE '%" + valor + "%'";//******
+                sql = "SELECT * FROM vista_cursos WHERE vista_cursos.nombre LIKE '%" + valor + "%'"
+                        + "AND vista_cursos.estado ='ACTIVADO'";//******
 
             } else {
 
                 if (opbuscar == 2 && valor != null) {
 
-                    sql = "SELECT * FROM vista_cursos WHERE vista_cursos.salonT LIKE '%" + valor + "%'";//******
+                    sql = "SELECT * FROM vista_cursos WHERE vista_cursos.salonT LIKE '%" + valor + "%'"
+                            + "AND vista_cursos.estado ='ACTIVADO'";//******
 
                 } else {
 
                     if (opbuscar == 3 && valor != null) {
 
-                        sql = "SELECT * FROM vista_cursos WHERE vista_cursos.salonP LIKE '%" + valor + "%'";//******
+                        sql = "SELECT * FROM vista_cursos WHERE vista_cursos.salonP LIKE '%" + valor + "%'"
+                                + "AND vista_cursos.estado ='ACTIVADO'";//******
 
                     } else {
 
                         if (opbuscar == 4 && valor != null) {
 
-                            sql = "SELECT * from vista_cursos WHERE COALESCE(Usuario_nombre, 'null') LIKE '%" + valor + "%'";//*********
+                            sql = "SELECT * from vista_cursos WHERE COALESCE(Usuario_nombre, 'null') LIKE '%" + valor + "%'"
+                                    + "AND vista_cursos.estado ='ACTIVADO'";//*********
 
                         } else {
 
-                            sql = "SELECT * FROM vista_cursos";//******
+                            sql = "SELECT * FROM vista_cursos WHERE vista_cursos.estado = 'ACTIVADO'";//******
 
                         }
                     }
@@ -270,24 +287,151 @@ public class Curso {
     public void eliminarCurso(JTextField codtx) {
 
         setCodigoAcademico(codtx.getText());//******
+        setEstadoAcademico("DESACTIVADO");
 
         Conexion co = new Conexion();
 
-        String consulta = "DELETE FROM Curso WHERE Curso.codigoAcademico=?";//******
+        String consulta = "UPDATE Curso SET Curso.estado=? WHERE Curso.codigoAcademico = ?";//******
 
         try {
 
             CallableStatement cs = co.establecerConexion().prepareCall(consulta);
-            cs.setString(1, getCodigoAcademico());
+            cs.setString(1, getEstadoAcademico());
+            cs.setString(2, getCodigoAcademico());
             cs.execute();
 
-            JOptionPane.showMessageDialog(null, "Registro eliminado correctamente");
+            JOptionPane.showMessageDialog(null, "Registro DESACTIVADO correctamente");
 
         } catch (Exception e) {
 
             JOptionPane.showMessageDialog(null, "NO se pudo eliminar correctamente: " + e);
         }
 
+    }
+    
+    
+    
+    public void activarCurso(JTextField codtx) {
+
+        setCodigoAcademico(codtx.getText());//******
+        setEstadoAcademico("ACTIVADO");
+
+        Conexion co = new Conexion();
+
+        String consulta = "UPDATE Curso SET Curso.estado=? WHERE Curso.codigoAcademico = ?";//******
+
+        try {
+
+            CallableStatement cs = co.establecerConexion().prepareCall(consulta);
+            cs.setString(1, getEstadoAcademico());
+            cs.setString(2, getCodigoAcademico());
+            cs.execute();
+
+            JOptionPane.showMessageDialog(null, "Registro ACTIVADO correctamente");
+
+        } catch (Exception e) {
+
+            JOptionPane.showMessageDialog(null, "NO se pudo eliminar correctamente: " + e);
+        }
+
+    }
+    
+    public void visualizarCursoDesactivado(JTable tablaCur, int opbuscar, String valor) { //******
+
+        Conexion con = new Conexion();
+
+        DefaultTableModel modelo = new DefaultTableModel();
+
+        TableRowSorter<TableModel> OrdenarTabla = new TableRowSorter<TableModel>(modelo);
+        tablaCur.setRowSorter(OrdenarTabla);
+
+        String sql = "";
+
+        modelo.addColumn("Codigo Academico");//******
+        modelo.addColumn("Nombre");//******
+        modelo.addColumn("Salon Teorico");//******
+        modelo.addColumn("Salon Practico");//******
+        modelo.addColumn("profesor");//******
+
+        tablaCur.setModel(modelo);
+
+//        sql = "SELECT codigoAcademico,año,semestre FROM SemestreAcademico";
+        if (opbuscar == 0 && valor == null) {
+
+            sql = "SELECT * FROM vista_cursos WHERE vista_cursos.estado = 'DESACTIVADO' ";//******
+        } else {
+
+            if (opbuscar == 1 && valor != null) {
+
+                sql = "SELECT * FROM vista_cursos WHERE vista_cursos.nombre LIKE '%" + valor + "%'"
+                        + "AND vista_cursos.estado ='DESACTIVADO'";//******
+
+            } else {
+
+                if (opbuscar == 2 && valor != null) {
+
+                    sql = "SELECT * FROM vista_cursos WHERE vista_cursos.salonT LIKE '%" + valor + "%'"
+                            + "AND vista_cursos.estado ='DESACTIVADO'";//******
+
+                } else {
+
+                    if (opbuscar == 3 && valor != null) {
+
+                        sql = "SELECT * FROM vista_cursos WHERE vista_cursos.salonP LIKE '%" + valor + "%'"
+                                + "AND vista_cursos.estado ='DESACTIVADO'";//******
+
+                    } else {
+
+                        if (opbuscar == 4 && valor != null) {
+
+                            sql = "SELECT * from vista_cursos WHERE COALESCE(Usuario_nombre, 'null') LIKE '%" + valor + "%'"
+                                    + "AND vista_cursos.estado ='DESACTIVADO'";//*********
+
+                        } else {
+
+                            sql = "SELECT * FROM vista_cursos WHERE vista_cursos.estado = 'DESACTIVADO'";//******
+
+                        }
+                    }
+                }
+            }
+
+            String[] datos = new String[5];
+            Statement st;
+
+            try {
+
+                st = con.establecerConexion().createStatement();
+
+                ResultSet rs = st.executeQuery(sql);
+
+                while (rs.next()) {
+
+                    datos[0] = rs.getString(1);//******
+                    datos[1] = rs.getString(2);//******
+                    datos[2] = rs.getString(3);//******
+                    datos[3] = rs.getString(4);//******
+                    datos[4] = rs.getString(5);//******
+
+                    if (datos[4] == null) {
+
+                        datos[4] = "Sin Asignacion";
+
+                    }
+
+                    modelo.addRow(datos);
+
+                }
+
+                tablaCur.setModel(modelo);
+
+            } catch (Exception e) {
+
+                JOptionPane.showMessageDialog(null, "error al mostrar la tabla: " + e);
+
+            }
+
+        }
     }
 
 }
