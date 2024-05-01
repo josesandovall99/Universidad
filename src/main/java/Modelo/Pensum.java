@@ -27,15 +27,27 @@ import javax.swing.table.TableRowSorter;
  * @author JOSE SANDOVAL
  */
 public class Pensum {
-    
+
+    public int idInterno;
     public String codigoAcademico;
     public String nombre;
     public String numeroSemestres;
     public String estadoAcademico;
+    public ProgramaAcademico programa;
 
     public String getCodigoAcademico() {
         return codigoAcademico;
     }
+
+    public int getIdInterno() {
+        return idInterno;
+    }
+
+    public void setIdInterno(int idInterno) {
+        this.idInterno = idInterno;
+    }
+    
+    
 
     public void setCodigoAcademico(String codigoAcademico) {
         this.codigoAcademico = codigoAcademico;
@@ -64,14 +76,19 @@ public class Pensum {
     public void setEstadoAcademico(String estadoAcademico) {
         this.estadoAcademico = estadoAcademico;
     }
-    
-    
-    
+
+    public ProgramaAcademico getPrograma() {
+        return programa;
+    }
+
+    public void setPrograma(ProgramaAcademico programa) {
+        this.programa = programa;
+    }
+
     public void InsetarPensum(JTextField nombre, JTextField num, JTextField codigo) { //******
 
-        
         codigo.setText("");
-        
+
         setNombre(nombre.getText()); //******
         setNumeroSemestres(num.getText());//******
         setCodigoAcademico(generarCodigo());//******
@@ -103,20 +120,18 @@ public class Pensum {
     public String generarCodigo() {
 
         //PATRON DE DISEÑO------------------
-        
-        String codigo="";
-        
+        String codigo = "";
+
         BuilderPensum a = new BuilderPensum();
         Director b = new Director();
-        
-        b.construirCodigoAcademico(a);
-        
-        CodigoPensum codig = a.getResult();
-        
-        codigo = codig.pasarAString();
-        
-        //----------------------------------
 
+        b.construirCodigoAcademico(a);
+
+        CodigoPensum codig = a.getResult();
+
+        codigo = codig.pasarAString();
+
+        //----------------------------------
         return codigo;
     }
 
@@ -160,7 +175,7 @@ public class Pensum {
 
                     if (opbuscar == 3 && valor != null) {
 
-                        sql ="SELECT * from vista_pensums WHERE COALESCE(ProgramaAcademico, 'null') LIKE '%" + valor + "%'"
+                        sql = "SELECT * from vista_pensums WHERE COALESCE(ProgramaAcademico, 'null') LIKE '%" + valor + "%'"
                                 + "AND vista_pensums.estado ='ACTIVADO'";//*********
 
                     } else {
@@ -183,18 +198,15 @@ public class Pensum {
 
             while (rs.next()) {
 
-                
-                
-                
                 datos[0] = rs.getString(1);//******
                 datos[1] = rs.getString(2);//******
                 datos[2] = rs.getString(3);//******
                 datos[3] = rs.getString(4);//******
-                
+
                 if (datos[3] == null) {
-                    
+
                     datos[3] = "Sin Asignacion";
-                    
+
                 }
 
                 modelo.addRow(datos);
@@ -288,7 +300,7 @@ public class Pensum {
         }
 
     }
-    
+
     public void visualizarPensumDesactivado(JTable tablaPen, int opbuscar, String valor) { //******
 
         Conexion con = new Conexion();
@@ -329,7 +341,7 @@ public class Pensum {
 
                     if (opbuscar == 3 && valor != null) {
 
-                        sql ="SELECT * from vista_pensums WHERE COALESCE(ProgramaAcademico, 'null') LIKE '%" + valor + "%'"
+                        sql = "SELECT * from vista_pensums WHERE COALESCE(ProgramaAcademico, 'null') LIKE '%" + valor + "%'"
                                 + "AND vista_pensums.estado='DESACTIVADO'";//*********
 
                     } else {
@@ -352,18 +364,15 @@ public class Pensum {
 
             while (rs.next()) {
 
-                
-                
-                
                 datos[0] = rs.getString(1);//******
                 datos[1] = rs.getString(2);//******
                 datos[2] = rs.getString(3);//******
                 datos[3] = rs.getString(4);//******
-                
+
                 if (datos[3] == null) {
-                    
+
                     datos[3] = "Sin Asignacion";
-                    
+
                 }
 
                 modelo.addRow(datos);
@@ -379,7 +388,7 @@ public class Pensum {
         }
 
     }
-    
+
     public void activarPensum(JTextField codtx) {
 
         setCodigoAcademico(codtx.getText());//******
@@ -404,5 +413,58 @@ public class Pensum {
         }
 
     }
-    
+
+    public void asignarPrograma(JTextField codtx1, JTextField codtx2) {
+
+        ProgramaAcademico programa = new ProgramaAcademico();
+
+        setCodigoAcademico(codtx1.getText());//******
+        setPrograma(programa);
+        this.programa.setCodigoAcademico(codtx2.getText());
+
+        Conexion co = new Conexion();
+
+        String sql = "SELECT id FROM ProgramaAcademico WHERE ProgramaAcademico.codigoAcademico = '" + this.programa.getCodigoAcademico() + "'";
+
+        
+        
+        try {
+
+            Statement st;
+
+            st = co.establecerConexion().createStatement();
+
+            ResultSet rs = st.executeQuery(sql);
+
+            rs.next();
+            this.programa.setIdInterno(rs.getInt("id"));
+
+        } catch (Exception e) {
+        }
+
+//        String consulta1 = "UPDATE Pensum"
+//                + "JOIN ProgramaAcademico ON Pensum.id_programa = ProgramaAcademico.id"
+//                + "SET Pensum.id_programa = "+this.programa.getIdInterno()+""
+//                + "WHERE Pensum.codigoAcademico = '"+getCodigoAcademico()+"';";//******
+        
+        System.out.println(this.programa.getIdInterno());
+
+        String consulta = "UPDATE Pensum SET Pensum.id_programa = "+this.programa.getIdInterno()+" "
+                + "WHERE Pensum.codigoAcademico = '"+getCodigoAcademico()+"';";
+
+        try {
+
+            CallableStatement cs = co.establecerConexion().prepareCall(consulta);
+            
+            cs.execute();
+
+            JOptionPane.showMessageDialog(null, "Programa ASIGNADO correctamente");
+
+        } catch (Exception e) {
+
+            JOptionPane.showMessageDialog(null, "NO se pudo ASIGNAR correctamente: " + e);
+        }
+
+    }
+
 }

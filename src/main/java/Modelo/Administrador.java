@@ -18,6 +18,8 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.Random;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -577,6 +579,16 @@ public class Administrador {
             JOptionPane.showMessageDialog(null, "NO se pudo eliminar correctamente: " + e);
         }
 
+    }
+    
+    
+    public boolean verificar_Email (String correo){
+    
+        Pattern patron = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+        Matcher coincidir = patron.matcher(correo);
+        
+        return coincidir.find();
+    
     }
 
 }

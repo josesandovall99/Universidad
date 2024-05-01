@@ -28,6 +28,7 @@ import javax.swing.table.TableRowSorter;
  */
 public class ProgramaAcademico {
 
+    public int idInterno;
     public String codigoAcademico;
     public String nombre;
     public String facultad;
@@ -42,6 +43,16 @@ public class ProgramaAcademico {
     public ProgramaAcademico() {
     }
 
+    public int getIdInterno() {
+        return idInterno;
+    }
+
+    public void setIdInterno(int idInterno) {
+        this.idInterno = idInterno;
+    }
+
+    
+    
     public String getCodigoAcademico() {
         return codigoAcademico;
     }

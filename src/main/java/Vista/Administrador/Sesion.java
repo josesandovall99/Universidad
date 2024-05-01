@@ -29,9 +29,9 @@ public class Sesion extends javax.swing.JFrame {
     private void initComponents() {
 
         ustxt = new javax.swing.JTextField();
-        contxt = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        contxt = new javax.swing.JPasswordField();
         jLabel4 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -48,10 +48,6 @@ public class Sesion extends javax.swing.JFrame {
             }
         });
         getContentPane().add(ustxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 200, 290, 30));
-
-        contxt.setBackground(new java.awt.Color(255, 255, 255));
-        contxt.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
-        getContentPane().add(contxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 270, 290, 30));
 
         jButton1.setBackground(new java.awt.Color(13, 70, 228));
         jButton1.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
@@ -76,6 +72,11 @@ public class Sesion extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 330, 140, 30));
+
+        contxt.setBackground(new java.awt.Color(255, 255, 255));
+        contxt.setForeground(new java.awt.Color(102, 102, 102));
+        contxt.setText("jPasswordField1");
+        getContentPane().add(contxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 280, 290, 30));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
@@ -162,7 +163,7 @@ public class Sesion extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField contxt;
+    private javax.swing.JPasswordField contxt;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;

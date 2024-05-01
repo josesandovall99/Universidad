@@ -196,7 +196,7 @@ public class AsignaturasDesactivadas extends javax.swing.JFrame {
 
         jLabel5.setFont(new java.awt.Font("Segoe UI Semibold", 2, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel5.setText("SISTEMA PARA ADMINISTRADORES");
+        jLabel5.setText("SISTEMA PARA ADMINISTRADORES - Asignaturas Desactivadas");
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI Semibold", 2, 36)); // NOI18N

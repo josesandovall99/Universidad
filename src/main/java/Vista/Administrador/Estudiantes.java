@@ -6,6 +6,7 @@ package Vista.Administrador;
 
 import Modelo.Administrador;
 import Modelo.Estudiante;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -48,6 +49,7 @@ public class Estudiantes extends javax.swing.JFrame {
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
+        jButton11 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         agregarbt = new javax.swing.JButton();
         telefonotxt = new javax.swing.JTextField();
@@ -105,6 +107,11 @@ public class Estudiantes extends javax.swing.JFrame {
         jButton3.setText("Pensum");
         jButton3.setBorder(null);
         jButton3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 160, 40));
 
         jButton4.setBackground(new java.awt.Color(255, 255, 255));
@@ -126,6 +133,11 @@ public class Estudiantes extends javax.swing.JFrame {
         jButton5.setText("Semestres");
         jButton5.setBorder(null);
         jButton5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 160, 40));
 
         jButton6.setBackground(new java.awt.Color(255, 255, 255));
@@ -134,6 +146,11 @@ public class Estudiantes extends javax.swing.JFrame {
         jButton6.setText("Asignaturas");
         jButton6.setBorder(null);
         jButton6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 290, 160, 40));
 
         jButton7.setBackground(new java.awt.Color(255, 255, 255));
@@ -142,6 +159,11 @@ public class Estudiantes extends javax.swing.JFrame {
         jButton7.setText("Cursos");
         jButton7.setBorder(null);
         jButton7.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 330, 160, 40));
 
         jButton8.setBackground(new java.awt.Color(255, 255, 255));
@@ -156,6 +178,22 @@ public class Estudiantes extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 370, 160, 40));
+
+        jButton11.setBackground(new java.awt.Color(255, 255, 255));
+        jButton11.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
+        jButton11.setForeground(new java.awt.Color(102, 102, 102));
+        jButton11.setText("Asignaciones");
+        jButton11.setBorder(null);
+        jButton11.setBorderPainted(false);
+        jButton11.setContentAreaFilled(false);
+        jButton11.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton11.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jButton11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton11ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 420, 130, 40));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Registros y Desactivacion", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Semibold", 0, 18), new java.awt.Color(0, 102, 255))); // NOI18N
@@ -177,6 +215,11 @@ public class Estudiantes extends javax.swing.JFrame {
                 telefonotxtActionPerformed(evt);
             }
         });
+        telefonotxt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                telefonotxtKeyReleased(evt);
+            }
+        });
 
         emailtxt.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "E-mail", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Semibold", 0, 14), new java.awt.Color(102, 102, 102))); // NOI18N
 
@@ -192,10 +235,10 @@ public class Estudiantes extends javax.swing.JFrame {
 
         nombretxt.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Nombre Completo", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Semibold", 0, 14), new java.awt.Color(102, 102, 102))); // NOI18N
 
-        eliminarbt.setBackground(new java.awt.Color(255, 255, 255));
+        eliminarbt.setBackground(new java.awt.Color(255, 51, 51));
         eliminarbt.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
-        eliminarbt.setForeground(new java.awt.Color(102, 102, 102));
-        eliminarbt.setText("Eliminar");
+        eliminarbt.setForeground(new java.awt.Color(255, 255, 255));
+        eliminarbt.setText("Desactivar");
         eliminarbt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 eliminarbtActionPerformed(evt);
@@ -381,6 +424,10 @@ public class Estudiantes extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        
+        new Profesores().setVisible(true);
+        dispose();
+        
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void agregarbtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarbtActionPerformed
@@ -438,6 +485,10 @@ public class Estudiantes extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
+        
+        new Programas().setVisible(true);
+        dispose();
+        
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
@@ -456,6 +507,63 @@ public class Estudiantes extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_jButton10ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        
+        new PensumV().setVisible(true);
+        dispose();
+        
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        
+        new Semestres().setVisible(true);
+        dispose();
+        
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+        
+        new Asignaturas().setVisible(true);
+        dispose();
+        
+        
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        // TODO add your handling code here:
+        
+        new Cursos().setVisible(true);
+        dispose();
+        
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+        // TODO add your handling code here:
+
+        new Principal().setVisible(true);
+        dispose();
+
+    }//GEN-LAST:event_jButton11ActionPerformed
+
+    private void telefonotxtKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_telefonotxtKeyReleased
+        // TODO add your handling code here:
+        
+        char validar = evt.getKeyChar();
+        
+        if (Character.isLetter(validar)) {
+            
+            getToolkit().beep();
+            evt.consume(); 
+            
+            JOptionPane.showMessageDialog(null, "SOLO NUMEROS EN ESTE CAMPO");
+            
+        }
+        
+    }//GEN-LAST:event_telefonotxtKeyReleased
 
     /**
      * @param args the command line arguments
@@ -502,6 +610,7 @@ public class Estudiantes extends javax.swing.JFrame {
     private javax.swing.JTextField idtxt;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
+    private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
