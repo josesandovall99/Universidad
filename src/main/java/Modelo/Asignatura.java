@@ -33,6 +33,27 @@ public class Asignatura {
     public String creditos;
     public String tipo;
     public String estadoAcademico;
+    public int idInterno;
+    public Pensum pensum;
+
+    public int getIdInterno() {
+        return idInterno;
+    }
+
+    public Pensum getPensum() {
+        return pensum;
+    }
+
+    public void setPensum(Pensum pensum) {
+        this.pensum = pensum;
+    }
+
+    
+    
+    
+    public void setIdInterno(int idInterno) {
+        this.idInterno = idInterno;
+    }
 
     public String getCodigoAcademico() {
         return codigoAcademico;
@@ -88,6 +109,15 @@ public class Asignatura {
 
         String consulta = "INSERT INTO Asignatura (codigoAcademico,nombre, creditos, tipo, estado) VALUES (?,?,?,?,?);";//******
 
+        Object[] opciones = {"Sí", "No"};
+        
+        int respuesta = JOptionPane.showOptionDialog(null, 
+                "¿Estás seguro de que quieres CREAR una ASIGNATURA?", "Confirmación", 
+                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[0]);
+
+        if (respuesta == JOptionPane.YES_OPTION) {
+        
+        
         try {
 
             CallableStatement cs = co.establecerConexion().prepareCall(consulta);
@@ -105,6 +135,9 @@ public class Asignatura {
 
             JOptionPane.showMessageDialog(null, "error al insertar: " + e);
         }
+        
+        } else {
+            JOptionPane.showMessageDialog(null, "Inercion Cancelada");}
 
     }
 
@@ -148,7 +181,7 @@ public class Asignatura {
 //        sql = "SELECT codigoAcademico,año,semestre FROM SemestreAcademico";
         if (opbuscar == 0 && valor == null) {
 
-            sql = "SELECT * FROM vista_asignaturas WHERE vista_asignaturas.estado = 'ACTIVADO'";//******
+            sql = "SELECT * FROM vista_asignaturas WHERE vista_asignaturas.estado = 'ACTIVADO';";//******
         } else {
 
             if (opbuscar == 1 && valor != null) {
@@ -185,43 +218,43 @@ public class Asignatura {
                     }
                 }
             }
+        }
 
-            String[] datos = new String[5];
-            Statement st;
+        String[] datos = new String[5];
+        Statement st;
 
-            try {
+        try {
 
-                st = con.establecerConexion().createStatement();
+            st = con.establecerConexion().createStatement();
 
-                ResultSet rs = st.executeQuery(sql);
+            ResultSet rs = st.executeQuery(sql);
 
-                while (rs.next()) {
+            while (rs.next()) {
 
-                    datos[0] = rs.getString(1);//******
-                    datos[1] = rs.getString(2);//******
-                    datos[2] = rs.getString(3);//******
-                    datos[3] = rs.getString(4);//******
-                    datos[4] = rs.getString(5);//******
+                datos[0] = rs.getString(1);//******
+                datos[1] = rs.getString(2);//******
+                datos[2] = rs.getString(3);//******
+                datos[3] = rs.getString(4);//******
+                datos[4] = rs.getString(5);//******
 
-                    if (datos[4] == null) {
+                if (datos[4] == null) {
 
-                        datos[4] = "Sin Asignacion";
-
-                    }
-
-                    modelo.addRow(datos);
+                    datos[4] = "Sin Asignacion";
 
                 }
 
-                tablaA.setModel(modelo);
-
-            } catch (Exception e) {
-
-                JOptionPane.showMessageDialog(null, "error al mostrar la tabla: " + e);
+                modelo.addRow(datos);
 
             }
 
+            tablaA.setModel(modelo);
+
+        } catch (Exception e) {
+
+            JOptionPane.showMessageDialog(null, "error al mostrar la tabla: " + e);
+
         }
+
     }
 
     public void seleccionar(JTable tabla, JTextField txcod, JTextField txnom, JTextField txcred, JTextField txtip) {//******
@@ -289,18 +322,28 @@ public class Asignatura {
 
         String consulta = "UPDATE Asignatura SET Asignatura.estado=? WHERE Asignatura.codigoAcademico =?;";//******
 
-        try {
+        Object[] opciones = {"Sí", "No"};
 
-            CallableStatement cs = co.establecerConexion().prepareCall(consulta);
-            cs.setString(1, getEstadoAcademico());
-            cs.setString(2, getCodigoAcademico());
-            cs.execute();
+        // Mostrar un cuadro de diálogo de confirmación con botones en español
+        int respuesta = JOptionPane.showOptionDialog(null, "¿Estás seguro de que quieres Desactivar?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[0]);
 
-            JOptionPane.showMessageDialog(null, "Registro DESACTIVADO correctamente");
+        if (respuesta == JOptionPane.YES_OPTION) {
+            try {
 
-        } catch (Exception e) {
+                CallableStatement cs = co.establecerConexion().prepareCall(consulta);
+                cs.setString(1, getEstadoAcademico());
+                cs.setString(2, getCodigoAcademico());
+                cs.execute();
 
-            JOptionPane.showMessageDialog(null, "NO se pudo eliminar correctamente: " + e);
+                JOptionPane.showMessageDialog(null, "Registro DESACTIVADO correctamente");
+
+            } catch (Exception e) {
+
+                JOptionPane.showMessageDialog(null, "NO se pudo eliminar correctamente: " + e);
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Se cancelo la Desactivacion");
         }
 
     }
@@ -329,8 +372,8 @@ public class Asignatura {
         }
 
     }
-    
-        public void visualizarAsignaturaDesactivadas(JTable tablaA, int opbuscar, String valor) { //******
+
+    public void visualizarAsignaturaDesactivadas(JTable tablaA, int opbuscar, String valor) { //******
 
         Conexion con = new Conexion();
 
@@ -426,5 +469,55 @@ public class Asignatura {
             }
 
         }
+    }
+    
+    public void asignarPensum(JTextField codtx1, JTextField codtx2) {
+
+        Pensum pensum = new Pensum();
+
+        setCodigoAcademico(codtx1.getText());//******
+        setPensum(pensum);
+        this.pensum.setCodigoAcademico(codtx2.getText());
+
+        Conexion co = new Conexion();
+
+        String sql = "SELECT id FROM Pensum WHERE Pensum.codigoAcademico = '" + this.pensum.getCodigoAcademico() + "'";
+
+        try {
+
+            Statement st;
+
+            st = co.establecerConexion().createStatement();
+
+            ResultSet rs = st.executeQuery(sql);
+
+            rs.next();
+            this.pensum.setIdInterno(rs.getInt("id"));
+
+        } catch (Exception e) {
+        }
+
+//        String consulta1 = "UPDATE Pensum"
+//                + "JOIN ProgramaAcademico ON Pensum.id_programa = ProgramaAcademico.id"
+//                + "SET Pensum.id_programa = "+this.programa.getIdInterno()+""
+//                + "WHERE Pensum.codigoAcademico = '"+getCodigoAcademico()+"';";//******
+        System.out.println(this.pensum.getIdInterno());
+
+        String consulta = "UPDATE Asignatura SET Asignatura.id_pensum = " + this.pensum.getIdInterno() + " "
+                + "WHERE Asignatura.codigoAcademico = '" + getCodigoAcademico() + "';";
+
+        try {
+
+            CallableStatement cs = co.establecerConexion().prepareCall(consulta);
+
+            cs.execute();
+
+            JOptionPane.showMessageDialog(null, "Pensum ASIGNADO correctamente");
+
+        } catch (Exception e) {
+
+            JOptionPane.showMessageDialog(null, "NO se pudo ASIGNAR correctamente: " + e);
+        }
+
     }
 }

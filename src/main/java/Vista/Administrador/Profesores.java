@@ -4,8 +4,10 @@
  */
 package Vista.Administrador;
 
+import Modelo.Administrador;
 import Modelo.Estudiante;
 import Modelo.Profesor;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -20,7 +22,7 @@ public class Profesores extends javax.swing.JFrame {
         initComponents();
         
         idtxt.setEditable(false);
-        
+        intxt.setVisible(false);
         
         Profesor a = new Profesor();
         int opcion = comboOpcion.getSelectedIndex();
@@ -46,6 +48,7 @@ public class Profesores extends javax.swing.JFrame {
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
+        jButton11 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         agregarbt = new javax.swing.JButton();
         telefonotxt = new javax.swing.JTextField();
@@ -55,6 +58,7 @@ public class Profesores extends javax.swing.JFrame {
         eliminarbt = new javax.swing.JButton();
         dirtxt = new javax.swing.JTextField();
         idtxt = new javax.swing.JTextField();
+        intxt = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaSem = new javax.swing.JTable();
@@ -197,6 +201,22 @@ public class Profesores extends javax.swing.JFrame {
         });
         getContentPane().add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 380, 160, 40));
 
+        jButton11.setBackground(new java.awt.Color(255, 255, 255));
+        jButton11.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
+        jButton11.setForeground(new java.awt.Color(102, 102, 102));
+        jButton11.setText("Asignaciones");
+        jButton11.setBorder(null);
+        jButton11.setBorderPainted(false);
+        jButton11.setContentAreaFilled(false);
+        jButton11.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton11.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jButton11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton11ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 420, 130, 40));
+
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Registros y Desactivacion", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Semibold", 0, 18), new java.awt.Color(0, 102, 255))); // NOI18N
         jPanel1.setForeground(new java.awt.Color(204, 51, 0));
@@ -217,8 +237,21 @@ public class Profesores extends javax.swing.JFrame {
                 telefonotxtActionPerformed(evt);
             }
         });
+        telefonotxt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                telefonotxtKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                telefonotxtKeyTyped(evt);
+            }
+        });
 
         emailtxt.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "E-mail", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Semibold", 0, 14), new java.awt.Color(102, 102, 102))); // NOI18N
+        emailtxt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                emailtxtKeyTyped(evt);
+            }
+        });
 
         modificarbt.setBackground(new java.awt.Color(255, 255, 255));
         modificarbt.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
@@ -231,11 +264,16 @@ public class Profesores extends javax.swing.JFrame {
         });
 
         nombretxt.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Nombre Completo", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Semibold", 0, 14), new java.awt.Color(102, 102, 102))); // NOI18N
+        nombretxt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                nombretxtKeyTyped(evt);
+            }
+        });
 
-        eliminarbt.setBackground(new java.awt.Color(255, 255, 255));
+        eliminarbt.setBackground(new java.awt.Color(255, 51, 51));
         eliminarbt.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
-        eliminarbt.setForeground(new java.awt.Color(102, 102, 102));
-        eliminarbt.setText("Eliminar");
+        eliminarbt.setForeground(new java.awt.Color(255, 255, 255));
+        eliminarbt.setText("Desactivar");
         eliminarbt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 eliminarbtActionPerformed(evt);
@@ -246,6 +284,10 @@ public class Profesores extends javax.swing.JFrame {
 
         idtxt.setForeground(new java.awt.Color(204, 204, 204));
         idtxt.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "ID interno", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Semibold", 0, 14), new java.awt.Color(102, 102, 102))); // NOI18N
+
+        intxt.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
+        intxt.setForeground(new java.awt.Color(255, 51, 51));
+        intxt.setText("Email Invalido");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -269,7 +311,9 @@ public class Profesores extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(emailtxt, javax.swing.GroupLayout.DEFAULT_SIZE, 427, Short.MAX_VALUE)
                         .addComponent(dirtxt)))
-                .addContainerGap(97, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(intxt, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -278,7 +322,10 @@ public class Profesores extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(2, 2, 2)
                         .addComponent(nombretxt, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(emailtxt, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(emailtxt, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(intxt)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(telefonotxt, javax.swing.GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE)
@@ -491,6 +538,10 @@ public class Profesores extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
+        
+        new Programas().setVisible(true);
+        dispose();
+        
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
@@ -530,6 +581,80 @@ public class Profesores extends javax.swing.JFrame {
         dispose();
         
     }//GEN-LAST:event_jButton10ActionPerformed
+
+    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+        // TODO add your handling code here:
+
+        new Principal().setVisible(true);
+        dispose();
+
+    }//GEN-LAST:event_jButton11ActionPerformed
+
+    private void telefonotxtKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_telefonotxtKeyReleased
+        // TODO add your handling code here:
+        
+        
+        
+    }//GEN-LAST:event_telefonotxtKeyReleased
+
+    private void emailtxtKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_emailtxtKeyTyped
+        // TODO add your handling code here:
+        
+        Profesor ad = new Profesor();
+        
+        if (ad.verificar_Email(emailtxt.getText())) {
+            
+            intxt.setVisible(false);
+            
+        }else{
+        
+        intxt.setVisible(true);
+        
+        }
+        
+                        char validar = evt.getKeyChar();
+        
+        if (Character.isDigit(validar)) {
+            
+            getToolkit().beep();
+            evt.consume();
+            
+            JOptionPane.showMessageDialog(null, "SOLO LETRAS EN ESTE CAMPO");
+            
+        }
+        
+        
+    }//GEN-LAST:event_emailtxtKeyTyped
+
+    private void telefonotxtKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_telefonotxtKeyTyped
+        // TODO add your handling code here:
+        
+        char validar = evt.getKeyChar();
+        
+        if (Character.isLetter(validar)) {
+            
+            getToolkit().beep();
+            evt.consume(); 
+            
+            JOptionPane.showMessageDialog(null, "SOLO NUMEROS EN ESTE CAMPO");
+            
+        }
+    }//GEN-LAST:event_telefonotxtKeyTyped
+
+    private void nombretxtKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nombretxtKeyTyped
+        // TODO add your handling code here:
+        
+        char validar = evt.getKeyChar();
+        
+        if (Character.isDigit(validar)) {
+            
+            getToolkit().beep();
+            evt.consume();
+            
+            JOptionPane.showMessageDialog(null, "SOLO LETRAS EN ESTE CAMPO");
+            
+        }
+    }//GEN-LAST:event_nombretxtKeyTyped
 
     /**
      * @param args the command line arguments
@@ -574,8 +699,10 @@ public class Profesores extends javax.swing.JFrame {
     private javax.swing.JButton eliminarbt;
     private javax.swing.JTextField emailtxt;
     private javax.swing.JTextField idtxt;
+    private javax.swing.JLabel intxt;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
+    private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;

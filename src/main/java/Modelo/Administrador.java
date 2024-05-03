@@ -14,10 +14,14 @@ import Vista.Administrador.CompletarAdministrador;
 import Vista.Administrador.Principal;
 import Vista.Administrador.Sesion;
 import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.Random;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -124,45 +128,51 @@ public class Administrador {
 
     public void InsetarAdministrador(JTextField nombre, JTextField email, JTextField tel, JTextField dir) { //******
 
-        setNombre(nombre.getText()); //******
-        setEmail(email.getText());//******
+        setNombre(nombre.getText());
+        setEmail(email.getText());
         setTelefono(tel.getText());
         setDireccion(dir.getText());
         setEstadoAcademico("ACTIVADO");
         setTipo("administrador");
 
         Conexion co = new Conexion();
-
-        String consulta = "INSERT INTO Usuario (nombre, email, telefono, direccion, tipoUsuario,estado) VALUES (?,?,?,?,?,?);";//******
+        String consulta = "INSERT INTO Usuario (nombre, email, telefono, direccion, tipoUsuario,estado) VALUES (?,?,?,?,?,?)";
 
         Object[] opciones = {"Sí", "No"};
-
-        // Mostrar un cuadro de diálogo de confirmación con botones en español
         int respuesta = JOptionPane.showOptionDialog(null, "¿Estás seguro de que quieres CREAR un ADMINISTRADOR?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[0]);
 
         if (respuesta == JOptionPane.YES_OPTION) {
             try {
+                Connection conn = co.establecerConexion();
+                PreparedStatement ps = conn.prepareStatement(consulta, Statement.RETURN_GENERATED_KEYS);
 
-                CallableStatement cs = co.establecerConexion().prepareCall(consulta);
-                cs.setString(1, getNombre());//******
-                cs.setString(2, getEmail());//******
-                cs.setString(3, getTelefono());//******
-                cs.setString(4, getDireccion());//******
-                cs.setString(5, getTipo());//******
-                cs.setString(6, getEstadoAcademico());//******
+                ps.setString(1, getNombre());
+                ps.setString(2, getEmail());
+                ps.setString(3, getTelefono());
+                ps.setString(4, getDireccion());
+                ps.setString(5, getTipo());
+                ps.setString(6, getEstadoAcademico());
 
-                cs.execute();
+                int rowsAffected = ps.executeUpdate();
 
-                JOptionPane.showMessageDialog(null, "SE CREO CORRECTAMENTE");
+                if (rowsAffected == 1) {
+                    ResultSet rs = ps.getGeneratedKeys();
+                    if (rs.next()) {
+                        int idGenerado = rs.getInt(1);
+                        JOptionPane.showMessageDialog(null, "SE CREO CORRECTAMENTE");
+                        Email e = new Email();
+                        e.createEmail(getEmail(), idGenerado);
+                        e.sendEmail();
+                    }
+                }
 
+                conn.close();
             } catch (Exception e) {
-
                 JOptionPane.showMessageDialog(null, "error al insertar: " + e);
             }
 
         } else {
-            JOptionPane.showMessageDialog(null, "Inercion Cancelada");
-
+            JOptionPane.showMessageDialog(null, "Inerción Cancelada");
         }
 
     }
@@ -576,6 +586,15 @@ public class Administrador {
 
             JOptionPane.showMessageDialog(null, "NO se pudo eliminar correctamente: " + e);
         }
+
+    }
+
+    public boolean verificar_Email(String correo) {
+
+        Pattern patron = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+        Matcher coincidir = patron.matcher(correo);
+
+        return coincidir.find();
 
     }
 

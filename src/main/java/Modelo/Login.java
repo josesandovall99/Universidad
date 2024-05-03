@@ -12,7 +12,10 @@ import Vista.Administrador.Sesion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 /**
@@ -49,7 +52,7 @@ public class Login {
         this.id = id;
     }
 
-    public void validar(JTextField usuario, JTextField contraseña) {
+    public void validar(JTextField usuario, JPasswordField contraseña) {
 
         setCodigo(usuario.getText());
         setContraseña(contraseña.getText());
@@ -101,6 +104,8 @@ public class Login {
 
         setId(usuario.getText());
 
+        
+        
         if (!getId().equals("")) {
 
             try {
@@ -142,6 +147,34 @@ public class Login {
             JOptionPane.showMessageDialog(null, "DEBE  COMPLETAR LOS DATOS");
         }
 
+    }
+    
+    
+    public void a(){
+    
+    Object[] opciones = {"Sí", "No"};
+        
+        // Mostrar un cuadro de diálogo de confirmación con botones en español
+        int respuesta = JOptionPane.showOptionDialog(null, "¿Estás seguro de que quieres continuar?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[0]);
+        
+        if (respuesta == JOptionPane.YES_OPTION) {
+            System.out.println("El usuario ha confirmado.");
+            // Aquí puedes poner el código que quieres ejecutar si el usuario confirma
+        } else {
+            System.out.println("El usuario ha cancelado.");
+            // Aquí puedes poner el código que quieres ejecutar si el usuario cancela
+        }
+    
+    }
+    
+    
+    public boolean verificar_Email (String correo){
+    
+        Pattern patron = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+        Matcher coincidir = patron.matcher(correo);
+        
+        return coincidir.find();
+    
     }
 
 }

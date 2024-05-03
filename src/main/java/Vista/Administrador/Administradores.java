@@ -8,6 +8,9 @@ package Vista.Administrador;
 
 import Modelo.Administrador;
 import Modelo.Asignatura;
+import Modelo.Email;
+import Modelo.Estudiante;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -20,6 +23,8 @@ public class Administradores extends javax.swing.JFrame {
      */
     public Administradores() {
         initComponents();
+        
+        intxt.setVisible(false);
         
         idtxt.setEditable(false);
         
@@ -48,6 +53,7 @@ public class Administradores extends javax.swing.JFrame {
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
+        jButton11 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         agregarbt = new javax.swing.JButton();
         teltxt = new javax.swing.JTextField();
@@ -57,6 +63,7 @@ public class Administradores extends javax.swing.JFrame {
         eliminarbt = new javax.swing.JButton();
         dirtxt = new javax.swing.JTextField();
         idtxt = new javax.swing.JTextField();
+        intxt = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaSem = new javax.swing.JTable();
@@ -188,7 +195,7 @@ public class Administradores extends javax.swing.JFrame {
         jButton8.setBackground(new java.awt.Color(255, 255, 255));
         jButton8.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
         jButton8.setForeground(new java.awt.Color(102, 102, 102));
-        jButton8.setText("Administrador");
+        jButton8.setText("Asignaciones");
         jButton8.setBorder(null);
         jButton8.setBorderPainted(false);
         jButton8.setContentAreaFilled(false);
@@ -199,7 +206,23 @@ public class Administradores extends javax.swing.JFrame {
                 jButton8ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 380, 130, 40));
+        getContentPane().add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 420, 130, 40));
+
+        jButton11.setBackground(new java.awt.Color(255, 255, 255));
+        jButton11.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
+        jButton11.setForeground(new java.awt.Color(102, 102, 102));
+        jButton11.setText("Administrador");
+        jButton11.setBorder(null);
+        jButton11.setBorderPainted(false);
+        jButton11.setContentAreaFilled(false);
+        jButton11.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton11.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jButton11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton11ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 380, 130, 40));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Registros y Desactivacion", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Semibold", 0, 18), new java.awt.Color(0, 102, 255))); // NOI18N
@@ -221,8 +244,24 @@ public class Administradores extends javax.swing.JFrame {
                 teltxtActionPerformed(evt);
             }
         });
+        teltxt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                teltxtKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                teltxtKeyTyped(evt);
+            }
+        });
 
         emailtxt.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "E-mail", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Semibold", 0, 14), new java.awt.Color(102, 102, 102))); // NOI18N
+        emailtxt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                emailtxtKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                emailtxtKeyTyped(evt);
+            }
+        });
 
         modificarbt.setBackground(new java.awt.Color(255, 255, 255));
         modificarbt.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
@@ -235,6 +274,11 @@ public class Administradores extends javax.swing.JFrame {
         });
 
         nombretxt.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Nombre Completo", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Semibold", 0, 14), new java.awt.Color(102, 102, 102))); // NOI18N
+        nombretxt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                nombretxtKeyTyped(evt);
+            }
+        });
 
         eliminarbt.setBackground(new java.awt.Color(255, 51, 51));
         eliminarbt.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
@@ -250,6 +294,10 @@ public class Administradores extends javax.swing.JFrame {
 
         idtxt.setForeground(new java.awt.Color(204, 204, 204));
         idtxt.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "ID interno", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Semibold", 0, 14), new java.awt.Color(102, 102, 102))); // NOI18N
+
+        intxt.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
+        intxt.setForeground(new java.awt.Color(255, 51, 51));
+        intxt.setText("Email Invalido");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -273,7 +321,9 @@ public class Administradores extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(emailtxt, javax.swing.GroupLayout.DEFAULT_SIZE, 427, Short.MAX_VALUE)
                         .addComponent(dirtxt)))
-                .addContainerGap(117, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(intxt, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(26, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -282,7 +332,10 @@ public class Administradores extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(2, 2, 2)
                         .addComponent(nombretxt, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(emailtxt, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(emailtxt, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addComponent(intxt)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(teltxt, javax.swing.GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE)
@@ -429,6 +482,9 @@ public class Administradores extends javax.swing.JFrame {
                 int opcion = comboOpcion.getSelectedIndex();
                 String valorbus = campoBuscar.getText();
                 sem.visualizarAdministrador(tablaSem,opcion,valorbus);
+                
+
+                
     }//GEN-LAST:event_agregarbtActionPerformed
 
     private void teltxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_teltxtActionPerformed
@@ -475,10 +531,18 @@ public class Administradores extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         
+        Estudiantes e = new Estudiantes();
+        e.setVisible(true);
+        dispose();
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        
+        Profesores p = new Profesores();
+        p.setVisible(true);
+        dispose();
 
         
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -521,6 +585,10 @@ public class Administradores extends javax.swing.JFrame {
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         // TODO add your handling code here:
+        
+        new Principal().setVisible(true);
+        dispose();
+        
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
@@ -529,6 +597,80 @@ public class Administradores extends javax.swing.JFrame {
         e.setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton10ActionPerformed
+
+    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton11ActionPerformed
+
+    private void teltxtKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_teltxtKeyReleased
+        // TODO add your handling code here:
+        
+        
+        
+    }//GEN-LAST:event_teltxtKeyReleased
+
+    private void emailtxtKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_emailtxtKeyReleased
+        // TODO add your handling code here:
+        
+        
+    }//GEN-LAST:event_emailtxtKeyReleased
+
+    private void emailtxtKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_emailtxtKeyTyped
+        // TODO add your handling code here:
+        
+        Administrador ad = new Administrador();
+        
+        if (ad.verificar_Email(emailtxt.getText())) {
+            
+            intxt.setVisible(false);
+            
+        }else{
+        
+        intxt.setVisible(true);
+        
+        }
+        
+                        char validar = evt.getKeyChar();
+        
+        if (Character.isDigit(validar)) {
+            
+            getToolkit().beep();
+            evt.consume();
+            
+            JOptionPane.showMessageDialog(null, "SOLO LETRAS EN ESTE CAMPO");
+            
+        }
+    }//GEN-LAST:event_emailtxtKeyTyped
+
+    private void teltxtKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_teltxtKeyTyped
+        // TODO add your handling code here:
+        
+        char validar = evt.getKeyChar();
+        
+        if (Character.isLetter(validar)) {
+            
+            getToolkit().beep();
+            evt.consume(); 
+            
+            JOptionPane.showMessageDialog(null, "SOLO NUMEROS EN ESTE CAMPO");
+            
+        }
+    }//GEN-LAST:event_teltxtKeyTyped
+
+    private void nombretxtKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nombretxtKeyTyped
+        // TODO add your handling code here:
+        
+        char validar = evt.getKeyChar();
+        
+        if (Character.isDigit(validar)) {
+            
+            getToolkit().beep();
+            evt.consume();
+            
+            JOptionPane.showMessageDialog(null, "SOLO LETRAS EN ESTE CAMPO");
+            
+        }
+    }//GEN-LAST:event_nombretxtKeyTyped
 
     /**
      * @param args the command line arguments
@@ -573,8 +715,10 @@ public class Administradores extends javax.swing.JFrame {
     private javax.swing.JButton eliminarbt;
     private javax.swing.JTextField emailtxt;
     private javax.swing.JTextField idtxt;
+    private javax.swing.JLabel intxt;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
+    private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
