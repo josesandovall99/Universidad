@@ -238,6 +238,9 @@ public class PensumV extends javax.swing.JFrame {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 numtxtKeyReleased(evt);
             }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                numtxtKeyTyped(evt);
+            }
         });
 
         modificarbt.setBackground(new java.awt.Color(255, 255, 255));
@@ -551,6 +554,12 @@ public class PensumV extends javax.swing.JFrame {
     private void numtxtKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_numtxtKeyReleased
         // TODO add your handling code here:
         
+        
+    }//GEN-LAST:event_numtxtKeyReleased
+
+    private void numtxtKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_numtxtKeyTyped
+        // TODO add your handling code here:
+        
         char validar = evt.getKeyChar();
         
         if (Character.isLetter(validar)) {
@@ -561,8 +570,7 @@ public class PensumV extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "SOLO NUMEROS EN ESTE CAMPO");
             
         }
-        
-    }//GEN-LAST:event_numtxtKeyReleased
+    }//GEN-LAST:event_numtxtKeyTyped
 
     /**
      * @param args the command line arguments

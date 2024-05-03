@@ -75,7 +75,6 @@ public class Sesion extends javax.swing.JFrame {
 
         contxt.setBackground(new java.awt.Color(255, 255, 255));
         contxt.setForeground(new java.awt.Color(102, 102, 102));
-        contxt.setText("jPasswordField1");
         getContentPane().add(contxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 280, 290, 30));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N

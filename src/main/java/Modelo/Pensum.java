@@ -97,6 +97,14 @@ public class Pensum {
         Conexion co = new Conexion();
 
         String consulta = "INSERT INTO Pensum (codigoAcademico,nombre, semestres, estado) VALUES (?,?,?,?);";//******
+        
+        Object[] opciones = {"Sí", "No"};
+        
+        int respuesta = JOptionPane.showOptionDialog(null, 
+                "¿Estás seguro de que quieres CREAR un PENSUM?", "Confirmación", 
+                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[0]);
+
+        if (respuesta == JOptionPane.YES_OPTION) {
 
         try {
 
@@ -114,6 +122,9 @@ public class Pensum {
 
             JOptionPane.showMessageDialog(null, "error al insertar: " + e);
         }
+        
+        } else {
+            JOptionPane.showMessageDialog(null, "Inercion Cancelada");}
 
     }
 

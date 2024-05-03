@@ -97,6 +97,14 @@ public class SemestreAcademico {
         Conexion co = new Conexion();
 
         String consulta = "INSERT INTO SemestreAcademico (codigoAcademico,año,semestre, estado) VALUES (?,?,?,?);";
+        
+        Object[] opciones = {"Sí", "No"};
+        
+        int respuesta = JOptionPane.showOptionDialog(null, 
+                "¿Estás seguro de que quieres CREAR un SEMESTRE ACAEMICO?", "Confirmación", 
+                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[0]);
+
+        if (respuesta == JOptionPane.YES_OPTION) {
 
         try {
 
@@ -114,6 +122,9 @@ public class SemestreAcademico {
 
             JOptionPane.showMessageDialog(null, "error al insertar: " + e);
         }
+        
+        } else {
+            JOptionPane.showMessageDialog(null, "Inercion Cancelada");}
 
     }
 

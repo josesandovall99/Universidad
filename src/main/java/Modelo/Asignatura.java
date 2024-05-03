@@ -109,6 +109,15 @@ public class Asignatura {
 
         String consulta = "INSERT INTO Asignatura (codigoAcademico,nombre, creditos, tipo, estado) VALUES (?,?,?,?,?);";//******
 
+        Object[] opciones = {"Sí", "No"};
+        
+        int respuesta = JOptionPane.showOptionDialog(null, 
+                "¿Estás seguro de que quieres CREAR una ASIGNATURA?", "Confirmación", 
+                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[0]);
+
+        if (respuesta == JOptionPane.YES_OPTION) {
+        
+        
         try {
 
             CallableStatement cs = co.establecerConexion().prepareCall(consulta);
@@ -126,6 +135,9 @@ public class Asignatura {
 
             JOptionPane.showMessageDialog(null, "error al insertar: " + e);
         }
+        
+        } else {
+            JOptionPane.showMessageDialog(null, "Inercion Cancelada");}
 
     }
 

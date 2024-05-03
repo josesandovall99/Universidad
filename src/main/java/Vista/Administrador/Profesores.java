@@ -4,6 +4,7 @@
  */
 package Vista.Administrador;
 
+import Modelo.Administrador;
 import Modelo.Estudiante;
 import Modelo.Profesor;
 import javax.swing.JOptionPane;
@@ -21,7 +22,7 @@ public class Profesores extends javax.swing.JFrame {
         initComponents();
         
         idtxt.setEditable(false);
-        
+        intxt.setVisible(false);
         
         Profesor a = new Profesor();
         int opcion = comboOpcion.getSelectedIndex();
@@ -57,6 +58,7 @@ public class Profesores extends javax.swing.JFrame {
         eliminarbt = new javax.swing.JButton();
         dirtxt = new javax.swing.JTextField();
         idtxt = new javax.swing.JTextField();
+        intxt = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaSem = new javax.swing.JTable();
@@ -239,9 +241,17 @@ public class Profesores extends javax.swing.JFrame {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 telefonotxtKeyReleased(evt);
             }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                telefonotxtKeyTyped(evt);
+            }
         });
 
         emailtxt.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "E-mail", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Semibold", 0, 14), new java.awt.Color(102, 102, 102))); // NOI18N
+        emailtxt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                emailtxtKeyTyped(evt);
+            }
+        });
 
         modificarbt.setBackground(new java.awt.Color(255, 255, 255));
         modificarbt.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
@@ -254,6 +264,11 @@ public class Profesores extends javax.swing.JFrame {
         });
 
         nombretxt.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Nombre Completo", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Semibold", 0, 14), new java.awt.Color(102, 102, 102))); // NOI18N
+        nombretxt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                nombretxtKeyTyped(evt);
+            }
+        });
 
         eliminarbt.setBackground(new java.awt.Color(255, 51, 51));
         eliminarbt.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
@@ -269,6 +284,10 @@ public class Profesores extends javax.swing.JFrame {
 
         idtxt.setForeground(new java.awt.Color(204, 204, 204));
         idtxt.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "ID interno", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Semibold", 0, 14), new java.awt.Color(102, 102, 102))); // NOI18N
+
+        intxt.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
+        intxt.setForeground(new java.awt.Color(255, 51, 51));
+        intxt.setText("Email Invalido");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -292,7 +311,9 @@ public class Profesores extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(emailtxt, javax.swing.GroupLayout.DEFAULT_SIZE, 427, Short.MAX_VALUE)
                         .addComponent(dirtxt)))
-                .addContainerGap(97, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(intxt, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -301,7 +322,10 @@ public class Profesores extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(2, 2, 2)
                         .addComponent(nombretxt, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(emailtxt, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(emailtxt, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(intxt)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(telefonotxt, javax.swing.GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE)
@@ -569,6 +593,42 @@ public class Profesores extends javax.swing.JFrame {
     private void telefonotxtKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_telefonotxtKeyReleased
         // TODO add your handling code here:
         
+        
+        
+    }//GEN-LAST:event_telefonotxtKeyReleased
+
+    private void emailtxtKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_emailtxtKeyTyped
+        // TODO add your handling code here:
+        
+        Profesor ad = new Profesor();
+        
+        if (ad.verificar_Email(emailtxt.getText())) {
+            
+            intxt.setVisible(false);
+            
+        }else{
+        
+        intxt.setVisible(true);
+        
+        }
+        
+                        char validar = evt.getKeyChar();
+        
+        if (Character.isDigit(validar)) {
+            
+            getToolkit().beep();
+            evt.consume();
+            
+            JOptionPane.showMessageDialog(null, "SOLO LETRAS EN ESTE CAMPO");
+            
+        }
+        
+        
+    }//GEN-LAST:event_emailtxtKeyTyped
+
+    private void telefonotxtKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_telefonotxtKeyTyped
+        // TODO add your handling code here:
+        
         char validar = evt.getKeyChar();
         
         if (Character.isLetter(validar)) {
@@ -579,8 +639,22 @@ public class Profesores extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "SOLO NUMEROS EN ESTE CAMPO");
             
         }
+    }//GEN-LAST:event_telefonotxtKeyTyped
+
+    private void nombretxtKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nombretxtKeyTyped
+        // TODO add your handling code here:
         
-    }//GEN-LAST:event_telefonotxtKeyReleased
+        char validar = evt.getKeyChar();
+        
+        if (Character.isDigit(validar)) {
+            
+            getToolkit().beep();
+            evt.consume();
+            
+            JOptionPane.showMessageDialog(null, "SOLO LETRAS EN ESTE CAMPO");
+            
+        }
+    }//GEN-LAST:event_nombretxtKeyTyped
 
     /**
      * @param args the command line arguments
@@ -625,6 +699,7 @@ public class Profesores extends javax.swing.JFrame {
     private javax.swing.JButton eliminarbt;
     private javax.swing.JTextField emailtxt;
     private javax.swing.JTextField idtxt;
+    private javax.swing.JLabel intxt;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;

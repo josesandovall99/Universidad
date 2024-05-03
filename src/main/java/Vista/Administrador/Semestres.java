@@ -104,6 +104,9 @@ public class Semestres extends javax.swing.JFrame {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 añotxtKeyReleased(evt);
             }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                añotxtKeyTyped(evt);
+            }
         });
 
         semestretxt.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Semestre A/B", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Semibold", 0, 14), new java.awt.Color(102, 102, 102))); // NOI18N
@@ -576,6 +579,13 @@ public class Semestres extends javax.swing.JFrame {
     private void añotxtKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_añotxtKeyReleased
         // TODO add your handling code here:
         
+        
+        
+    }//GEN-LAST:event_añotxtKeyReleased
+
+    private void añotxtKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_añotxtKeyTyped
+        // TODO add your handling code here:
+        
         char validar = evt.getKeyChar();
         
         if (Character.isLetter(validar)) {
@@ -586,8 +596,7 @@ public class Semestres extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "SOLO NUMEROS EN ESTE CAMPO");
             
         }
-        
-    }//GEN-LAST:event_añotxtKeyReleased
+    }//GEN-LAST:event_añotxtKeyTyped
 
     /**
      * @param args the command line arguments
