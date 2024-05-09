@@ -7,8 +7,10 @@ package Modelo;
 import BD.Conexion;
 import Vista.Administrador.Administradores;
 import Vista.Administrador.CompletarAdministrador;
+import Vista.Profesor.PrincipalProfesor;
 import Vista.Administrador.Principal;
 import Vista.Administrador.Sesion;
+import Vista.Profesor.CompletarProfesor;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -177,4 +179,104 @@ public class Login {
     
     }
 
+    
+        public void validarProfesor(JTextField usuario, JPasswordField contraseña) {
+
+        setCodigo(usuario.getText());
+        setContraseña(contraseña.getText());
+
+        if (!getCodigo().equals("") || !getContraseña().equals("")) {
+
+            try {
+                Conexion co = new Conexion();
+                Connection cn = co.establecerConexion();
+
+                PreparedStatement ps = cn.prepareStatement("SELECT usuariotip FROM "
+                        + "credencialesProfesores where codigoAcademico = '" + getCodigo() + "' AND contraseña = '" + getContraseña() + "' ");
+
+                ResultSet rs = ps.executeQuery();
+                if (rs.next()) {
+                    System.out.println("entra");
+
+                    String tipo = rs.getString("usuariotip");
+                    System.out.println(tipo);
+                    if (tipo.equalsIgnoreCase("profesor")) {
+
+                        PrincipalProfesor ad = new PrincipalProfesor(String.valueOf(getCodigo()));
+                        ad.setVisible(true);
+                        JOptionPane.showMessageDialog(null, "DATOS CORRECTOS");
+                        Sesion s = new Sesion();
+                        s.dispose();
+
+                    } else {
+
+                        JOptionPane.showMessageDialog(null, "USUARIO O CONTRASEÑA INCORRECTOS");
+
+                    }
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "USUARIO O CONTRASEÑA INCORRECTOS");
+                }
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "ERROR AL INICIAR SESION: " + e);
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(null, "DEBE  COMPLETAR LOS DATOS");
+        }
+
+    }
+
+    public void validarSinCredencialesProfesor(JTextField usuario) {
+
+        setId(usuario.getText());
+
+        
+        
+        if (!getId().equals("")) {
+
+            try {
+                Conexion co = new Conexion();
+                Connection cn = co.establecerConexion();
+
+                PreparedStatement ps = cn.prepareStatement("SELECT tipoUsuario FROM "
+                        + "Usuario where id = '" + getId() + "'");
+
+                ResultSet rs = ps.executeQuery();
+                if (rs.next()) {
+                    System.out.println("entra");
+
+                    String tipo = rs.getString("tipoUsuario");
+                    System.out.println(tipo);
+                    if (tipo.equalsIgnoreCase("profesor")) {
+
+                        CompletarProfesor ad = new CompletarProfesor(getId());
+                        ad.setVisible(true);
+                        JOptionPane.showMessageDialog(null, "DATOS CORRECTOS");
+                        Sesion s = new Sesion();
+                        s.setVisible(false);
+
+                    } else {
+
+                        JOptionPane.showMessageDialog(null, "USUARIO O CONTRASEÑA INCORRECTOS");
+
+                    }
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "USUARIO O CONTRASEÑA INCORRECTOS");
+                }
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "ERROR AL INICIAR SESION: " + e);
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(null, "DEBE  COMPLETAR LOS DATOS");
+        }
+
+    }
+    
+    
+    
 }

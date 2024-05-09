@@ -42,6 +42,7 @@ public class Principal extends javax.swing.JFrame {
         jButton8 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
+        jButton11 = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -190,16 +191,16 @@ public class Principal extends javax.swing.JFrame {
         });
         getContentPane().add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 150, 300, 140));
 
-        jButton9.setBackground(new java.awt.Color(255, 255, 255));
+        jButton9.setBackground(new java.awt.Color(0, 51, 204));
         jButton9.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
-        jButton9.setForeground(new java.awt.Color(0, 102, 255));
-        jButton9.setText("Asignar Asignaturas a Cursos");
+        jButton9.setForeground(new java.awt.Color(255, 153, 0));
+        jButton9.setText("Asignar Profesor a Cursos");
         jButton9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton9ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 320, 300, 140));
+        getContentPane().add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 340, 300, 140));
 
         jButton10.setBackground(new java.awt.Color(255, 255, 255));
         jButton10.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
@@ -211,6 +212,17 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 150, 300, 140));
+
+        jButton11.setBackground(new java.awt.Color(255, 255, 255));
+        jButton11.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
+        jButton11.setForeground(new java.awt.Color(0, 102, 255));
+        jButton11.setText("Asignar Asignaturas a Cursos");
+        jButton11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton11ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 340, 300, 140));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI Semibold", 2, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(102, 102, 102));
@@ -319,9 +331,17 @@ public class Principal extends javax.swing.JFrame {
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         // TODO add your handling code here:
+        new AsignarProfesorCurso().setVisible(true);
+        dispose();
+        
+    }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+        // TODO add your handling code here:
         
         new AsignarAsignatura().setVisible(true);
-    }//GEN-LAST:event_jButton9ActionPerformed
+        dispose();
+    }//GEN-LAST:event_jButton11ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -362,6 +382,7 @@ public class Principal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
+    private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
