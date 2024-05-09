@@ -630,31 +630,14 @@ public class Administradores extends javax.swing.JFrame {
         
         }
         
-                        char validar = evt.getKeyChar();
         
-        if (Character.isDigit(validar)) {
-            
-            getToolkit().beep();
-            evt.consume();
-            
-            JOptionPane.showMessageDialog(null, "SOLO LETRAS EN ESTE CAMPO");
-            
-        }
+        
     }//GEN-LAST:event_emailtxtKeyTyped
 
     private void teltxtKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_teltxtKeyTyped
         // TODO add your handling code here:
         
-        char validar = evt.getKeyChar();
         
-        if (Character.isLetter(validar)) {
-            
-            getToolkit().beep();
-            evt.consume(); 
-            
-            JOptionPane.showMessageDialog(null, "SOLO NUMEROS EN ESTE CAMPO");
-            
-        }
     }//GEN-LAST:event_teltxtKeyTyped
 
     private void nombretxtKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nombretxtKeyTyped

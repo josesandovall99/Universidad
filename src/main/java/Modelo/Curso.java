@@ -10,11 +10,14 @@ import CodigoAcademico.BuilderCursos;
 import CodigoAcademico.CodigoAsignaturas;
 import CodigoAcademico.CodigoCursos;
 import CodigoAcademico.Director;
+import Vista.Administrador.Administradores;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.Random;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -28,12 +31,30 @@ import javax.swing.table.TableRowSorter;
  */
 public class Curso {
 
+    public int idInterno;
     public String codigoAcademico;
     public String nombre;
     public String salonT;
     public String salonP;
     public String estadoAcademico;
     public Asignatura asignatura;
+    public Profesor profesor;
+
+    public int getIdInterno() {
+        return idInterno;
+    }
+
+    public void setIdInterno(int idInterno) {
+        this.idInterno = idInterno;
+    }
+
+    public Profesor getProfesor() {
+        return profesor;
+    }
+
+    public void setProfesor(Profesor profesor) {
+        this.profesor = profesor;
+    }
 
     public String getCodigoAcademico() {
         return codigoAcademico;
@@ -96,36 +117,36 @@ public class Curso {
         Conexion co = new Conexion();
 
         String consulta = "INSERT INTO Curso (codigoAcademico,nombre, salonT, salonP, estado) VALUES (?,?,?,?,?);";//******
-        
+
         Object[] opciones = {"Sí", "No"};
-        
-        int respuesta = JOptionPane.showOptionDialog(null, 
-                "¿Estás seguro de que quieres CREAR un CURSO?", "Confirmación", 
+
+        int respuesta = JOptionPane.showOptionDialog(null,
+                "¿Estás seguro de que quieres CREAR un CURSO?", "Confirmación",
                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[0]);
 
         if (respuesta == JOptionPane.YES_OPTION) {
-        
 
-        try {
+            try {
 
-            CallableStatement cs = co.establecerConexion().prepareCall(consulta);
-            cs.setString(1, getCodigoAcademico());//******
-            cs.setString(2, getNombre());//******
-            cs.setString(3, getSalonT());//******
-            cs.setString(4, getSalonP());//******
-            cs.setString(5, getEstadoAcademico());//******
+                CallableStatement cs = co.establecerConexion().prepareCall(consulta);
+                cs.setString(1, getCodigoAcademico());//******
+                cs.setString(2, getNombre());//******
+                cs.setString(3, getSalonT());//******
+                cs.setString(4, getSalonP());//******
+                cs.setString(5, getEstadoAcademico());//******
 
-            cs.execute();
+                cs.execute();
 
-            JOptionPane.showMessageDialog(null, "SE CREO CORRECTAMENTE");
+                JOptionPane.showMessageDialog(null, "SE CREO CORRECTAMENTE");
 
-        } catch (Exception e) {
+            } catch (Exception e) {
 
-            JOptionPane.showMessageDialog(null, "error al insertar: " + e);
-        }
-        
+                JOptionPane.showMessageDialog(null, "error al insertar: " + e);
+            }
+
         } else {
-            JOptionPane.showMessageDialog(null, "Inercion Cancelada");}
+            JOptionPane.showMessageDialog(null, "Inercion Cancelada");
+        }
 
     }
 
@@ -133,7 +154,7 @@ public class Curso {
 
         //PATRON DE DISEÑO------------------
         String codigo = "";
-            
+
         BuilderCursos a = new BuilderCursos();
         Director b = new Director();
 
@@ -474,13 +495,290 @@ public class Curso {
         } catch (Exception e) {
         }
 
-//        String consulta1 = "UPDATE Pensum"
-//                + "JOIN ProgramaAcademico ON Pensum.id_programa = ProgramaAcademico.id"
-//                + "SET Pensum.id_programa = "+this.programa.getIdInterno()+""
-//                + "WHERE Pensum.codigoAcademico = '"+getCodigoAcademico()+"';";//******
         System.out.println(this.asignatura.getIdInterno());
 
         String consulta = "UPDATE Curso SET Curso.id_asignatura = " + this.asignatura.getIdInterno() + " "
+                + "WHERE Curso.codigoAcademico = '" + getCodigoAcademico() + "';";
+
+        try {
+
+            CallableStatement cs = co.establecerConexion().prepareCall(consulta);
+
+            cs.execute();
+
+            JOptionPane.showMessageDialog(null, "Asignatura ASIGNADA correctamente");
+
+        } catch (Exception e) {
+
+            JOptionPane.showMessageDialog(null, "NO se pudo ASIGNAR correctamente: " + e);
+        }
+
+    }
+
+    public void asignarHorario(JTable d, JLabel s, JComboBox q) {
+
+        int horario = 0;
+        int fila = d.getSelectedRow();
+        String dia = q.getSelectedItem().toString();
+
+        if (fila >= 0 && !dia.equalsIgnoreCase("Seleccionar Dia")) {
+            horario = Integer.parseInt(d.getValueAt(fila, 0).toString());
+            Conexion co = new Conexion();
+
+            String sql = "SELECT id FROM Curso WHERE Curso.codigoAcademico = '" + s.getText() + "'";
+
+            try {
+
+                Statement st;
+
+                st = co.establecerConexion().createStatement();
+
+                ResultSet rs = st.executeQuery(sql);
+
+                rs.next();
+                setIdInterno(rs.getInt("id"));
+
+            } catch (Exception e) {
+            }
+
+            String consulta = "INSERT INTO CursoHorario (id_curso, id_horario,dia) VALUES (?,?,?);";//******
+
+            Object[] opciones = {"Sí", "No"};
+
+            int respuesta = JOptionPane.showOptionDialog(null,
+                    "¿Estás seguro de que quieres ASIGNAR UN HORARIO?", "Confirmación",
+                    JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[0]);
+
+            if (respuesta == JOptionPane.YES_OPTION) {
+
+                try {
+
+                    CallableStatement cs = co.establecerConexion().prepareCall(consulta);
+                    cs.setInt(1, getIdInterno());//******
+                    cs.setInt(2, horario);//******
+                    cs.setString(3, dia);//******
+
+                    cs.execute();
+
+                    JOptionPane.showMessageDialog(null, "SE CREO CORRECTAMENTE");
+
+                } catch (Exception e) {
+
+                    JOptionPane.showMessageDialog(null, "error al insertar: " + e);
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Inercion Cancelada");
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Horario o Dia no Seleccionado");
+        }
+
+    }
+
+    public void visualizarHorarios(JTable tabla) {
+
+        Conexion con = new Conexion();
+
+        DefaultTableModel modelo = new DefaultTableModel();
+
+        TableRowSorter<TableModel> OrdenarTabla = new TableRowSorter<TableModel>(modelo);
+        tabla.setRowSorter(OrdenarTabla);
+
+        String sql = "";
+
+        modelo.addColumn("id Interno");//******
+        modelo.addColumn("Hora Inicio");//******
+        modelo.addColumn("Hora Fin");//******
+
+        tabla.setModel(modelo);
+
+        sql = "SELECT id,inicio,fin FROM Horarios";
+
+        String[] datos = new String[3];
+        Statement st;
+
+        try {
+
+            st = con.establecerConexion().createStatement();
+
+            ResultSet rs = st.executeQuery(sql);
+
+            while (rs.next()) {
+
+                datos[0] = rs.getString(1);//******
+                datos[1] = rs.getString(2);//******
+                datos[2] = rs.getString(3);//******
+
+                modelo.addRow(datos);
+
+            }
+
+            tabla.setModel(modelo);
+
+        } catch (Exception e) {
+
+            JOptionPane.showMessageDialog(null, "error al mostrar la tabla: " + e);
+
+        }
+
+    }
+
+    public void visualizarHorariosPropios(JTable tabla, String codigo) {
+
+        Conexion con = new Conexion();
+
+        DefaultTableModel modelo = new DefaultTableModel();
+
+        TableRowSorter<TableModel> OrdenarTabla = new TableRowSorter<TableModel>(modelo);
+        tabla.setRowSorter(OrdenarTabla);
+
+        String sql = "";
+
+        modelo.addColumn("Dia");//******
+        modelo.addColumn("Hora Inicio");//******
+        modelo.addColumn("Hora Fin");//******
+
+        tabla.setModel(modelo);
+
+        sql = "SELECT dia,horarioInicio,horarioFinal FROM vista_horariosCursos WHERE vista_horariosCursos.codigoCurso = '" + codigo + "'";
+
+        String[] datos = new String[3];
+        Statement st;
+
+        try {
+
+            st = con.establecerConexion().createStatement();
+
+            ResultSet rs = st.executeQuery(sql);
+
+            while (rs.next()) {
+
+                datos[0] = rs.getString(1);//******
+                datos[1] = rs.getString(2);//******
+                datos[2] = rs.getString(3);//******
+
+                modelo.addRow(datos);
+
+            }
+
+            tabla.setModel(modelo);
+
+        } catch (Exception e) {
+
+            JOptionPane.showMessageDialog(null, "error al mostrar la tabla: " + e);
+
+        }
+
+    }
+
+    public void eliminarHorario(JTable t, String codigo) {
+
+        int fila = t.getSelectedRow();
+        int idCurso = 0;
+        int idHorario = 0;
+
+        if (fila >= 0) {
+            String inicio = t.getValueAt(fila, 1).toString();
+            String finall = t.getValueAt(fila, 2).toString();
+            Conexion co = new Conexion();
+
+            String sql1 = "SELECT id FROM Horarios WHERE Horarios.inicio = '" + inicio + "' AND Horarios.fin = '" + finall + "';";
+            String sql2 = "SELECT id FROM Curso WHERE Curso.codigoAcademico = '" + codigo + "';";
+
+            try {
+                System.out.println("entra");
+                Statement st;
+
+                st = co.establecerConexion().createStatement();
+
+                ResultSet rs = st.executeQuery(sql1);
+
+                rs.next();
+                idHorario = Integer.parseInt(rs.getString("id"));
+                System.out.println(Integer.parseInt(rs.getString("id")));
+                System.out.println(idHorario);
+
+                Statement st2;
+
+                st2 = co.establecerConexion().createStatement();
+
+                ResultSet rs2 = st.executeQuery(sql2);
+
+                rs2.next();
+                idCurso = Integer.parseInt(rs2.getString("id"));
+                System.out.println(Integer.parseInt(rs2.getString("id")));
+                System.out.println(idCurso);
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "error: " + e);
+            }
+
+            String consulta = "DELETE FROM CursoHorario WHERE CursoHorario.id_curso = " + idCurso + " AND CursoHorario.id_horario = " + idHorario + "";//******
+
+            Object[] opciones = {"Sí", "No"};
+
+            int respuesta = JOptionPane.showOptionDialog(null,
+                    "¿Estás seguro de que quieres ELIMINAR UN HORARIO?", "Confirmación",
+                    JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[0]);
+
+            if (respuesta == JOptionPane.YES_OPTION) {
+
+                try {
+
+                    CallableStatement cs = co.establecerConexion().prepareCall(consulta);
+
+                    cs.execute();
+
+                    JOptionPane.showMessageDialog(null, "SE ELIMINO CORRECTAMENTE");
+
+                } catch (Exception e) {
+
+                    JOptionPane.showMessageDialog(null, "error: " + e);
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Cancelada");
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Horario no Seleccionado");
+        }
+
+    }
+
+    public void asignarProfesor(JTextField codtx1, JTextField codtx2) {
+
+        Asignatura asignatura = new Asignatura();
+        Profesor p = new Profesor();
+
+        setProfesor(p);
+
+        setCodigoAcademico(codtx1.getText());//******
+        this.profesor.setId(Integer.parseInt(codtx2.getText()));
+
+        Conexion co = new Conexion();
+
+        String sql1 = "SELECT id FROM Profesor WHERE Profesor.id_usuario = '" + profesor.getId() + "';";
+
+        try {
+            Statement st;
+
+            st = co.establecerConexion().createStatement();
+
+            ResultSet rs = st.executeQuery(sql1);
+
+            rs.next();
+            profesor.setId(Integer.parseInt(rs.getString("id")));
+
+            
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "error: " + e);
+        }
+
+        String consulta = "UPDATE Curso SET Curso.id_profesor = " + this.profesor.getId() + " "
                 + "WHERE Curso.codigoAcademico = '" + getCodigoAcademico() + "';";
 
         try {

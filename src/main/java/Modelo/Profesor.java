@@ -8,8 +8,12 @@ import BD.Conexion;
 import CodigoAcademico.BuilderAdministradores;
 import CodigoAcademico.CodigoAdministradores;
 import CodigoAcademico.Director;
+import GeneracionDeCorreos.Aplicacion;
+import GeneracionDeCorreos.CorreoAdministradorFabrica;
+import GeneracionDeCorreos.CorreoProfesorFabrica;
+import GeneracionDeCorreos.CorreosFabrica;
 import Vista.Administrador.CompletarAdministrador;
-import Vista.Administrador.Principal;
+import Vista.Profesor.PrincipalProfesor;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,6 +22,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -30,8 +35,7 @@ import javax.swing.table.TableRowSorter;
  * @author JOSE SANDOVAL
  */
 public class Profesor {
- 
-    
+
     public int id;
     public String codigoAcademico;
     public String nombre;
@@ -147,9 +151,7 @@ public class Profesor {
     public void setEstadoAcademico(String estadoAcademico) {
         this.estadoAcademico = estadoAcademico;
     }
-    
-    
-    
+
     public void InsetarProfesor(JTextField nombre, JTextField email, JTextField tel, JTextField dir) { //******
 
         setNombre(nombre.getText());
@@ -184,6 +186,11 @@ public class Profesor {
                     if (rs.next()) {
                         int idGenerado = rs.getInt(1);
                         JOptionPane.showMessageDialog(null, "SE CREÓ CORRECTAMENTE. ID generado: " + idGenerado);
+                        //PATRON ABSTRAC FACTORY----------------------------------------
+                        CorreosFabrica fabrica = new CorreoProfesorFabrica();
+                        Aplicacion app = new Aplicacion(fabrica);
+                        app.enviarCorreoId(getEmail(), idGenerado);
+                        //---------------------------------------------------------------
                     }
                 }
 
@@ -200,20 +207,18 @@ public class Profesor {
     public String generarCodigo() {
 
         //PATRON DE DISEÑO------------------
-        
-        String codigo="";
-        
+        String codigo = "";
+
         BuilderAdministradores a = new BuilderAdministradores();
         Director b = new Director();
-        
-        b.construirCodigoAcademico(a);
-        
-        CodigoAdministradores codig = a.getResult();
-        
-        codigo = codig.pasarAString();
-        
-        //----------------------------------
 
+        b.construirCodigoAcademico(a);
+
+        CodigoAdministradores codig = a.getResult();
+
+        codigo = codig.pasarAString();
+
+        //----------------------------------
         return codigo;
     }
 
@@ -336,8 +341,6 @@ public class Profesor {
 
         } catch (Exception e) {
 
-            JOptionPane.showMessageDialog(null, "error al seleccionar: " + e);
-
         }
 
     }
@@ -400,10 +403,10 @@ public class Profesor {
 
     }
 
-    public void recibirContraseñaProfesor(JTextField contraseña, JTextField idtxt) { //******
+    public void recibirContraseñaProfesor(JTextField contraseña, String idtxt) { //******
 
         setContraseña(contraseña.getText()); //******
-        setId(Integer.parseInt(idtxt.getText()));
+        setId(Integer.parseInt(idtxt));
 
         Conexion co = new Conexion();
 
@@ -427,14 +430,53 @@ public class Profesor {
 
     }
 
-    public void completarProfesor(String combo, JTextField idtxt, JTextField esp) { //******
+    public void completarProfesor(String combo, String idtxt, JTextField esp) { //******
 
         setEspecialidad(esp.getText()); //******
         setMaximoTitulo(combo);
         setCodigoAcademico(generarCodigo());
-        setId(Integer.parseInt(idtxt.getText()));
+        setId(Integer.parseInt(idtxt));
 
         Conexion co = new Conexion();
+        
+        String sql1 = "SELECT email FROM usuario WHERE usuario.id= '" + getId() + "';";
+
+        try {
+            Statement st;
+
+            st = co.establecerConexion().createStatement();
+
+            ResultSet rs = st.executeQuery(sql1);
+
+            rs.next();
+            setEmail((rs.getString("email")));
+
+            
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "error: " + e);
+        }
+        
+        
+        String sql2 = "SELECT contraseña FROM usuario WHERE usuario.id= '" + getId() + "';";
+
+        try {
+            Statement st;
+
+            st = co.establecerConexion().createStatement();
+
+            ResultSet rs = st.executeQuery(sql2);
+
+            rs.next();
+            setContraseña((rs.getString("contraseña")));
+
+            
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "error: " + e);
+        }
+        
+        
 
         String consulta = "UPDATE Profesor SET Profesor.maximoTitulo = ?, Profesor.especialidad =?, Profesor.codigoAcademico = ? "
                 + "WHERE Profesor.id_usuario=?";//******
@@ -449,12 +491,21 @@ public class Profesor {
 
             cs.execute();
 
-            Principal ad = new Principal();
+            PrincipalProfesor ad = new PrincipalProfesor();
             ad.setVisible(true);
             CompletarAdministrador s = new CompletarAdministrador();
             s.dispose();
 
-            JOptionPane.showMessageDialog(null, "SE CREO CORRECTAMENTE");
+            //PATRON ABSTRAC FACTORY----------------------------------------
+            CorreosFabrica fabrica = new CorreoProfesorFabrica();
+            Aplicacion app = new Aplicacion(fabrica);
+            app.enviarCorreoCredenciales(getEmail(), getCodigoAcademico(),getContraseña());
+            //---------------------------------------------------------------
+
+            JOptionPane.showMessageDialog(null, "SE COMPLETO CORRECTAMENTE");
+            JOptionPane.showMessageDialog(null, "SU CODIGO ACADEMICO SERA: " + getCodigoAcademico());
+            
+            System.out.println(getContraseña());
 
         } catch (Exception e) {
 
@@ -462,7 +513,7 @@ public class Profesor {
         }
 
     }
-    
+
     public void activarProfesor(JTextField codtx) {
 
         setId(Integer.parseInt(codtx.getText()));//******
@@ -487,7 +538,7 @@ public class Profesor {
         }
 
     }
-    
+
     public void visualizarProfesorDesactivado(JTable tablaad, int opbuscar, String valor) { //******
 
         Conexion con = new Conexion();
@@ -586,16 +637,114 @@ public class Profesor {
         }
 
     }
-    
-    
-    public boolean verificar_Email (String correo){
-    
+
+    public boolean verificar_Email(String correo) {
+
         Pattern patron = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
         Matcher coincidir = patron.matcher(correo);
-        
+
         return coincidir.find();
-    
+
     }
-    
-    
+
+    public void verHorario(JTable tabla, String codigo) {
+
+        Conexion con = new Conexion();
+
+        DefaultTableModel modelo = new DefaultTableModel();
+
+        TableRowSorter<TableModel> OrdenarTabla = new TableRowSorter<TableModel>(modelo);
+        tabla.setRowSorter(OrdenarTabla);
+
+        String sql = "";
+
+        modelo.addColumn("Dia");//******
+        modelo.addColumn("Nombre Curso");//******
+        modelo.addColumn("Salon");//******
+        modelo.addColumn("Hora Inicio");//******
+        modelo.addColumn("Hora Finalizacion");//******
+
+        tabla.setModel(modelo);
+
+        sql = "SELECT dia,nombre,salonT,inicio,fin FROM vista_horarioProfesor WHERE vista_horarioProfesor.codigoAcademico = '" + codigo + "'";
+
+        String[] datos = new String[5];
+        Statement st;
+
+        try {
+
+            st = con.establecerConexion().createStatement();
+
+            ResultSet rs = st.executeQuery(sql);
+
+            while (rs.next()) {
+
+                datos[0] = rs.getString(1);//******
+                datos[1] = rs.getString(2);//******
+                datos[2] = rs.getString(3);//******
+                datos[3] = rs.getString(4);//******
+                datos[4] = rs.getString(5);//******
+
+                modelo.addRow(datos);
+
+            }
+
+            tabla.setModel(modelo);
+
+        } catch (Exception e) {
+
+            JOptionPane.showMessageDialog(null, "error al mostrar la tabla: " + e);
+
+        }
+
+    }
+
+    public void verCursos(JTable tabla, String codigo) {
+
+        Conexion con = new Conexion();
+
+        DefaultTableModel modelo = new DefaultTableModel();
+
+        TableRowSorter<TableModel> OrdenarTabla = new TableRowSorter<TableModel>(modelo);
+        tabla.setRowSorter(OrdenarTabla);
+
+        String sql = "";
+
+        modelo.addColumn("Nombre");//******
+        modelo.addColumn("Salon Practico");//******
+        modelo.addColumn("Salon Teorico");//******
+
+        tabla.setModel(modelo);
+
+        sql = "SELECT nombre,salonP,salonT FROM vista_cursoProfesor WHERE vista_cursoProfesor.codigoAcademico = '" + codigo + "'";
+
+        String[] datos = new String[3];
+        Statement st;
+
+        try {
+
+            st = con.establecerConexion().createStatement();
+
+            ResultSet rs = st.executeQuery(sql);
+
+            while (rs.next()) {
+
+                datos[0] = rs.getString(1);//******
+                datos[1] = rs.getString(2);//******
+                datos[2] = rs.getString(3);//******
+
+                modelo.addRow(datos);
+
+            }
+
+            tabla.setModel(modelo);
+
+        } catch (Exception e) {
+
+            JOptionPane.showMessageDialog(null, "error al mostrar la tabla: " + e);
+
+        }
+
+    }
+
 }

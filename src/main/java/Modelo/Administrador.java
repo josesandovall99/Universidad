@@ -10,6 +10,9 @@ import CodigoAcademico.BuilderEstudiantes;
 import CodigoAcademico.CodigoAdministradores;
 import CodigoAcademico.CodigoEstudiantes;
 import CodigoAcademico.Director;
+import GeneracionDeCorreos.Aplicacion;
+import GeneracionDeCorreos.CorreoAdministradorFabrica;
+import GeneracionDeCorreos.CorreosFabrica;
 import Vista.Administrador.CompletarAdministrador;
 import Vista.Administrador.Principal;
 import Vista.Administrador.Sesion;
@@ -160,9 +163,15 @@ public class Administrador {
                     if (rs.next()) {
                         int idGenerado = rs.getInt(1);
                         JOptionPane.showMessageDialog(null, "SE CREO CORRECTAMENTE");
-                        Email e = new Email();
-                        e.createEmail(getEmail(), idGenerado);
-                        e.sendEmail();
+//                        Email e = new Email();
+//                        e.createEmail(getEmail(), idGenerado);
+//                        e.sendEmail();
+                        //PATRON ABSTRAC FACTORY----------------------------------------
+                        CorreosFabrica fabrica = new CorreoAdministradorFabrica();
+                        Aplicacion app = new Aplicacion(fabrica);
+                        app.enviarCorreoId(getEmail(), idGenerado);
+                        //---------------------------------------------------------------
+
                     }
                 }
 
@@ -413,6 +422,45 @@ public class Administrador {
 
         Conexion co = new Conexion();
 
+        
+        String sql1 = "SELECT email FROM usuario WHERE usuario.id= '" + getId() + "';";
+
+        try {
+            Statement st;
+
+            st = co.establecerConexion().createStatement();
+
+            ResultSet rs = st.executeQuery(sql1);
+
+            rs.next();
+            setEmail((rs.getString("email")));
+
+            
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "error: " + e);
+        }
+        
+        
+        String sql2 = "SELECT contraseña FROM usuario WHERE usuario.id= '" + getId() + "';";
+
+        try {
+            Statement st;
+
+            st = co.establecerConexion().createStatement();
+
+            ResultSet rs = st.executeQuery(sql2);
+
+            rs.next();
+            setContraseña((rs.getString("contraseña")));
+
+            
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "error: " + e);
+        }
+        
+        
         String consulta = "UPDATE Administrador SET Administrador.puesto = ?, Administrador.codigoAcademico = ? "
                 + "WHERE Administrador.id_usuario=?";//******
 
@@ -430,7 +478,15 @@ public class Administrador {
             CompletarAdministrador s = new CompletarAdministrador();
             s.dispose();
 
-            JOptionPane.showMessageDialog(null, "SE CREO CORRECTAMENTE");
+            //Aqui Se Crea el Correo
+            //PATRON ABSTRAC FACTORY----------------------------------------
+            CorreosFabrica fabrica = new CorreoAdministradorFabrica();
+            Aplicacion app = new Aplicacion(fabrica);
+            app.enviarCorreoCredenciales(getEmail(), getCodigoAcademico(),getContraseña());
+            //---------------------------------------------------------------
+
+            JOptionPane.showMessageDialog(null, "SE COMPLETO CORRECTAMENTE");
+            JOptionPane.showMessageDialog(null, "SU NUEVO CODIGO SERA EL SIGUIENTE: " + getCodigoAcademico());
 
         } catch (Exception e) {
 

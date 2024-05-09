@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Modelo;
+package GeneracionDeCorreos;
 
+import Modelo.Email;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,8 +22,9 @@ import javax.swing.JOptionPane;
  *
  * @author JOSE SANDOVAL
  */
-public class Email {
-
+public class CorreoAdministradorId implements CorreoId{
+    
+    
     private static String emailFrom = "joseluissaro2@gmail.com";
     private static String passwordFrom = "mest rdsn oqzv dxxf";
     private String emailTo;
@@ -32,19 +34,39 @@ public class Email {
     private Properties mProperties;
     private Session mSession;
     private MimeMessage mCorreo;
-    
-    public Email() {
+   
+    public CorreoAdministradorId() {
         mProperties = new Properties();
     }
+    
+    
+    
+    @Override
+    public void sendEmail() {
+        
+        try {
+            Transport mTransport = mSession.getTransport("smtp");
+            mTransport.connect(emailFrom, passwordFrom);
+            mTransport.sendMessage(mCorreo, mCorreo.getRecipients(Message.RecipientType.TO));
+            mTransport.close();
+            
+            JOptionPane.showMessageDialog(null, "Correo enviado");
+        } catch (NoSuchProviderException ex) {
+            JOptionPane.showMessageDialog(null, "No se pudo establecer la conexión con el servidor de correo: Correo no encontrado");
+        } catch (MessagingException ex) {
+            Logger.getLogger(Email.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
 
+    @Override
     public void createEmail(String emailTo, int id) {
-
+        
         //cuerpo del correo
-        String subject ="UNIVERSIDAD DE SANTANDER - INGRESO A LA APLICACION";
+        String subject ="CORREO ADMINISTRADOR ID - UNIVERSIDAD";
         
         String content = "Buen dia,\n"
-                + "Haz sido registrado en la UDES para poder iniciar sesion en nuestra aplicacion. "
-                + "para poder entrar, ingresa a nuestra aplicacion y entra a entrar por credenciales.\n"
+                + "Haz sido registrado en la App universidad, ingresa sin credenciales con el siguiente id. \n"
                 + "id: "+id+"";
         
         // Simple mail transfer protocol
@@ -70,24 +92,15 @@ public class Email {
         } catch (MessagingException ex) {
             Logger.getLogger(Email.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-
-    public void sendEmail() {
-        try {
-            Transport mTransport = mSession.getTransport("smtp");
-            mTransport.connect(emailFrom, passwordFrom);
-            mTransport.sendMessage(mCorreo, mCorreo.getRecipients(Message.RecipientType.TO));
-            mTransport.close();
-            
-            JOptionPane.showMessageDialog(null, "Correo enviado");
-        } catch (NoSuchProviderException ex) {
-            JOptionPane.showMessageDialog(null, "No se pudo establecer la conexión con el servidor de correo: Correo no encontrado");
-        } catch (MessagingException ex) {
-            Logger.getLogger(Email.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
     }
     
     
+    public void realizarEnvioCorreo(String emailTo, int id){
     
-
+        createEmail(emailTo,id);
+        sendEmail();
+    
+    }
+    
 }
