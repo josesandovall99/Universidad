@@ -5,11 +5,14 @@
 package Modelo;
 
 import BD.Conexion;
+import Mediator.EstudiantesMediator;
 import Vista.Administrador.Administradores;
 import Vista.Administrador.CompletarAdministrador;
 import Vista.Profesor.PrincipalProfesor;
 import Vista.Administrador.Principal;
 import Vista.Administrador.Sesion;
+import Vista.Estudiante.CompletarEstudiante;
+import Vista.Estudiante.PrincipalEstudiante;
 import Vista.Profesor.CompletarProfesor;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -252,6 +255,106 @@ public class Login {
                     if (tipo.equalsIgnoreCase("profesor")) {
 
                         CompletarProfesor ad = new CompletarProfesor(getId());
+                        ad.setVisible(true);
+                        JOptionPane.showMessageDialog(null, "DATOS CORRECTOS");
+                        Sesion s = new Sesion();
+                        s.setVisible(false);
+
+                    } else {
+
+                        JOptionPane.showMessageDialog(null, "USUARIO O CONTRASEÑA INCORRECTOS");
+
+                    }
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "USUARIO O CONTRASEÑA INCORRECTOS");
+                }
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "ERROR AL INICIAR SESION: " + e);
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(null, "DEBE  COMPLETAR LOS DATOS");
+        }
+
+    }
+    
+    
+    public void validarEstudiante(JTextField usuario, JPasswordField contraseña) {
+
+        setCodigo(usuario.getText());
+        setContraseña(contraseña.getText());
+
+        if (!getCodigo().equals("") || !getContraseña().equals("")) {
+
+            try {
+                Conexion co = new Conexion();
+                Connection cn = co.establecerConexion();
+
+                PreparedStatement ps = cn.prepareStatement("SELECT usuariotip FROM "
+                        + "credencialesEstudiantes where codigoAcademico = '" + getCodigo() + "' AND contraseña = '" + getContraseña() + "' ");
+
+                ResultSet rs = ps.executeQuery();
+                if (rs.next()) {
+                    System.out.println("entra");
+
+                    String tipo = rs.getString("usuariotip");
+                    System.out.println(tipo);
+                    if (tipo.equalsIgnoreCase("estudiante")) {
+
+                        PrincipalEstudiante ad = new PrincipalEstudiante(String.valueOf(getCodigo()));
+                        ad.setVisible(true);
+                        JOptionPane.showMessageDialog(null, "DATOS CORRECTOS");
+                        Sesion s = new Sesion();
+                        s.dispose();
+
+                    } else {
+
+                        JOptionPane.showMessageDialog(null, "USUARIO O CONTRASEÑA INCORRECTOS");
+
+                    }
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "USUARIO O CONTRASEÑA INCORRECTOS");
+                }
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "ERROR AL INICIAR SESION: " + e);
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(null, "DEBE  COMPLETAR LOS DATOS");
+        }
+
+    }
+
+    public void validarSinCredencialesEstudiante(JTextField usuario) {
+
+        setId(usuario.getText());
+
+        
+        
+        if (!getId().equals("")) {
+
+            try {
+                Conexion co = new Conexion();
+                Connection cn = co.establecerConexion();
+
+                PreparedStatement ps = cn.prepareStatement("SELECT tipoUsuario FROM "
+                        + "Usuario where id = '" + getId() + "'");
+
+                ResultSet rs = ps.executeQuery();
+                if (rs.next()) {
+                    System.out.println("entra");
+
+                    String tipo = rs.getString("tipoUsuario");
+                    System.out.println(tipo);
+                    if (tipo.equalsIgnoreCase("estudiante")) {
+
+                        
+                        
+                        CompletarEstudiante ad = new CompletarEstudiante(getId());
                         ad.setVisible(true);
                         JOptionPane.showMessageDialog(null, "DATOS CORRECTOS");
                         Sesion s = new Sesion();

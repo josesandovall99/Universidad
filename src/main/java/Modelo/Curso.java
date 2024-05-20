@@ -795,5 +795,84 @@ public class Curso {
         }
 
     }
+    
+    
+    public void asignarEstudiantes(JTextField codtx1, JTextField codtx2){
+    
+        Estudiante est = new Estudiante ();
+        Asignatura asignatura = new Asignatura();
+        Profesor p = new Profesor();
+
+        setProfesor(p);
+
+        setCodigoAcademico(codtx1.getText());//******
+        est.setId(Integer.parseInt(codtx2.getText()));
+
+        Conexion co = new Conexion();
+        
+        String sql2 = "SELECT id FROM Curso WHERE Curso.codigoAcademico = '" + getCodigoAcademico() + "';";
+
+        try {
+            Statement st;
+
+            st = co.establecerConexion().createStatement();
+
+            ResultSet rs = st.executeQuery(sql2);
+
+            rs.next();
+            setIdInterno(Integer.parseInt(rs.getString("id")));
+
+            
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "error: " + e);
+        }
+
+        String sql1 = "SELECT id FROM Estudiante WHERE Estudiante.id_usuario = '" + est.getId() + "';";
+
+        try {
+            Statement st;
+
+            st = co.establecerConexion().createStatement();
+
+            ResultSet rs = st.executeQuery(sql1);
+
+            rs.next();
+            est.setId(Integer.parseInt(rs.getString("id")));
+
+            
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "error: " + e);
+        }
+
+        
+        
+        String sql = "INSERT INTO CursosEstudiante (id_curso, id_estudiante) VALUES (?,?)";
+
+        try {
+
+            CallableStatement cs = co.establecerConexion().prepareCall(sql);
+            
+                System.out.println(est.getId());
+                System.out.println(getIdInterno());
+            
+                cs.setInt(2, est.getId());//******
+                cs.setInt(1, getIdInterno());//******
+       
+
+                cs.execute();
+
+                JOptionPane.showMessageDialog(null, "SE CREO CORRECTAMENTE");
+
+         
+
+        } catch (Exception e) {
+
+            JOptionPane.showMessageDialog(null, "NO se pudo ASIGNAR correctamente: " + e);
+        }
+    
+    
+    }
 
 }

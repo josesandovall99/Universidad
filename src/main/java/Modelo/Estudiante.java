@@ -6,10 +6,19 @@ package Modelo;
 
 import BD.Conexion;
 import CodigoAcademico.BuilderAdministradores;
+import CodigoAcademico.BuilderEstudiantes;
 import CodigoAcademico.CodigoAdministradores;
+import CodigoAcademico.CodigoEstudiantes;
 import CodigoAcademico.Director;
+import GeneracionDeCorreos.Aplicacion;
+import GeneracionDeCorreos.CorreoEstudianteFabrica;
+import GeneracionDeCorreos.CorreoProfesorFabrica;
+import GeneracionDeCorreos.CorreosFabrica;
 import Vista.Administrador.CompletarAdministrador;
 import Vista.Administrador.Principal;
+import Vista.Estudiante.CompletarEstudiante;
+import Vista.Estudiante.PrincipalEstudiante;
+import Vista.Profesor.PrincipalProfesor;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -164,6 +173,11 @@ public class Estudiante {
                     if (rs.next()) {
                         int idGenerado = rs.getInt(1);
                         JOptionPane.showMessageDialog(null, "SE CREÓ CORRECTAMENTE. ID generado: " + idGenerado);
+                        //PATRON ABSTRAC FACTORY----------------------------------------
+                        CorreosFabrica fabrica = new CorreoEstudianteFabrica();
+                        Aplicacion app = new Aplicacion(fabrica);
+                        app.enviarCorreoId(getEmail(), idGenerado);
+                        //---------------------------------------------------------------
                     }
                 }
 
@@ -183,12 +197,12 @@ public class Estudiante {
         
         String codigo="";
         
-        BuilderAdministradores a = new BuilderAdministradores();
+        BuilderEstudiantes a = new BuilderEstudiantes();
         Director b = new Director();
         
         b.construirCodigoAcademico(a);
         
-        CodigoAdministradores codig = a.getResult();
+        CodigoEstudiantes codig = a.getResult();
         
         codigo = codig.pasarAString();
         
@@ -316,7 +330,6 @@ public class Estudiante {
 
         } catch (Exception e) {
 
-            JOptionPane.showMessageDialog(null, "error al seleccionar: " + e);
 
         }
 
@@ -380,12 +393,33 @@ public class Estudiante {
 
     }
 
-    public void recibirContraseñaEstudiante(JTextField contraseña, JTextField idtxt) { //******
+    public void recibirContraseñaEstudiante(JTextField contraseña, String idtxt) { //******
 
         setContraseña(contraseña.getText()); //******
-        setId(Integer.parseInt(idtxt.getText()));
+        setId(Integer.parseInt(idtxt));
+        setCodigoAcademico(generarCodigo());
 
         Conexion co = new Conexion();
+        
+        String consulta1 = "UPDATE Estudiante SET Estudiante.codigoAcademico = ? "
+                + "WHERE Estudiante.id=?";//******
+
+        try {
+
+            CallableStatement cs = co.establecerConexion().prepareCall(consulta1);
+            cs.setString(1, getCodigoAcademico());//******
+            cs.setString(2, String.valueOf(getId()));//******
+
+            cs.execute();
+            
+            
+
+            JOptionPane.showMessageDialog(null, "SU NUEVO CODIGO ACADEMICO SERA: "+getCodigoAcademico()+"");
+
+        } catch (Exception e) {
+
+            JOptionPane.showMessageDialog(null, "error al insertar: " + e);
+        }
 
         String consulta = "UPDATE Usuario SET Usuario.contraseña = ? "
                 + "WHERE Usuario.id=?";//******
@@ -397,6 +431,17 @@ public class Estudiante {
             cs.setString(2, String.valueOf(getId()));//******
 
             cs.execute();
+            
+            PrincipalEstudiante ad = new PrincipalEstudiante(getCodigoAcademico());
+            ad.setVisible(true);
+            CompletarEstudiante s = new CompletarEstudiante();
+            s.dispose();
+
+            //PATRON ABSTRACT FACTORY----------------------------------------
+//            CorreosFabrica fabrica = new CorreoEstudianteFabrica();
+//            Aplicacion app = new Aplicacion(fabrica);
+//            app.enviarCorreoCredenciales(getEmail(), getCodigoAcademico(),getContraseña());
+//            //---------------------------------------------------------------
 
             JOptionPane.showMessageDialog(null, "SE CREO CORRECTAMENTE");
 
@@ -428,10 +473,15 @@ public class Estudiante {
 
             Principal ad = new Principal();
             ad.setVisible(true);
-            CompletarAdministrador s = new CompletarAdministrador();
+            CompletarEstudiante s = new CompletarEstudiante();
             s.dispose();
 
             JOptionPane.showMessageDialog(null, "SE CREO CORRECTAMENTE");
+            //PATRON ABSTRACT FACTORY----------------------------------------
+            CorreosFabrica fabrica = new CorreoEstudianteFabrica();
+            Aplicacion app = new Aplicacion(fabrica);
+            app.enviarCorreoCredenciales(getEmail(), getCodigoAcademico(),getContraseña());
+            //---------------------------------------------------------------
 
         } catch (Exception e) {
 
@@ -571,6 +621,211 @@ public class Estudiante {
         Matcher coincidir = patron.matcher(correo);
         
         return coincidir.find();
+    
+    }
+    
+    
+    public void verCursos(JTable tabla, String codigo ) {
+
+        System.out.println(codigo);
+        Conexion con = new Conexion();
+        
+        String sql1 = "SELECT id FROM Estudiante WHERE Estudiante.codigoAcademico= '" + codigo + "';";
+
+        try {
+            Statement st;
+
+            st = con.establecerConexion().createStatement();
+
+            ResultSet rs = st.executeQuery(sql1);
+
+            rs.next();
+            setId((rs.getInt("id")));
+            System.out.println(getId());
+
+            
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "error: " + e);
+        }
+
+        DefaultTableModel modelo = new DefaultTableModel();
+
+        TableRowSorter<TableModel> OrdenarTabla = new TableRowSorter<TableModel>(modelo);
+        tabla.setRowSorter(OrdenarTabla);
+
+        String sql = "";
+
+        modelo.addColumn("Nombre Curso");//******
+        modelo.addColumn("Nombre Asignatura");//******
+        modelo.addColumn("Creditos");//******
+
+        tabla.setModel(modelo);
+
+        sql = "SELECT nombreCurso, nombreAsignatura, creditos FROM Cursos_estudiantes WHERE  "
+                + "Cursos_estudiantes.id_estudiante = '" + getId() + "'";
+
+        String[] datos = new String[3];
+        Statement st;
+
+        try {
+
+            st = con.establecerConexion().createStatement();
+
+            ResultSet rs = st.executeQuery(sql);
+
+            while (rs.next()) {
+
+                datos[0] = rs.getString(1);//******
+                datos[1] = rs.getString(2);//******
+                datos[2] = rs.getString(3);//******
+
+                modelo.addRow(datos);
+                
+                
+                if (datos[1] == null) {
+
+                    datos[1] = "Sin Asignacion";
+
+                }
+
+            }
+
+            tabla.setModel(modelo);
+
+        } catch (Exception e) {
+
+            JOptionPane.showMessageDialog(null, "error al mostrar la tabla: " + e);
+
+        }
+
+    }
+    
+    
+    public void notasEstudiantes (JTable tabla, String codigo){
+    
+        Conexion con = new Conexion();
+        
+        String sql1 = "SELECT id FROM Estudiante WHERE Estudiante.codigoAcademico= '" + codigo + "';";
+
+        try {
+            Statement st;
+
+            st = con.establecerConexion().createStatement();
+
+            ResultSet rs = st.executeQuery(sql1);
+
+            rs.next();
+            setId((rs.getInt("id")));
+
+            
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "error: " + e);
+        }
+
+        DefaultTableModel modelo = new DefaultTableModel();
+
+        TableRowSorter<TableModel> OrdenarTabla = new TableRowSorter<TableModel>(modelo);
+        tabla.setRowSorter(OrdenarTabla);
+
+        String sql = "";
+
+        modelo.addColumn("Nombre Curso");//******
+        modelo.addColumn("P1");//******
+        modelo.addColumn("P2");//******
+        modelo.addColumn("Examen");//******
+        modelo.addColumn("Definitiva");//******
+
+        tabla.setModel(modelo);
+
+        sql = "SELECT nombreCurso, p1,p2,examen FROM CursosEstudiante WHERE  "
+                + "CursosEstudiante.id_estudiante = '" + getId() + "'";
+
+        String[] datos = new String[3];
+        Statement st;
+
+        try {
+
+            st = con.establecerConexion().createStatement();
+
+            ResultSet rs = st.executeQuery(sql);
+
+            while (rs.next()) {
+
+                datos[0] = rs.getString(1);//******
+                datos[1] = rs.getString(2);//******
+                datos[2] = rs.getString(3);//******
+
+                modelo.addRow(datos);
+                
+                
+                
+
+            }
+
+            tabla.setModel(modelo);
+
+        } catch (Exception e) {
+
+            JOptionPane.showMessageDialog(null, "error al mostrar la tabla: " + e);
+
+        }
+    
+    
+    }
+    
+    
+    public void horarioEstudiantes(JTable tabla , String codigo){
+    
+        Conexion con = new Conexion();
+
+        DefaultTableModel modelo = new DefaultTableModel();
+
+        TableRowSorter<TableModel> OrdenarTabla = new TableRowSorter<TableModel>(modelo);
+        tabla.setRowSorter(OrdenarTabla);
+
+        String sql = "";
+
+        modelo.addColumn("Dia");//******
+        modelo.addColumn("Nombre Curso");//******
+        modelo.addColumn("Salon");//******
+        modelo.addColumn("Hora Inicio");//******
+        modelo.addColumn("Hora Finalizacion");//******
+
+        tabla.setModel(modelo);
+        System.out.println(codigo);
+
+        sql = "SELECT dia,nombre,salonT,inicio,fin FROM vista_horararioEstudiante WHERE vista_horararioEstudiante.codigoAcademico = '" + codigo + "'";
+
+        String[] datos = new String[5];
+        Statement st;
+
+        try {
+
+            st = con.establecerConexion().createStatement();
+
+            ResultSet rs = st.executeQuery(sql);
+
+            while (rs.next()) {
+
+                datos[0] = rs.getString(1);//******
+                datos[1] = rs.getString(2);//******
+                datos[2] = rs.getString(3);//******
+                datos[3] = rs.getString(4);//******
+                datos[4] = rs.getString(5);//******
+
+                modelo.addRow(datos);
+
+            }
+
+            tabla.setModel(modelo);
+
+        } catch (Exception e) {
+
+            JOptionPane.showMessageDialog(null, "error al mostrar la tabla: " + e);
+
+        }
     
     }
     
