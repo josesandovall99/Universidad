@@ -251,6 +251,11 @@ public class Estudiantes extends javax.swing.JFrame {
         });
 
         emailtxt.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "E-mail", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Semibold", 0, 14), new java.awt.Color(102, 102, 102))); // NOI18N
+        emailtxt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                emailtxtActionPerformed(evt);
+            }
+        });
         emailtxt.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 emailtxtKeyTyped(evt);
@@ -619,47 +624,24 @@ public class Estudiantes extends javax.swing.JFrame {
         
         }
         
-                        char validar = evt.getKeyChar();
-        
-        if (Character.isDigit(validar)) {
-            
-            getToolkit().beep();
-            evt.consume();
-            
-            JOptionPane.showMessageDialog(null, "SOLO LETRAS EN ESTE CAMPO");
-            
-        }
+       
         
     }//GEN-LAST:event_emailtxtKeyTyped
 
     private void telefonotxtKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_telefonotxtKeyTyped
         // TODO add your handling code here:
-        char validar = evt.getKeyChar();
-        
-        if (Character.isLetter(validar)) {
-            
-            getToolkit().beep();
-            evt.consume(); 
-            
-            JOptionPane.showMessageDialog(null, "SOLO NUMEROS EN ESTE CAMPO");
-            
-        }
+       
     }//GEN-LAST:event_telefonotxtKeyTyped
 
     private void nombretxtKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nombretxtKeyTyped
         // TODO add your handling code here:
         
-        char validar = evt.getKeyChar();
-        
-        if (Character.isDigit(validar)) {
-            
-            getToolkit().beep();
-            evt.consume();
-            
-            JOptionPane.showMessageDialog(null, "SOLO LETRAS EN ESTE CAMPO");
-            
-        }
+       
     }//GEN-LAST:event_nombretxtKeyTyped
+
+    private void emailtxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailtxtActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_emailtxtActionPerformed
 
     /**
      * @param args the command line arguments

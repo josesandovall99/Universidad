@@ -2,23 +2,25 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package Vista.Profesor;
+package Vista.Estudiante;
+
+import Mediator.EstudiantesFacade;
 
 /**
  *
  * @author JOSE SANDOVAL
  */
-public class PrincipalProfesor extends javax.swing.JFrame {
+public class PrincipalEstudiante extends javax.swing.JFrame {
 
     /**
-     * Creates new form HorarioProfesor
+     * Creates new form PrincipalEstudiante
      */
-    public PrincipalProfesor() {
+    public PrincipalEstudiante() {
         initComponents();
     }
     
     
-     public PrincipalProfesor(String id) {
+    public PrincipalEstudiante(String id) {
         initComponents();
        
         usuariotxt.setText(id);
@@ -84,7 +86,7 @@ public class PrincipalProfesor extends javax.swing.JFrame {
                 jButton14ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton14, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 20, 110, 30));
+        getContentPane().add(jButton14, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 10, 110, 20));
 
         usuariotxt.setFont(new java.awt.Font("Segoe UI Semibold", 3, 14)); // NOI18N
         usuariotxt.setForeground(new java.awt.Color(255, 255, 255));
@@ -94,7 +96,7 @@ public class PrincipalProfesor extends javax.swing.JFrame {
 
         jLabel5.setFont(new java.awt.Font("Segoe UI Semibold", 2, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("SISTEMA PARA PROFESORES - HORARIO DE CLASES");
+        jLabel5.setText("SISTEMA PARA ESTUDIANTES ");
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI Semibold", 2, 36)); // NOI18N
@@ -114,24 +116,32 @@ public class PrincipalProfesor extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
-        // TODO add your handling code here:
-        
-        new ProfesorHorario(usuariotxt.getText()).setVisible(true);
-        dispose();
-        
-    }//GEN-LAST:event_jToggleButton1ActionPerformed
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        new CursosProfesor(usuariotxt.getText()).setVisible(true);
-        dispose();
+//        new CursosEstudiante(usuariotxt.getText()).setVisible(true);
+//        dispose();
         
+        EstudiantesFacade mediator = new EstudiantesFacade();
+        mediator.mostrarCursos(this, usuariotxt.getText());
+
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
+        // TODO add your handling code here:
+
+//        new HorarioEstudiante(usuariotxt.getText()).setVisible(true);
+//        dispose();
+        
+        EstudiantesFacade mediator = new EstudiantesFacade();
+        mediator.mostrarHorario(this, usuariotxt.getText());
+        
+
+    }//GEN-LAST:event_jToggleButton1ActionPerformed
 
     private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
         // TODO add your handling code here:
-        new SesionProfesor().setVisible(true);
+        
+        new SesionEstudiante().setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton14ActionPerformed
 
@@ -152,23 +162,20 @@ public class PrincipalProfesor extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PrincipalProfesor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PrincipalEstudiante.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PrincipalProfesor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PrincipalEstudiante.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PrincipalProfesor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PrincipalEstudiante.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PrincipalProfesor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PrincipalEstudiante.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new PrincipalProfesor().setVisible(true);
+                new PrincipalEstudiante().setVisible(true);
             }
         });
     }

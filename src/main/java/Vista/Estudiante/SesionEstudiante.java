@@ -2,22 +2,23 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package Vista.Administrador;
+package Vista.Estudiante;
 
+import Mediator.EstudiantesFacade;
 import Modelo.Login;
-import Vista.Estudiante.SesionEstudiante;
+import Vista.Administrador.Sesion;
 import Vista.Profesor.SesionProfesor;
 
 /**
  *
  * @author JOSE SANDOVAL
  */
-public class Sesion extends javax.swing.JFrame {
+public class SesionEstudiante extends javax.swing.JFrame {
 
     /**
-     * Creates new form Sesion
+     * Creates new form SesionEstudiante
      */
-    public Sesion() {
+    public SesionEstudiante() {
         initComponents();
     }
 
@@ -85,7 +86,7 @@ public class Sesion extends javax.swing.JFrame {
         jButton3.setBackground(new java.awt.Color(13, 70, 228));
         jButton3.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
         jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setText("Soy Estudiante");
+        jButton3.setText("Soy Administrador");
         jButton3.setBorder(null);
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -108,9 +109,9 @@ public class Sesion extends javax.swing.JFrame {
 
         jLabel5.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(204, 204, 0));
-        jLabel5.setText("Administradores");
+        jLabel5.setText("Estudiante");
         jLabel5.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 140, 110, 20));
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 120, 70, 20));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
@@ -126,7 +127,7 @@ public class Sesion extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI Semibold", 0, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("LOGIN");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 130, -1, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 110, 110, -1));
 
         jLabel1.setBackground(new java.awt.Color(65, 65, 193));
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -143,30 +144,29 @@ public class Sesion extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        
+
         Login a = new Login();
-        a.validar(ustxt, contxt);
-        
-        
+        a.validarEstudiante(ustxt, contxt);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        
-        LoginSinRol s = new LoginSinRol();
-        s.setVisible(true);
-        
-        Sesion a = new Sesion();
-        dispose();
-        
+
+        EstudiantesFacade mediator = new EstudiantesFacade();
+        mediator.mostrarLoginSinCredenciales(this);
+                
+                
+                
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        new SesionEstudiante().setVisible(true);
+        // TODO add your handling code here:
+        new Sesion().setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
         new SesionProfesor().setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton4ActionPerformed
@@ -188,20 +188,20 @@ public class Sesion extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Sesion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SesionEstudiante.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Sesion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SesionEstudiante.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Sesion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SesionEstudiante.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Sesion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SesionEstudiante.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Sesion().setVisible(true);
+                new SesionEstudiante().setVisible(true);
             }
         });
     }

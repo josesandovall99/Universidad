@@ -6,13 +6,16 @@ package Modelo;
 
 import BD.Conexion;
 import CodigoAcademico.BuilderAdministradores;
+import CodigoAcademico.BuilderProfesores;
 import CodigoAcademico.CodigoAdministradores;
+import CodigoAcademico.CodigoProfesores;
 import CodigoAcademico.Director;
 import GeneracionDeCorreos.Aplicacion;
 import GeneracionDeCorreos.CorreoAdministradorFabrica;
 import GeneracionDeCorreos.CorreoProfesorFabrica;
 import GeneracionDeCorreos.CorreosFabrica;
 import Vista.Administrador.CompletarAdministrador;
+import Vista.Estudiante.CompletarEstudiante;
 import Vista.Profesor.PrincipalProfesor;
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -209,12 +212,12 @@ public class Profesor {
         //PATRON DE DISEÑO------------------
         String codigo = "";
 
-        BuilderAdministradores a = new BuilderAdministradores();
+        BuilderProfesores a = new BuilderProfesores();
         Director b = new Director();
 
         b.construirCodigoAcademico(a);
 
-        CodigoAdministradores codig = a.getResult();
+        CodigoProfesores codig = a.getResult();
 
         codigo = codig.pasarAString();
 
@@ -493,10 +496,10 @@ public class Profesor {
 
             PrincipalProfesor ad = new PrincipalProfesor();
             ad.setVisible(true);
-            CompletarAdministrador s = new CompletarAdministrador();
+            CompletarEstudiante s = new CompletarEstudiante();
             s.dispose();
 
-            //PATRON ABSTRAC FACTORY----------------------------------------
+            //PATRON ABSTRACT FACTORY----------------------------------------
             CorreosFabrica fabrica = new CorreoProfesorFabrica();
             Aplicacion app = new Aplicacion(fabrica);
             app.enviarCorreoCredenciales(getEmail(), getCodigoAcademico(),getContraseña());

@@ -270,6 +270,7 @@ public class CursosHorarios extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         new Horarios(codigotx).setVisible(true);
+        dispose();
         
     }//GEN-LAST:event_jButton2ActionPerformed
 
