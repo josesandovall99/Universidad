@@ -5,6 +5,8 @@
 package Vista.Administrador;
 
 import Modelo.Login;
+import Vista.Estudiante.SesionEstudiante;
+import Vista.Profesor.SesionProfesor;
 
 /**
  *
@@ -32,6 +34,9 @@ public class Sesion extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         contxt = new javax.swing.JPasswordField();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -76,6 +81,36 @@ public class Sesion extends javax.swing.JFrame {
         contxt.setBackground(new java.awt.Color(255, 255, 255));
         contxt.setForeground(new java.awt.Color(102, 102, 102));
         getContentPane().add(contxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 280, 290, 30));
+
+        jButton3.setBackground(new java.awt.Color(13, 70, 228));
+        jButton3.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
+        jButton3.setForeground(new java.awt.Color(255, 255, 255));
+        jButton3.setText("Soy Estudiante");
+        jButton3.setBorder(null);
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 530, 170, 30));
+
+        jButton4.setBackground(new java.awt.Color(13, 70, 228));
+        jButton4.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
+        jButton4.setForeground(new java.awt.Color(255, 255, 255));
+        jButton4.setText("Soy Profesor");
+        jButton4.setBorder(null);
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 530, 200, 30));
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(204, 204, 0));
+        jLabel5.setText("Administradores");
+        jLabel5.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 140, 110, 20));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
@@ -126,6 +161,16 @@ public class Sesion extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        new SesionEstudiante().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        new SesionProfesor().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jButton4ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -165,10 +210,13 @@ public class Sesion extends javax.swing.JFrame {
     private javax.swing.JPasswordField contxt;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JTextField ustxt;
     // End of variables declaration//GEN-END:variables
 }

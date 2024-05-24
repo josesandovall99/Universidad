@@ -4,7 +4,7 @@
  */
 package Vista.Estudiante;
 
-import Mediator.EstudiantesMediator;
+import Mediator.EstudiantesFacade;
 import Modelo.Login;
 import Vista.Profesor.SesionProfesor;
 
@@ -105,7 +105,7 @@ public class SesionSinRolEstudiante extends javax.swing.JFrame {
     private void volvtxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_volvtxtActionPerformed
         // TODO add your handling code here:
 
-        EstudiantesMediator mediator = new EstudiantesMediator();
+        EstudiantesFacade mediator = new EstudiantesFacade();
         mediator.mostrarLogin(this);
     }//GEN-LAST:event_volvtxtActionPerformed
 

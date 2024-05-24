@@ -4,7 +4,7 @@
  */
 package Vista.Estudiante;
 
-import Mediator.EstudiantesMediator;
+import Mediator.EstudiantesFacade;
 import Modelo.Estudiante;
 import Modelo.Profesor;
 
@@ -118,7 +118,7 @@ public class HorarioEstudiante extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         
-        EstudiantesMediator mediator = new EstudiantesMediator();
+        EstudiantesFacade mediator = new EstudiantesFacade();
         mediator.mostrarMenuPrincipal(this, usuariotxt.getText());
         
     }//GEN-LAST:event_jButton1ActionPerformed

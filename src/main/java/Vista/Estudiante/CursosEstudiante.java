@@ -4,7 +4,7 @@
  */
 package Vista.Estudiante;
 
-import Mediator.EstudiantesMediator;
+import Mediator.EstudiantesFacade;
 import Modelo.Estudiante;
 import Modelo.Profesor;
 
@@ -133,7 +133,7 @@ public class CursosEstudiante extends javax.swing.JFrame {
 //        dispose();
         
         
-        EstudiantesMediator mediator = new EstudiantesMediator();
+        EstudiantesFacade mediator = new EstudiantesFacade();
         mediator.mostrarMenuPrincipal(this, usuariotxt.getText());
     }//GEN-LAST:event_jButton1ActionPerformed
 

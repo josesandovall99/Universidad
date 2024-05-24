@@ -402,7 +402,7 @@ public class Estudiante {
         Conexion co = new Conexion();
         
         String consulta1 = "UPDATE Estudiante SET Estudiante.codigoAcademico = ? "
-                + "WHERE Estudiante.id=?";//******
+                + "WHERE Estudiante.id_usuario=?";//******
 
         try {
 
@@ -438,9 +438,9 @@ public class Estudiante {
             s.dispose();
 
             //PATRON ABSTRACT FACTORY----------------------------------------
-//            CorreosFabrica fabrica = new CorreoEstudianteFabrica();
-//            Aplicacion app = new Aplicacion(fabrica);
-//            app.enviarCorreoCredenciales(getEmail(), getCodigoAcademico(),getContraseña());
+            CorreosFabrica fabrica = new CorreoEstudianteFabrica();
+            Aplicacion app = new Aplicacion(fabrica);
+            app.enviarCorreoCredenciales(getEmail(), getCodigoAcademico(),getContraseña());
 //            //---------------------------------------------------------------
 
             JOptionPane.showMessageDialog(null, "SE CREO CORRECTAMENTE");

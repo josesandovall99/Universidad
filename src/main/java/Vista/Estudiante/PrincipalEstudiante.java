@@ -4,7 +4,7 @@
  */
 package Vista.Estudiante;
 
-import Mediator.EstudiantesMediator;
+import Mediator.EstudiantesFacade;
 
 /**
  *
@@ -39,6 +39,7 @@ public class PrincipalEstudiante extends javax.swing.JFrame {
 
         jButton1 = new javax.swing.JButton();
         jToggleButton1 = new javax.swing.JToggleButton();
+        jButton14 = new javax.swing.JButton();
         usuariotxt = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -76,6 +77,17 @@ public class PrincipalEstudiante extends javax.swing.JFrame {
         });
         getContentPane().add(jToggleButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 450, 30));
 
+        jButton14.setBackground(new java.awt.Color(255, 255, 255));
+        jButton14.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
+        jButton14.setForeground(new java.awt.Color(0, 102, 204));
+        jButton14.setText("Cerrar Sesion");
+        jButton14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton14ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton14, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 10, 110, 20));
+
         usuariotxt.setFont(new java.awt.Font("Segoe UI Semibold", 3, 14)); // NOI18N
         usuariotxt.setForeground(new java.awt.Color(255, 255, 255));
         usuariotxt.setText("codigo");
@@ -109,7 +121,7 @@ public class PrincipalEstudiante extends javax.swing.JFrame {
 //        new CursosEstudiante(usuariotxt.getText()).setVisible(true);
 //        dispose();
         
-        EstudiantesMediator mediator = new EstudiantesMediator();
+        EstudiantesFacade mediator = new EstudiantesFacade();
         mediator.mostrarCursos(this, usuariotxt.getText());
 
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -120,11 +132,18 @@ public class PrincipalEstudiante extends javax.swing.JFrame {
 //        new HorarioEstudiante(usuariotxt.getText()).setVisible(true);
 //        dispose();
         
-        EstudiantesMediator mediator = new EstudiantesMediator();
+        EstudiantesFacade mediator = new EstudiantesFacade();
         mediator.mostrarHorario(this, usuariotxt.getText());
         
 
     }//GEN-LAST:event_jToggleButton1ActionPerformed
+
+    private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
+        // TODO add your handling code here:
+        
+        new SesionEstudiante().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jButton14ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -163,6 +182,7 @@ public class PrincipalEstudiante extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton14;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;

@@ -17,7 +17,7 @@ import javax.swing.JFrame;
  *
  * @author JOSE SANDOVAL
  */
-public class EstudiantesMediator {
+public class EstudiantesFacade {
 
     private CompletarEstudiante completarEstudiante;
     private CursosEstudiante cursosEstudiante;
@@ -27,7 +27,7 @@ public class EstudiantesMediator {
     private SesionEstudiante sesionEstudiante;
     private SesionSinRolEstudiante sesionSinRolEstudiante;
 
-    public EstudiantesMediator() {
+    public EstudiantesFacade() {
     }
 
     

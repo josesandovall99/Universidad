@@ -582,7 +582,7 @@ public class Cursos extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         CursosHorarios a = new CursosHorarios(tablaCur);
-        
+        dispose();
         
     }//GEN-LAST:event_jButton12ActionPerformed
 

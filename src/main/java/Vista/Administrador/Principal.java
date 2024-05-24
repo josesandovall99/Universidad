@@ -44,6 +44,7 @@ public class Principal extends javax.swing.JFrame {
         jButton10 = new javax.swing.JButton();
         jButton11 = new javax.swing.JButton();
         jButton13 = new javax.swing.JButton();
+        jButton14 = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -236,6 +237,17 @@ public class Principal extends javax.swing.JFrame {
         });
         getContentPane().add(jButton13, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 260, 300, 140));
 
+        jButton14.setBackground(new java.awt.Color(0, 51, 204));
+        jButton14.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
+        jButton14.setForeground(new java.awt.Color(255, 153, 0));
+        jButton14.setText("Cerrar Sesion");
+        jButton14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton14ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton14, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 20, 120, 30));
+
         jLabel5.setFont(new java.awt.Font("Segoe UI Semibold", 2, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(102, 102, 102));
         jLabel5.setText("SISTEMA PARA ADMINISTRADORES");
@@ -364,6 +376,14 @@ public class Principal extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButton13ActionPerformed
 
+    private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
+        // TODO add your handling code here:
+        
+        
+        new Sesion().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jButton14ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -406,6 +426,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton13;
+    private javax.swing.JButton jButton14;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
