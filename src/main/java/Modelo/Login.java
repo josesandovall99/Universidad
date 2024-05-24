@@ -5,7 +5,7 @@
 package Modelo;
 
 import BD.Conexion;
-import Mediator.EstudiantesFacade;
+import Facade.EstudiantesFacade;
 import Vista.Administrador.Administradores;
 import Vista.Administrador.CompletarAdministrador;
 import Vista.Profesor.PrincipalProfesor;

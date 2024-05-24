@@ -4,7 +4,7 @@
  */
 package Vista.Estudiante;
 
-import Mediator.EstudiantesFacade;
+import Facade.EstudiantesFacade;
 import Modelo.Login;
 import Vista.Administrador.Sesion;
 import Vista.Profesor.SesionProfesor;
