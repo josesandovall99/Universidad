@@ -14,7 +14,7 @@ import Vista.Estudiante.SesionSinRolEstudiante;
 import javax.swing.JFrame;
 
 /**
- *
+ *asdsf
  * @author JOSE SANDOVAL
  */
 public class EstudiantesFacade {
@@ -22,7 +22,6 @@ public class EstudiantesFacade {
     private CompletarEstudiante completarEstudiante;
     private CursosEstudiante cursosEstudiante;
     private HorarioEstudiante horarioEstudiante;
-    private NotasEstudiante notasEstudiante;
     private PrincipalEstudiante principalEstudiante;
     private SesionEstudiante sesionEstudiante;
     private SesionSinRolEstudiante sesionSinRolEstudiante;
