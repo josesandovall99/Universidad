@@ -146,7 +146,7 @@ public class SesionProfesor extends javax.swing.JFrame {
         // TODO add your handling code here:
 
         Login a = new Login();
-        a.validarProfesor(ustxt, contxt);
+        a.validarProfesor(ustxt, contxt,this);
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -170,6 +170,7 @@ public class SesionProfesor extends javax.swing.JFrame {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
         new Sesion().setVisible(true);
+        dispose();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     /**

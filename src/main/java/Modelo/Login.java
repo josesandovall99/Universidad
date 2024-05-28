@@ -19,6 +19,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -57,7 +58,7 @@ public class Login {
         this.id = id;
     }
 
-    public void validar(JTextField usuario, JPasswordField contraseña) {
+    public void validar(JTextField usuario, JPasswordField contraseña, JFrame f) {
 
         setCodigo(usuario.getText());
         setContraseña(contraseña.getText());
@@ -84,6 +85,7 @@ public class Login {
                         JOptionPane.showMessageDialog(null, "DATOS CORRECTOS");
                         Sesion s = new Sesion();
                         s.dispose();
+                        f.dispose();
 
                     } else {
 
@@ -105,7 +107,7 @@ public class Login {
 
     }
 
-    public void validarSinCredenciales(JTextField usuario) {
+    public void validarSinCredenciales(JTextField usuario, JFrame f) {
 
         setId(usuario.getText());
 
@@ -133,6 +135,7 @@ public class Login {
                         JOptionPane.showMessageDialog(null, "DATOS CORRECTOS");
                         Sesion s = new Sesion();
                         s.setVisible(false);
+                        f.dispose();
 
                     } else {
 
@@ -183,7 +186,7 @@ public class Login {
     }
 
     
-        public void validarProfesor(JTextField usuario, JPasswordField contraseña) {
+        public void validarProfesor(JTextField usuario, JPasswordField contraseña, JFrame f) {
 
         setCodigo(usuario.getText());
         setContraseña(contraseña.getText());
@@ -210,6 +213,7 @@ public class Login {
                         JOptionPane.showMessageDialog(null, "DATOS CORRECTOS");
                         Sesion s = new Sesion();
                         s.dispose();
+                        f.dispose();
 
                     } else {
 
@@ -231,7 +235,7 @@ public class Login {
 
     }
 
-    public void validarSinCredencialesProfesor(JTextField usuario) {
+    public void validarSinCredencialesProfesor(JTextField usuario, JFrame f) {
 
         setId(usuario.getText());
 
@@ -259,6 +263,7 @@ public class Login {
                         JOptionPane.showMessageDialog(null, "DATOS CORRECTOS");
                         Sesion s = new Sesion();
                         s.setVisible(false);
+                        f.dispose();
 
                     } else {
 
@@ -281,7 +286,7 @@ public class Login {
     }
     
     
-    public void validarEstudiante(JTextField usuario, JPasswordField contraseña) {
+    public void validarEstudiante(JTextField usuario, JPasswordField contraseña,JFrame f) {
 
         setCodigo(usuario.getText());
         setContraseña(contraseña.getText());
@@ -308,6 +313,7 @@ public class Login {
                         JOptionPane.showMessageDialog(null, "DATOS CORRECTOS");
                         Sesion s = new Sesion();
                         s.dispose();
+                        f.dispose();
 
                     } else {
 
@@ -329,7 +335,7 @@ public class Login {
 
     }
 
-    public void validarSinCredencialesEstudiante(JTextField usuario) {
+    public void validarSinCredencialesEstudiante(JTextField usuario, JFrame f) {
 
         setId(usuario.getText());
 
@@ -359,6 +365,7 @@ public class Login {
                         JOptionPane.showMessageDialog(null, "DATOS CORRECTOS");
                         Sesion s = new Sesion();
                         s.setVisible(false);
+                        f.dispose();
 
                     } else {
 

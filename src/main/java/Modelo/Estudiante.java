@@ -27,6 +27,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -393,13 +394,30 @@ public class Estudiante {
 
     }
 
-    public void recibirContraseñaEstudiante(JTextField contraseña, String idtxt) { //******
+    public void recibirContraseñaEstudiante(JTextField contraseña, String idtxt, JFrame s) { //******
 
         setContraseña(contraseña.getText()); //******
         setId(Integer.parseInt(idtxt));
         setCodigoAcademico(generarCodigo());
 
         Conexion co = new Conexion();
+        String sql1 = "SELECT email FROM usuario WHERE usuario.id= '" + getId() + "';";
+
+        try {
+            Statement st;
+
+            st = co.establecerConexion().createStatement();
+
+            ResultSet rs = st.executeQuery(sql1);
+
+            rs.next();
+            setEmail((rs.getString("email")));
+
+            
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "error email: " + e);
+        }
         
         String consulta1 = "UPDATE Estudiante SET Estudiante.codigoAcademico = ? "
                 + "WHERE Estudiante.id_usuario=?";//******
@@ -418,7 +436,7 @@ public class Estudiante {
 
         } catch (Exception e) {
 
-            JOptionPane.showMessageDialog(null, "error al insertar: " + e);
+            JOptionPane.showMessageDialog(null, "error codigo: " + e);
         }
 
         String consulta = "UPDATE Usuario SET Usuario.contraseña = ? "
@@ -434,8 +452,8 @@ public class Estudiante {
             
             PrincipalEstudiante ad = new PrincipalEstudiante(getCodigoAcademico());
             ad.setVisible(true);
-            CompletarEstudiante s = new CompletarEstudiante();
-            s.dispose();
+            CompletarEstudiante ssss = new CompletarEstudiante();
+            ssss.dispose();
 
             //PATRON ABSTRACT FACTORY----------------------------------------
             CorreosFabrica fabrica = new CorreoEstudianteFabrica();
@@ -444,51 +462,52 @@ public class Estudiante {
 //            //---------------------------------------------------------------
 
             JOptionPane.showMessageDialog(null, "SE CREO CORRECTAMENTE");
-
-        } catch (Exception e) {
-
-            JOptionPane.showMessageDialog(null, "error al insertar: " + e);
-        }
-
-    }
-
-    public void completarEstudiante( JTextField idtxt) { //******
-
-         //******
-        setCodigoAcademico(generarCodigo());
-        setId(Integer.parseInt(idtxt.getText()));
-
-        Conexion co = new Conexion();
-
-        String consulta = "UPDATE Estudiante SET Estudiante.codigoAcademico = ? "
-                + "WHERE Estudiante.id_usuario=?";//******
-
-        try {
-
-            CallableStatement cs = co.establecerConexion().prepareCall(consulta);
-            cs.setString(1, getCodigoAcademico());//******
-            cs.setString(2, String.valueOf(getId()));//******
-
-            cs.execute();
-
-            Principal ad = new Principal();
-            ad.setVisible(true);
-            CompletarEstudiante s = new CompletarEstudiante();
             s.dispose();
 
-            JOptionPane.showMessageDialog(null, "SE CREO CORRECTAMENTE");
-            //PATRON ABSTRACT FACTORY----------------------------------------
-            CorreosFabrica fabrica = new CorreoEstudianteFabrica();
-            Aplicacion app = new Aplicacion(fabrica);
-            app.enviarCorreoCredenciales(getEmail(), getCodigoAcademico(),getContraseña());
-            //---------------------------------------------------------------
-
         } catch (Exception e) {
 
-            JOptionPane.showMessageDialog(null, "error al insertar: " + e);
+            JOptionPane.showMessageDialog(null, "error correo: " + e);
         }
 
     }
+
+//    public void completarEstudiante( JTextField idtxt) { //******
+//
+//         //******
+//        setCodigoAcademico(generarCodigo());
+//        setId(Integer.parseInt(idtxt.getText()));
+//
+//        Conexion co = new Conexion();
+//
+//        String consulta = "UPDATE Estudiante SET Estudiante.codigoAcademico = ? "
+//                + "WHERE Estudiante.id_usuario=?";//******
+//
+//        try {
+//
+//            CallableStatement cs = co.establecerConexion().prepareCall(consulta);
+//            cs.setString(1, getCodigoAcademico());//******
+//            cs.setString(2, String.valueOf(getId()));//******
+//
+//            cs.execute();
+//
+//            Principal ad = new Principal();
+//            ad.setVisible(true);
+//            CompletarEstudiante s = new CompletarEstudiante();
+//            s.dispose();
+//
+//            JOptionPane.showMessageDialog(null, "SE CREO CORRECTAMENTE");
+//            //PATRON ABSTRACT FACTORY----------------------------------------
+//            CorreosFabrica fabrica = new CorreoEstudianteFabrica();
+//            Aplicacion app = new Aplicacion(fabrica);
+//            app.enviarCorreoCredenciales(getEmail(), getCodigoAcademico(),getContraseña());
+//            //---------------------------------------------------------------
+//
+//        } catch (Exception e) {
+//
+//            JOptionPane.showMessageDialog(null, "error al insertar: " + e);
+//        }
+//
+//    }
     
     public void activarEstudiante(JTextField codtx) {
 

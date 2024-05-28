@@ -16,6 +16,7 @@ import GeneracionDeCorreos.CorreoProfesorFabrica;
 import GeneracionDeCorreos.CorreosFabrica;
 import Vista.Administrador.CompletarAdministrador;
 import Vista.Estudiante.CompletarEstudiante;
+import Vista.Profesor.CompletarProfesor;
 import Vista.Profesor.PrincipalProfesor;
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -25,6 +26,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -433,7 +435,7 @@ public class Profesor {
 
     }
 
-    public void completarProfesor(String combo, String idtxt, JTextField esp) { //******
+    public void completarProfesor(String combo, String idtxt, JTextField esp, JFrame f) { //******
 
         setEspecialidad(esp.getText()); //******
         setMaximoTitulo(combo);
@@ -494,10 +496,11 @@ public class Profesor {
 
             cs.execute();
 
-            PrincipalProfesor ad = new PrincipalProfesor();
+            PrincipalProfesor ad = new PrincipalProfesor(getCodigoAcademico());
             ad.setVisible(true);
-            CompletarEstudiante s = new CompletarEstudiante();
+            CompletarProfesor s = new CompletarProfesor();
             s.dispose();
+            f.dispose();
 
             //PATRON ABSTRACT FACTORY----------------------------------------
             CorreosFabrica fabrica = new CorreoProfesorFabrica();

@@ -145,7 +145,7 @@ public class Sesion extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         Login a = new Login();
-        a.validar(ustxt, contxt);
+        a.validar(ustxt, contxt,this);
         
         
     }//GEN-LAST:event_jButton1ActionPerformed

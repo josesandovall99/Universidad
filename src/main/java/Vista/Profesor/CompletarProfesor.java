@@ -191,7 +191,7 @@ public class CompletarProfesor extends javax.swing.JFrame {
         String opcion = (String)comboOpcion.getSelectedItem();
         Profesor a = new Profesor();
         a.recibirContraseñaProfesor(conttxt, usuariotxt.getText());
-        a.completarProfesor(opcion, usuariotxt.getText(), especialidadtxt);
+        a.completarProfesor(opcion, usuariotxt.getText(), especialidadtxt,this);
         
 
     }//GEN-LAST:event_jButton1ActionPerformed
