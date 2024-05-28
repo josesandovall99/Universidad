@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Mediator;
+package Facade;
 
 import Vista.Estudiante.CompletarEstudiante;
 import Vista.Estudiante.CursosEstudiante;
@@ -14,7 +14,7 @@ import Vista.Estudiante.SesionSinRolEstudiante;
 import javax.swing.JFrame;
 
 /**
- *
+ *asdsf
  * @author JOSE SANDOVAL
  */
 public class EstudiantesFacade {
@@ -22,7 +22,6 @@ public class EstudiantesFacade {
     private CompletarEstudiante completarEstudiante;
     private CursosEstudiante cursosEstudiante;
     private HorarioEstudiante horarioEstudiante;
-    private NotasEstudiante notasEstudiante;
     private PrincipalEstudiante principalEstudiante;
     private SesionEstudiante sesionEstudiante;
     private SesionSinRolEstudiante sesionSinRolEstudiante;

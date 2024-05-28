@@ -151,8 +151,8 @@ public class CompletarEstudiante extends javax.swing.JFrame {
         
         Estudiante a = new Estudiante();
        
-        a.recibirContraseñaEstudiante(conttxt, usuariotxt.getText());
-       
+       a.recibirContraseñaEstudiante(conttxt, usuariotxt.getText(),this);
+       dispose();
 
     }//GEN-LAST:event_jButton1ActionPerformed
 

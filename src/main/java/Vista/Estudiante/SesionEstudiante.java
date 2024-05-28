@@ -4,7 +4,7 @@
  */
 package Vista.Estudiante;
 
-import Mediator.EstudiantesFacade;
+import Facade.EstudiantesFacade;
 import Modelo.Login;
 import Vista.Administrador.Sesion;
 import Vista.Profesor.SesionProfesor;
@@ -146,7 +146,7 @@ public class SesionEstudiante extends javax.swing.JFrame {
         // TODO add your handling code here:
 
         Login a = new Login();
-        a.validarEstudiante(ustxt, contxt);
+        a.validarEstudiante(ustxt, contxt,this);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

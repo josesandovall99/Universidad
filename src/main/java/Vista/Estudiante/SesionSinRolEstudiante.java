@@ -4,7 +4,7 @@
  */
 package Vista.Estudiante;
 
-import Mediator.EstudiantesFacade;
+import Facade.EstudiantesFacade;
 import Modelo.Login;
 import Vista.Profesor.SesionProfesor;
 
@@ -99,7 +99,7 @@ public class SesionSinRolEstudiante extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         Login l = new Login();
-        l.validarSinCredencialesEstudiante(idtxt);
+        l.validarSinCredencialesEstudiante(idtxt,this);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void volvtxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_volvtxtActionPerformed
